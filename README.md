@@ -17,3 +17,5 @@ The second version is under developed now.
 The new machine is looked like this: ![alt text](/images/PCBPT_3dmodel_1.PNG)
 
 I really love the color Prusa!!! :)
+
+I'm using better stepper motor: https://www.pololu.com/product/1204 and https://www.pololu.com/product/1205.
