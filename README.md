@@ -14,4 +14,4 @@ It's very rough. The machine design is not that perfect. The motor I used is 28B
 ## PCBPT_V2.0
 The second version is under developed now.
 
-The new machine is looked like this:
+The new machine is looked like this: /images/PCBPT_3dmodel_1.PNG
