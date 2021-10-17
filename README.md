@@ -19,3 +19,6 @@ The new machine is looked like this: ![alt text](/images/PCBPT_3dmodel_1.PNG)
 I really love the color Prusa!!! :)
 
 I'm using better stepper motor: [#1204 (SY20STH30-0604A)](https://www.pololu.com/product/1204) and [#1205 (SY28STH32-0674A)](https://www.pololu.com/product/1205).
+
+There are lots of things left to do:
+- the LM8UU linear bearing bought from Amazon are really not that good. They loose. I'm trying to make the space between 2 bearings a little bigger, so when the bearings are installed, the shafts are pushing the bearings out. This may make the bearings tighter and mitigate the loosing.
