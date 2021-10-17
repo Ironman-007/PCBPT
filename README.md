@@ -9,4 +9,6 @@ The PCBPT is connect the Sch with the oscilloscope. The user can choose a signal
 The first version of PCBPT is here:
 https://www.media.mit.edu/projects/pcb-probe-tester/overview/
 
-It's very rough. The machine design is not that perfect. The motor I used is '28BYJ-48 (https://www.amazon.com/ELEGOO-28BYJ-48-ULN2003-Stepper-Arduino/dp/B01CP18J4A)'.
+It's very rough. The machine design is not that perfect. The motor I used is 28BYJ-48 (https://www.amazon.com/ELEGOO-28BYJ-48-ULN2003-Stepper-Arduino/dp/B01CP18J4A). It's very slow. The software is not that good, either. I have a seperate GUI for the signal choosing. However, what I want is choose the signal from the EDA, or make a GUI with the Sch and choose the signal from the SCH.
+
+## PCBPT_V2.0
