@@ -22,3 +22,7 @@ I'm using better stepper motor: [#1204 (SY20STH30-0604A)](https://www.pololu.com
 
 There are lots of things left to do:
 - the LM8UU linear bearing bought from Amazon are really not that good. They loose. I'm trying to make the space between 2 bearings a little bigger, so when the bearings are installed, the shafts are pushing the bearings out. This may make the bearings tighter and mitigate the loosing.
+- The PCB used for controlling the machine. I'm gonna use the Arduino Zero bootloader and [A4988](https://www.amazon.com/HiLetgo-Stepstick-Stepper-Printer-Compatible/dp/B07BND65C8/ref=sxin_13_ac_d_rm?ac_md=0-0-c3RlcHBlciBtb3RvciBkcml2ZXI%3D-ac_d_rm_rm_rm&crid=FV7HTB1C6OJ4&cv_ct_cx=stepper+motor+driver&dchild=1&keywords=stepper+motor+driver&pd_rd_i=B07BND65C8&pd_rd_r=577e82dd-7f17-42a9-bc94-0b27fc357303&pd_rd_w=KCyHL&pd_rd_wg=MYm65&pf_rd_p=c41d1f6c-956c-4fe2-8019-1663b7e1dd23&pf_rd_r=5EV7NEWVTD8CRTGN4H66&psc=1&qid=1634436558&sprefix=stepper+motor+dr%2Caps%2C169&sr=1-1-12d4272d-8adb-4121-8624-135149aa9081). I will make a custom PCB.
+
+
+
