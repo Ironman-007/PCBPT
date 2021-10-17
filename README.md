@@ -9,3 +9,4 @@ The PCBPT is connect the Sch with the oscilloscope. The user can choose a signal
 The first version of PCBPT is here:
 https://www.media.mit.edu/projects/pcb-probe-tester/overview/
 
+It's very rough. The machine design is not that perfect. The motor I used is '28BYJ-48 (https://www.amazon.com/ELEGOO-28BYJ-48-ULN2003-Stepper-Arduino/dp/B01CP18J4A)'.
