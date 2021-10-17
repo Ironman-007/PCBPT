@@ -18,4 +18,4 @@ The new machine is looked like this: ![alt text](/images/PCBPT_3dmodel_1.PNG)
 
 I really love the color Prusa!!! :)
 
-I'm using better stepper motor: [https://www.pololu.com/product/1204](1204 (SY20STH30-0604A)) and https://www.pololu.com/product/1205.
+I'm using better stepper motor: [#1204 (SY20STH30-0604A)](https://www.pololu.com/product/1204) and https://www.pololu.com/product/1205.
