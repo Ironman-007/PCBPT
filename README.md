@@ -14,7 +14,7 @@ It's very rough. The machine design is not that perfect. The motor I used is [28
 ## PCBPT_V2.0
 The second version is under developed now.
 
-The new machine is looked like this: ![alt text](/images/PCBPT_3dmodel_1.PNG)
+The new machine is looked like this: ![alt text](/Doc/Images/PCBPT_V2.png)
 
 I really love the color Prusa!!! :)
 
