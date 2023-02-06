@@ -31,12 +31,12 @@ One important thing I learned this design is **making things modular!**
 ***I used PLA for printing the big Crane. The bottom of the printing is always not flat. The edge will always tilt up. I asked Brian, he said this is because the PLA will always shrink after cooling down, so this kind of distortion is inevitable. Especially the Crane is so big but the conenction with the heating plate is small. He recommended me to use PETG.***
 
 ### Electronics
-I made a modular & distributed design for the control hardware. Each stepper is controlled by a Polyp stepper controller module shown as:
+I made a modular & distributed design for the control hardware. Each stepper is controlled by a Coral stepper controller module shown as:
 
 <p align="center">
   <img src="/Doc/Images/Polyp_stepper_module.png" height="350" title="hover text">
   <img src="/Doc/Images/Polyp_stepper_module_rendering.png" height="350" alt="accessibility text">
 </p>
 
-Each module is controlled by a STM32F031F6Px MCU and a A4988 module. Multiple modules are connected by a RS-485 bus. The only role of each Polyp stepper controller module is accepting commands (GCode) from a PC and control the stepepr.
+Each module is controlled by a STM32F031F6Px MCU and a A4988 module. Multiple modules are connected by a RS-485 bus. The only role of each Coral stepper controller module is accepting commands (GCode) from a PC and control the stepepr.
 
