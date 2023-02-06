@@ -34,6 +34,6 @@ One important thing I learned this design is **making things modular!**
 I made a modular & distributed design for the control hardware. Each stepper is controlled by a Polyp stepper controoler module shown as:
 
 <p align="center">
-  <img src="/Doc/Images/Polyp_stepper_module.png" width="350" title="hover text">
-  <img src="/Doc/Images/Polyp_stepper_module_rendering.png" width="350" alt="accessibility text">
+  <img src="/Doc/Images/Polyp_stepper_module.png" height="350" title="hover text">
+  <img src="/Doc/Images/Polyp_stepper_module_rendering.png" height="350" alt="accessibility text">
 </p>
