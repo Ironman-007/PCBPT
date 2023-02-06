@@ -12,6 +12,7 @@ https://www.media.mit.edu/projects/pcb-probe-tester/overview/
 It's very rough. The machine design is not that perfect. The motor I used is [28BYJ-48](https://www.amazon.com/ELEGOO-28BYJ-48-ULN2003-Stepper-Arduino/dp/B01CP18J4A). It's very slow. The software is not that good, either. I have a seperate GUI for the signal choosing. However, what I want is choose the signal from the EDA, or make a GUI with the Sch and choose the signal from the SCH.
 
 ## PCBPT_V2.0
+### Mechanical
 The second version is under developed now.
 
 The new machine is looked like this: ![alt text](/Doc/Images/PCBPT_V2.png)
@@ -28,3 +29,7 @@ I will make a custom PCB.
 One important thing I learned this design is **making things modular!**
 
 ***I used PLA for printing the big Crane. The bottom of the printing is always not flat. The edge will always tilt up. I asked Brian, he said this is because the PLA will always shrink after cooling down, so this kind of distortion is inevitable. Especially the Crane is so big but the conenction with the heating plate is small. He recommended me to use PETG.***
+
+### Electronics
+I made a modular & distributed design for the control hardware. Each stepper is controlled by a Polyp stepper controoler module shown as:
+![alt text](/Doc/Images/Polyp_stepper_module.png) ![alt text](/Doc/Images/Polyp_stepper_module_rendering.png)
