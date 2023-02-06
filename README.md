@@ -37,3 +37,5 @@ I made a modular & distributed design for the control hardware. Each stepper is 
   <img src="/Doc/Images/Polyp_stepper_module.png" height="350" title="hover text">
   <img src="/Doc/Images/Polyp_stepper_module_rendering.png" height="350" alt="accessibility text">
 </p>
+
+Each module is controlled by a STM32F031F6Px MCU and a A4988 module. Multiple modules are connected by a RS-485 bus.
