@@ -32,4 +32,5 @@ One important thing I learned this design is **making things modular!**
 
 ### Electronics
 I made a modular & distributed design for the control hardware. Each stepper is controlled by a Polyp stepper controoler module shown as:
+
 ![alt text](/Doc/Images/Polyp_stepper_module.png) ![alt text](/Doc/Images/Polyp_stepper_module_rendering.png)
