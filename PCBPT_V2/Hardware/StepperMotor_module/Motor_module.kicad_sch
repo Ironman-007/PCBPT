@@ -3057,7 +3057,7 @@
     (property "Reference" "U1" (id 0) (at 39.37 31.75 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "STM32F031F6Px" (id 1) (at 49.53 57.15 90)
+    (property "Value" "" (id 1) (at 49.53 57.15 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm" (id 2) (at 39.37 66.04 0)
