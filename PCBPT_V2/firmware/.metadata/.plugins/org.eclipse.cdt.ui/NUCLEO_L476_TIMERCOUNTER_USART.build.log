@@ -1,0 +1,10 @@
+17:02:29 **** Incremental Build of configuration Debug for project NUCLEO_L476_TIMERCOUNTER_USART ****
+make -j16 all 
+arm-none-eabi-size   NUCLEO_L476_TIMERCOUNTER_USART.elf 
+   text	   data	    bss	    dec	    hex	filename
+  17984	    140	   1828	  19952	   4df0	NUCLEO_L476_TIMERCOUNTER_USART.elf
+Finished building: default.size.stdout
+ 
+
+17:02:30 Build Finished. 0 errors, 0 warnings. (took 220ms)
+

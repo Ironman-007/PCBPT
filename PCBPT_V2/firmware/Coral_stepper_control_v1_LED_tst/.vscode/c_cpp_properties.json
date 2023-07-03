@@ -1,0 +1,11 @@
+{
+  "configurations": [
+    {
+      "name": "STM32",
+      "includePath": [],
+      "defines": [],
+      "compilerPath": "/Users/liufangzheng/Library/Application Support/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/12.2.1-1.2.1/.content/bin/arm-none-eabi-gcc"
+    }
+  ],
+  "version": 4
+}

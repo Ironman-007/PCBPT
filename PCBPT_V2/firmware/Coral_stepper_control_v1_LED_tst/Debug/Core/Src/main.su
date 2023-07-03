@@ -1,0 +1,5 @@
+main.c:26:6:blink_led	16	static
+main.c:37:5:main	8	static
+main.c:61:6:SystemClock_Config	80	static
+main.c:99:13:MX_GPIO_Init	48	static
+main.c:124:6:Error_Handler	8	static,ignoring_inline_asm

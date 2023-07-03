@@ -1,0 +1,10 @@
+{
+    "stm32-for-vscode.openOCDPath": "/usr/local/bin/openocd",
+    "stm32-for-vscode.makePath": "/usr/bin/make",
+    "stm32-for-vscode.armToolchainPath": "/Users/liufangzheng/Library/Application Support/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/12.2.1-1.2.1/.content/bin",
+    "files.associations": {
+        "compare": "c"
+    },
+    "cortex-debug.armToolchainPath": "/Users/liufangzheng/Library/Application Support/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/12.2.1-1.2.1/.content/bin",
+    "cortex-debug.openocdPath": "/usr/local/bin/openocd"
+}

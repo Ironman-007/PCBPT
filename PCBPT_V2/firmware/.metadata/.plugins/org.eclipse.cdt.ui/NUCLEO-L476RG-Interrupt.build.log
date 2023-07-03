@@ -1,0 +1,10 @@
+17:02:29 **** Incremental Build of configuration Debug for project NUCLEO-L476RG-Interrupt ****
+make -j16 all 
+arm-none-eabi-size   NUCLEO-L476RG-Interrupt.elf 
+   text	   data	    bss	    dec	    hex	filename
+   6360	     20	   1572	   7952	   1f10	NUCLEO-L476RG-Interrupt.elf
+Finished building: default.size.stdout
+ 
+
+17:02:29 Build Finished. 0 errors, 0 warnings. (took 229ms)
+

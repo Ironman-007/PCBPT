@@ -1,0 +1,10 @@
+17:02:28 **** Incremental Build of configuration Debug for project Bluepill_Blinky_USB_OLED ****
+make -j16 all 
+arm-none-eabi-size   Bluepill_Blinky_USB_OLED.elf 
+   text	   data	    bss	    dec	    hex	filename
+  30500	    388	   6284	  37172	   9134	Bluepill_Blinky_USB_OLED.elf
+Finished building: default.size.stdout
+ 
+
+17:02:29 Build Finished. 0 errors, 0 warnings. (took 225ms)
+

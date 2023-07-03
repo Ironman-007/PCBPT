@@ -1,0 +1,10 @@
+17:02:28 **** Incremental Build of configuration Debug for project BLUEPILL_Blinky ****
+make -j16 all 
+arm-none-eabi-size   BLUEPILL_Blinky.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4620	     20	   1572	   6212	   1844	BLUEPILL_Blinky.elf
+Finished building: default.size.stdout
+ 
+
+17:02:28 Build Finished. 0 errors, 0 warnings. (took 244ms)
+
