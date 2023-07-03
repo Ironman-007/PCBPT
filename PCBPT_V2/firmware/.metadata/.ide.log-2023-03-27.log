@@ -1,0 +1,32 @@
+2023-03-27 16:26:38,584 [INFO] Activator:177 - 
+
+
+2023-03-27 16:26:38,585 [INFO] Activator:178 - !SESSION log4j initialized
+2023-03-27 16:26:41,599 [ERROR] AnalyticsContext:980 - The ST intranet updater server is unknown: mcucrossselector.codex.cro.st.com
+2023-03-27 17:08:40,798 [INFO] Activator:177 - 
+
+
+2023-03-27 17:08:40,800 [INFO] Activator:178 - !SESSION log4j initialized
+2023-03-27 17:08:46,388 [ERROR] AnalyticsContext:980 - The ST intranet updater server is unknown: mcucrossselector.codex.cro.st.com
+2023-03-27 17:18:45,374 [INFO] Activator:177 - 
+
+
+2023-03-27 17:18:45,375 [INFO] Activator:178 - !SESSION log4j initialized
+2023-03-27 17:18:50,409 [ERROR] AnalyticsContext:980 - The ST intranet updater server is unknown: mcucrossselector.codex.cro.st.com
+2023-05-08 22:07:16,375 [INFO] Activator:177 - 
+
+
+2023-05-08 22:07:16,376 [INFO] Activator:178 - !SESSION log4j initialized
+2023-05-08 22:07:23,751 [ERROR] AnalyticsContext:980 - The ST intranet updater server is unknown: mcucrossselector.codex.cro.st.com
+2023-06-23 19:02:53,240 [INFO] Activator:177 - 
+
+
+2023-06-23 19:02:53,241 [INFO] Activator:178 - !SESSION log4j initialized
+2023-06-23 19:03:00,487 [ERROR] AnalyticsContext:980 - The ST intranet updater server is unknown: mcucrossselector.codex.cro.st.com
+2023-06-23 19:17:38,972 [INFO] Activator:177 - 
+
+
+2023-06-23 19:17:38,973 [INFO] Activator:178 - !SESSION log4j initialized
+2023-06-23 19:17:44,739 [ERROR] AnalyticsContext:980 - The ST intranet updater server is unknown: mcucrossselector.codex.cro.st.com
+2023-06-23 19:21:54,282 [ERROR] ApiDbMcu:1567 - Can't use Application install path:
+2023-06-23 19:21:56,999 [WARN] RulesReader:59 - Compatibility file://mcu/compatibility.xml not found

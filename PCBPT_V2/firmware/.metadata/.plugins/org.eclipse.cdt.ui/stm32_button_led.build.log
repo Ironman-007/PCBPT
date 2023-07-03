@@ -1,0 +1,10 @@
+17:02:31 **** Incremental Build of configuration Debug for project stm32_button_led ****
+make -j16 all 
+arm-none-eabi-size   stm32_button_led.elf 
+   text	   data	    bss	    dec	    hex	filename
+   6220	     20	   1572	   7812	   1e84	stm32_button_led.elf
+Finished building: default.size.stdout
+ 
+
+17:02:32 Build Finished. 0 errors, 0 warnings. (took 234ms)
+

@@ -1,0 +1,10 @@
+17:02:31 **** Incremental Build of configuration Debug for project STM32_GPIO_blinky ****
+make -j16 all 
+arm-none-eabi-size   STM32_GPIO_blinky.elf 
+   text	   data	    bss	    dec	    hex	filename
+   6084	     20	   1572	   7676	   1dfc	STM32_GPIO_blinky.elf
+Finished building: default.size.stdout
+ 
+
+17:02:31 Build Finished. 0 errors, 0 warnings. (took 226ms)
+

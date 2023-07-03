@@ -1,0 +1,20 @@
+22:21:10 **** Incremental Build of configuration Debug for project Coral_stepper_control_v1_LED_tst ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F031x6 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "Coral_stepper_control_v1_LED_tst.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\DATA\Documents\Lab\github\Coral\Firmware\Stepper_control\Coral_stepper_control_v1_LED_tst\STM32F031F6PX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Coral_stepper_control_v1_LED_tst.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Coral_stepper_control_v1_LED_tst.elf
+ 
+arm-none-eabi-size   Coral_stepper_control_v1_LED_tst.elf 
+arm-none-eabi-objdump -h -S  Coral_stepper_control_v1_LED_tst.elf  > "Coral_stepper_control_v1_LED_tst.list"
+arm-none-eabi-objcopy  -O binary  Coral_stepper_control_v1_LED_tst.elf  "Coral_stepper_control_v1_LED_tst.bin"
+   text	   data	    bss	    dec	    hex	filename
+   4928	     20	   1572	   6520	   1978	Coral_stepper_control_v1_LED_tst.elf
+Finished building: default.size.stdout
+ 
+Finished building: Coral_stepper_control_v1_LED_tst.bin
+ 
+Finished building: Coral_stepper_control_v1_LED_tst.list
+ 
+
+22:21:10 Build Finished. 0 errors, 0 warnings. (took 563ms)
+
