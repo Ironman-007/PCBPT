@@ -1,0 +1,11 @@
+{
+    "stm32-for-vscode.openOCDPath": false,
+    "stm32-for-vscode.makePath": false,
+    "stm32-for-vscode.armToolchainPath": false,
+    "files.associations": {
+        "stepper.h": "c",
+        "main.h": "c",
+        "stm32f0xx_hal.h": "c",
+        "debug_fz.h": "c"
+    }
+}
