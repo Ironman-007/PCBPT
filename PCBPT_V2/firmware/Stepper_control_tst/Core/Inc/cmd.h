@@ -2,6 +2,7 @@
 #define __CMD_H
 
 #include "main.h"
+#include <string.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -10,7 +11,12 @@ extern "C" {
 extern UART_HandleTypeDef huart1;
 extern void MX_USART1_UART_Init(void);
 
-extern uint8_t * CMD_recv; // Bytes received from USART;
+#define CMD_BUFFER_LEN 20
+
+extern uint8_t CMD_recv_buffer[CMD_BUFFER_LEN]; // Bytes received from USART;
+extern uint8_t CMD_recv[CMD_BUFFER_LEN]; // Bytes received from USART;
+
+extern void DMA_init(void);
 
 #ifdef __cplusplus
 }
