@@ -1,2 +1,3 @@
-cmd.c:11:6:MX_USART1_UART_Init	2
-cmd.c:28:6:HAL_UART_RxCpltCallback	1
+cmd.c:14:6:MX_USART1_UART_Init	2
+cmd.c:34:6:HAL_UART_RxCpltCallback	1
+cmd.c:39:6:DMA_init	1
