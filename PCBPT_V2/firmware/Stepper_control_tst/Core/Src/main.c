@@ -22,7 +22,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "cmd.h"
-#include "stepper.h"
+#include "stepper_control.h"
 #include "debug_FZ.h"
 /* USER CODE END Includes */
 
@@ -83,6 +83,8 @@ int main(void) {
   MX_ADC_Init();
 
   DMA_init();
+
+  stepper_init(MICROSTEP_1_8);
 
   HAL_GPIO_WritePin(PIN_LED_GPIO_Port, PIN_LED_Pin, GPIO_PIN_SET);
   HAL_Delay(100);

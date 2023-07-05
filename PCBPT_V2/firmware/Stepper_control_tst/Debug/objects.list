@@ -1,7 +1,7 @@
 "./Core/Src/cmd.o"
 "./Core/Src/debug_FZ.o"
 "./Core/Src/main.o"
-"./Core/Src/stepper.o"
+"./Core/Src/stepper_control.o"
 "./Core/Src/stm32f0xx_hal_msp.o"
 "./Core/Src/stm32f0xx_it.o"
 "./Core/Src/syscalls.o"
