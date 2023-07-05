@@ -60,8 +60,8 @@ all: main-build
 main-build: Stepper_control_tst.elf secondary-outputs
 
 # Tool invocations
-Stepper_control_tst.elf Stepper_control_tst.map: $(OBJS) $(USER_OBJS) C:\DATA\Documents\Lab\github\PCBPT\PCBPT_V2\firmware\Stepper_control_tst\STM32F031F6PX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "Stepper_control_tst.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0 -T"C:\DATA\Documents\Lab\github\PCBPT\PCBPT_V2\firmware\Stepper_control_tst\STM32F031F6PX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Stepper_control_tst.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Stepper_control_tst.elf Stepper_control_tst.map: $(OBJS) $(USER_OBJS) C:\DATA\Documents\Lab\github\PCBPT\PCBPT_V2\Firmware\Stepper_control_tst\STM32F031F6PX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "Stepper_control_tst.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0 -T"C:\DATA\Documents\Lab\github\PCBPT\PCBPT_V2\Firmware\Stepper_control_tst\STM32F031F6PX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Stepper_control_tst.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
