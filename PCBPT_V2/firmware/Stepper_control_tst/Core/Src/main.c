@@ -92,9 +92,10 @@ int main(void) {
 
   /* Infinite loop */
   while (1) {
-    if (CMD_recv[0] == '$') {
+    if (CMD_recv[0] == 'P' && CMD_recv[1] == '0' && CMD_recv[2] == '1') {
       memset(CMD_recv, 0, CMD_BUFFER_LEN);
       flash_led_once (50);
+      
     }
   }
 }
