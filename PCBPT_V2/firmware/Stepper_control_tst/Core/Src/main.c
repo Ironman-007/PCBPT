@@ -95,7 +95,12 @@ int main(void) {
     if (CMD_recv[0] == 'P' && CMD_recv[1] == '0' && CMD_recv[2] == '1') {
       memset(CMD_recv, 0, CMD_BUFFER_LEN);
       flash_led_once (50);
-      
+      /*
+      TODO
+      get the steps tp move
+      move the steps;
+      move_steps(steps, 1/(2*frequency)); // stupid way to move the stepper
+      */
     }
   }
 }

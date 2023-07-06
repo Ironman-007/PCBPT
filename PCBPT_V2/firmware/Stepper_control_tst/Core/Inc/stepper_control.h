@@ -12,6 +12,13 @@ extern "C" {
 #define MICROSTEP_1_8  3
 #define MICROSTEP_1_16 7
 
+#define CLKDIR            GPIO_PIN_RESET
+#define COUNTERCLKDIR     GPIO_PIN_SET
+
+// delay time for different frequency
+#define STEP_FREQ_10HZ    50
+#define STEP_FREQ_100HZ   5
+
 extern int MS[3]; // MS3, MS2, MS1 - microstepping control
 
 extern void stepper_init(uint8_t misro_stepping_confg);
