@@ -21,6 +21,8 @@ extern uint8_t CMD_recv[CMD_BUFFER_LEN]; // Bytes received from USART;
 extern void DMA_init(void);
 extern void Parse_CMD(uint8_t* cmd_recv);
 
+extern volatile bool int_flag;
+
 #ifdef __cplusplus
 }
 #endif

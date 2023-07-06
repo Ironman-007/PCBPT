@@ -29,7 +29,7 @@ extern int MS[3]; // MS3, MS2, MS1 - microstepping control
 
 extern void stepper_init(uint8_t misro_stepping_confg);
 
-extern void move_steps(unsigned int direction, uint32_t steps, uint32_t delay_time);
+extern void move_steps(unsigned int direction, uint32_t steps);
 
 #ifdef __cplusplus
 }
