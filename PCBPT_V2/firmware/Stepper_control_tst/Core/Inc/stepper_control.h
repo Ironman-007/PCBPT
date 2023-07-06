@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdbool.h>
+
 #include "main.h"
 #include "cmd.h"
 
@@ -12,6 +14,8 @@ extern "C" {
 #define MICROSTEP_1_4  2
 #define MICROSTEP_1_8  3
 #define MICROSTEP_1_16 7
+
+extern volatile bool start_moving;
 
 #define CLKDIR            GPIO_PIN_RESET
 #define COUNTERCLKDIR     GPIO_PIN_SET
