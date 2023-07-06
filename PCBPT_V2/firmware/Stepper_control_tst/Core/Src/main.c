@@ -93,7 +93,7 @@ int main(void)
 
   DMA_init();
 
-  stepper_init(MICROSTEP_1_8);
+  stepper_init(MICROSTEP_1_4);
 
   HAL_TIM_Base_Start_IT(&htim2);
 
@@ -232,9 +232,9 @@ static void MX_TIM2_Init(void)
 
   /* USER CODE END TIM2_Init 1 */
   htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 100;
+  htim2.Init.Prescaler = 200;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 160;
+  htim2.Init.Period = 320;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK) {
