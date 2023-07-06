@@ -93,12 +93,12 @@ int main(void)
 
   DMA_init();
 
-  stepper_init(MICROSTEP_1_4);
+  stepper_init(MICROSTEP_1_8);
 
   HAL_TIM_Base_Start_IT(&htim2);
 
   HAL_GPIO_WritePin(PIN_LED_GPIO_Port, PIN_LED_Pin, GPIO_PIN_SET);
-  HAL_Delay(100);
+  HAL_Delay(50);
   HAL_GPIO_WritePin(PIN_LED_GPIO_Port, PIN_LED_Pin, GPIO_PIN_RESET);
 
   /* Infinite loop */
@@ -232,9 +232,9 @@ static void MX_TIM2_Init(void)
 
   /* USER CODE END TIM2_Init 1 */
   htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 200;
+  htim2.Init.Prescaler = 50;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 320;
+  htim2.Init.Period = 160;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK) {
