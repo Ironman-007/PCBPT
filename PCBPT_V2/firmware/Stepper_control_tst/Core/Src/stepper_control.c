@@ -46,8 +46,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim) {
       HAL_GPIO_TogglePin(GPIOA, PIN_STEP_Pin);
       i++;
     }
-    else
+    else {
       start_moving = false;
+    }
   }
   // int_flag = true;
 }
@@ -57,11 +58,11 @@ void move_steps(unsigned int direction, uint32_t steps) {
   HAL_GPIO_WritePin(GPIOA, PIN_DIR_Pin, direction);
 
   stp2move = 2*steps;
-  i = 0;
+  i        = 0;
 
   start_moving = true;
 
-  flash_led_once (50);
+  // flash_led_once (50);
 }
 
 
