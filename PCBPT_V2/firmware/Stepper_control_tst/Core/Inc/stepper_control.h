@@ -1,6 +1,7 @@
 #pragma once
 
 #include "main.h"
+#include "cmd.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -16,14 +17,19 @@ extern "C" {
 #define COUNTERCLKDIR     GPIO_PIN_SET
 
 // delay time for different frequency
-#define STEP_FREQ_10HZ    50
-#define STEP_FREQ_100HZ   5
+#define STEP_FREQ_10HZ    10
+#define STEP_FREQ_50HZ    50
+#define STEP_FREQ_100HZ   100
+#define STEP_FREQ_200HZ   200
+#define STEP_FREQ_500HZ   500
+
+extern char Steps2move[CMD_BUFFER_LEN];
 
 extern int MS[3]; // MS3, MS2, MS1 - microstepping control
 
 extern void stepper_init(uint8_t misro_stepping_confg);
 
-extern void move_steps(uint8_t steps, uint32_t delay_time);
+extern void move_steps(unsigned int direction, uint32_t steps, uint32_t delay_time);
 
 #ifdef __cplusplus
 }

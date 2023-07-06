@@ -6,6 +6,7 @@
         "stepper.h": "c",
         "main.h": "c",
         "stm32f0xx_hal.h": "c",
-        "debug_fz.h": "c"
+        "debug_fz.h": "c",
+        "stepper_control.h": "c"
     }
 }
