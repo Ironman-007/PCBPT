@@ -1,1 +1,2 @@
-../Core/Src/stepper_control.c:7:6:stepper_init	16	static
+../Core/Src/stepper_control.c:12:6:stepper_init	16	static
+../Core/Src/stepper_control.c:22:6:move_steps	24	static
