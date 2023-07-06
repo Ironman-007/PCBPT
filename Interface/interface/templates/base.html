@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <title>PCBPT</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <div id="left-pannel" class="pannel">
+        <div id="title-section" class="pannel-section">
+            <h1>PCBPT</h1>
+            <p>V0</p>
+        </div>
+        <hr>
+        <form id="connection-section" class="pannel-section" method="post" action="/api/connect_device" target="hiddenFrame">
+            <h2>Connection</h2>
+            <p>Baud Rate and Port</p>
+            <select id="connection-baud-select" name="baudrate">
+                <option value="9600" selected>9600</option>
+                <option value="19200">19200</option>
+                <option value="38400">38400</option>
+                <option value="57600">57600</option>
+                <option value="74880">74880</option>
+                <option value="115200">115200</option>
+            </select>
+            <select id="connection-port-select" name="port"></select>
+            <button id="connection-button" type="submit">Connect</button>
+        </form>
+        <hr>
+        <div id="control-section" class="pannel-section">
+            <h2>Control</h2>
+            <p>Left probe</p>
+            <div>
+                <button id="left-move-top-button" class="control-button">Top</button>
+            </div>
+            <div>
+                <button id="left-move-left-button" class="control-button">Left</button>
+                <button id="left-move-probe-button" class="control-button">Probe</button>
+                <button id="left-move-right-button" class="control-button">Right</button>
+            </div>
+            <div>
+                <button id="left-move-bottom-button" class="control-button">Bottom</button>
+            </div>
+
+            <div class="small-offset"></div>
+            <p>Right probe</p>
+            <div>
+                <button id="right-move-top-button" class="control-button">Top</button>
+            </div>
+            <div>
+                <button id="right-move-left-button" class="control-button">Left</button>
+                <button id="right-move-probe-button" class="control-button">Probe</button>
+                <button id="right-move-right-button" class="control-button">Right</button>
+            </div>
+            <div>
+                <button id="right-move-bottom-button" class="control-button">Bottom</button>
+            </div>
+        </div>
+        <hr>
+        <form id="console-section" class="pannel-section" method="post" action="/api/send_command" target="hiddenFrame">
+            <div id="console-output">
+            </div>
+            <div>
+                <input id="console-input" name="command" type="text" placeholder="Enter command here">
+                <button id="console-send-button" type="submit">Send</button>
+            </div>
+        </form>
+    </div>
+    <div id="main-view">
+        {% block body %}{% endblock %}
+    </div>
+    <div id="right-pannel" class="pannel">
+        <form method="POST" class="pannel-section" action="/api/process_files" id="file-upload-section" enctype=multipart/form-data target="hiddenFrame">
+            <h2>File upload</h2>
+            <div class="small-offset"></div>
+            <div class="custom-file-upload-group">
+                <label for="schematics-file" id="schematics-file-button" class="custom-file-upload">
+                    Upload the schematics
+                </label>
+                <input type="file" id="schematics-file" name="schematics_file" accept=".kicad_sch" onchange="subSchematics(this)" required>
+            </div>
+            <div class="custom-file-upload-group">
+                <label for="layout-file" id="layout-file-button" class="custom-file-upload">
+                    Upload the layout
+                </label>
+                <input type="file" id="layout-file" name="layout_file" accept=".kicad_pcb" onchange="subLayout(this)" required>
+            </div>
+            <!-- <p>PCB thickness</p>
+            <select id="pcb-thickness-select" name="thickness">
+                <option value="0.4">0.4mm</option>
+                <option value="0.6">0.6mm</option>
+                <option value="0.8">0.8mm</option>
+                <option value="1.0">1.0mm</option>
+                <option value="1.2">1.2mm</option>
+                <option value="1.6" selected>1.6mm</option>
+                <option value="2.0">2.0mm</option>
+            </select> -->
+
+            <button id="upload-button">Upload</button>
+        </form>
+        <hr>
+        <form id="net-selection-section" class="pannel-section" action="/api/select_nets" method="post" target="hiddenFrame">
+            <h2>Net selection</h2>
+            <select id="net-selection-first-select" name="first-net"></select>
+            <select id="net-selection-second-select" name="second-net"></select>
+            <button id="net-selection-button">Find candidates</button>
+            <p id="net-selection-status"></p>
+        </form>
+    </div>
+    <iframe name="hiddenFrame" width="0" height="0" border="0" style="display: none;"></iframe>
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/socket.js"></script>
+</body>
+</html>
