@@ -1,2 +1,3 @@
-../Core/Src/stepper_control.c:12:6:stepper_init	16	static
-../Core/Src/stepper_control.c:22:6:move_steps	24	static
+../Core/Src/stepper_control.c:14:6:stepper_init	16	static
+../Core/Src/stepper_control.c:44:6:HAL_TIM_PeriodElapsedCallback	16	static
+../Core/Src/stepper_control.c:48:6:move_steps	24	static

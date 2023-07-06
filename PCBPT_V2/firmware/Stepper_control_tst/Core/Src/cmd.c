@@ -84,7 +84,7 @@ void Parse_CMD(uint8_t* cmd_recv) {
       }
     }
 
-    move_steps(rotation_dir, step_number, STEP_FREQ_500HZ);
+    move_steps(rotation_dir, step_number);
 
     memset(cmd_recv, 0, CMD_BUFFER_LEN);
   }
