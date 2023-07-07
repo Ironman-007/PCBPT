@@ -19,7 +19,7 @@ extern "C" {
 #define SPEED_INIT     300
 #define SPEED_MAX      100
 
-#define ACC_REGION     0.2
+#define ACC_REGION     0.15
 
 extern volatile bool start_moving;
 
