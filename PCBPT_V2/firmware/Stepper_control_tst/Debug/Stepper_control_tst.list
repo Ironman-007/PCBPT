@@ -39,9 +39,9 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  17 .debug_line   000114d2  00000000  00000000  0004505d  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    0006ac02  00000000  00000000  0005652f  2**0
+ 18 .debug_str    0006ac03  00000000  00000000  0005652f  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000050  00000000  00000000  000c1131  2**0
+ 19 .comment      00000050  00000000  00000000  000c1132  2**0
                   CONTENTS, READONLY
  20 .debug_frame  00003170  00000000  00000000  000c1184  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
@@ -5097,7 +5097,6 @@ void move_steps(unsigned int direction, uint32_t steps) {
  800261e:	f7fd fe15 	bl	800024c <__aeabi_dcmplt>
  8002622:	1e03      	subs	r3, r0, #0
  8002624:	d02c      	beq.n	8002680 <move_steps+0xf8>
-      
       if (int_flag == true) {
  8002626:	4b5c      	ldr	r3, [pc, #368]	; (8002798 <move_steps+0x210>)
  8002628:	781b      	ldrb	r3, [r3, #0]
@@ -5279,8 +5278,8 @@ void move_steps(unsigned int direction, uint32_t steps) {
  8002776:	46c0      	nop			; (mov r8, r8)
  8002778:	200001d8 	.word	0x200001d8
  800277c:	200001d0 	.word	0x200001d0
- 8002780:	9999999a 	.word	0x9999999a
- 8002784:	3fc99999 	.word	0x3fc99999
+ 8002780:	33333333 	.word	0x33333333
+ 8002784:	3fc33333 	.word	0x3fc33333
  8002788:	200001e8 	.word	0x200001e8
  800278c:	40690000 	.word	0x40690000
  8002790:	200001e0 	.word	0x200001e0
