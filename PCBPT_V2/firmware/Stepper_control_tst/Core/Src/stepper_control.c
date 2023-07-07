@@ -38,6 +38,27 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim) {
   }
 }
 
+void calc_speed(void) {
+  if (i < acc_t) {
+    if (int_flag == true) {
+      int_flag = false;
+      __HAL_TIM_SET_AUTORELOAD(&htim2, lround(real_time_speed));
+      real_time_speed -= acc;
+    }
+  }
+  else if (i > (stp2move - acc_t)) {
+    if (int_flag == true) {
+      int_flag = false;
+      __HAL_TIM_SET_AUTORELOAD(&htim2, lround(real_time_speed));
+      real_time_speed += acc;
+    }
+  }
+  else {
+    real_time_speed = SPEED_MAX;
+    __HAL_TIM_SET_AUTORELOAD(&htim2, lround(real_time_speed));
+  }
+}
+
 void move_steps(unsigned int direction, uint32_t steps) {
   HAL_GPIO_WritePin(GPIOA, PIN_STEP_Pin, GPIO_PIN_RESET);
   HAL_GPIO_WritePin(GPIOA, PIN_DIR_Pin, direction);
@@ -50,26 +71,7 @@ void move_steps(unsigned int direction, uint32_t steps) {
  
   while(i < stp2move) {
     start_moving = true;
-
-    if (i < acc_t) {
-      if (int_flag == true) {
-        int_flag = false;
-        __HAL_TIM_SET_AUTORELOAD(&htim2, lround(real_time_speed));
-        real_time_speed -= acc;
-      }
-    }
-    else if (i > (stp2move - acc_t)) {
-      if (int_flag == true) {
-        int_flag = false;
-        __HAL_TIM_SET_AUTORELOAD(&htim2, lround(real_time_speed));
-        real_time_speed += acc;
-      }
-    }
-    else {
-      real_time_speed = SPEED_MAX;
-      __HAL_TIM_SET_AUTORELOAD(&htim2, lround(real_time_speed));
-    }
-
+    calc_speed();
   }
   start_moving = false;
   flash_led_once(50);

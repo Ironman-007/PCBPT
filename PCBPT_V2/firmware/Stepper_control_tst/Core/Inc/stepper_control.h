@@ -16,7 +16,7 @@ extern "C" {
 #define MICROSTEP_1_16 7
 
 // #define ACCELERATION   1
-#define SPEED_INIT     300
+#define SPEED_INIT     320
 #define SPEED_MAX      100
 
 #define ACC_REGION     0.15

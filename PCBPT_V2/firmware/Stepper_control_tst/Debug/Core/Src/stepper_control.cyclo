@@ -1,3 +1,4 @@
 stepper_control.c:23:6:stepper_init	1
 stepper_control.c:33:6:HAL_TIM_PeriodElapsedCallback	2
-stepper_control.c:41:6:move_steps	8
+stepper_control.c:41:6:calc_speed	5
+stepper_control.c:62:6:move_steps	4
