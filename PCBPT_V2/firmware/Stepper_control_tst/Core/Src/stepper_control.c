@@ -1,4 +1,5 @@
 #include <stdbool.h>
+#include <math.h>
 
 #include "stepper_control.h"
 #include "debug_FZ.h"
@@ -15,6 +16,10 @@ volatile bool start_moving = false;
 
 static volatile uint64_t stp2move = 0;
 
+static double real_time_speed = SPEED_INIT;
+static double acc   = 0.0;
+static double acc_t = 0.0;
+
 void stepper_init(uint8_t misro_stepping_confg) {
   ms1 = (misro_stepping_confg)      & 0x01;
   ms2 = (misro_stepping_confg >> 1) & 0x01;
@@ -27,6 +32,7 @@ void stepper_init(uint8_t misro_stepping_confg) {
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim) {
   if (start_moving) {
+    int_flag = true;
     HAL_GPIO_TogglePin(GPIOA, PIN_STEP_Pin);
     i++;
   }
@@ -39,17 +45,34 @@ void move_steps(unsigned int direction, uint32_t steps) {
   stp2move = 2*steps;
   i        = 0;
 
+  acc_t = (ACC_REGION * stp2move);
+  acc   = ((double)(SPEED_INIT - SPEED_MAX))/acc_t;
+ 
   while(i < stp2move) {
     start_moving = true;
-    if (i > stp2move/2) {
-      __HAL_TIM_SET_AUTORELOAD(&htim2, 1000);
+
+    if (i < acc_t) {
+      if (int_flag == true) {
+        int_flag = false;
+        __HAL_TIM_SET_AUTORELOAD(&htim2, lround(real_time_speed));
+        real_time_speed -= acc;
+      }
+    }
+    else if (i > (stp2move - acc_t)) {
+      if (int_flag == true) {
+        int_flag = false;
+        __HAL_TIM_SET_AUTORELOAD(&htim2, lround(real_time_speed));
+        real_time_speed += acc;
+      }
     }
     else {
-      __HAL_TIM_SET_AUTORELOAD(&htim2, 50);
+      real_time_speed = SPEED_MAX;
+      __HAL_TIM_SET_AUTORELOAD(&htim2, lround(real_time_speed));
     }
-  }
 
+  }
   start_moving = false;
+  flash_led_once(50);
 }
 
 
