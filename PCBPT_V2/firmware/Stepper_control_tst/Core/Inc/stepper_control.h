@@ -15,6 +15,12 @@ extern "C" {
 #define MICROSTEP_1_8  3
 #define MICROSTEP_1_16 7
 
+// #define ACCELERATION   1
+#define SPEED_INIT     300
+#define SPEED_MAX      100
+
+#define ACC_REGION     0.2
+
 extern volatile bool start_moving;
 
 #define CLKDIR            GPIO_PIN_RESET
