@@ -7,7 +7,7 @@ static unsigned int ms1 = 0;
 static unsigned int ms2 = 0;
 static unsigned int ms3 = 0;
 
-static int i = 0;
+static volatile int i = 0;
 
 volatile bool int_flag = false;
 
@@ -25,32 +25,11 @@ void stepper_init(uint8_t misro_stepping_confg) {
   HAL_GPIO_WritePin(GPIOA, PIN_MS3_Pin, ms3);
 }
 
-/*
-void move_steps(unsigned int direction, uint32_t steps) {
-  HAL_GPIO_WritePin(GPIOA, PIN_DIR_Pin, direction);
-
-  for (i=0; i<steps; i++) {
-    HAL_GPIO_WritePin(GPIOA, PIN_STEP_Pin, GPIO_PIN_SET);
-    HAL_Delay(1);
-    HAL_GPIO_WritePin(GPIOA, PIN_STEP_Pin, GPIO_PIN_RESET);
-    HAL_Delay(1);
-  }
-
-  flash_led_once (50);
-}
-*/
-
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim) {
   if (start_moving) {
-    if (i < stp2move) {
-      HAL_GPIO_TogglePin(GPIOA, PIN_STEP_Pin);
-      i++;
-    }
-    else {
-      start_moving = false;
-    }
+    HAL_GPIO_TogglePin(GPIOA, PIN_STEP_Pin);
+    i++;
   }
-  // int_flag = true;
 }
 
 void move_steps(unsigned int direction, uint32_t steps) {
@@ -60,9 +39,17 @@ void move_steps(unsigned int direction, uint32_t steps) {
   stp2move = 2*steps;
   i        = 0;
 
-  start_moving = true;
+  while(i < stp2move) {
+    start_moving = true;
+    if (i > stp2move/2) {
+      __HAL_TIM_SET_AUTORELOAD(&htim2, 1000);
+    }
+    else {
+      __HAL_TIM_SET_AUTORELOAD(&htim2, 50);
+    }
+  }
 
-  // flash_led_once (50);
+  start_moving = false;
 }
 
 

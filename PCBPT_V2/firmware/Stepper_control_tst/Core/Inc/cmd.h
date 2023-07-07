@@ -9,6 +9,8 @@ extern "C" {
 #endif
 
 extern UART_HandleTypeDef huart1;
+extern TIM_HandleTypeDef  htim2;
+
 extern void MX_USART1_UART_Init(void);
 
 #define CMD_BUFFER_LEN 20
