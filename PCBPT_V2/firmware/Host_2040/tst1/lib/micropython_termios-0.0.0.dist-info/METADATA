@@ -1,0 +1,9 @@
+Metadata-Version: 2.1
+Name: micropython-termios
+Version: 0.0.0
+Summary: Dummy termios module for MicroPython
+Home-page: https://github.com/micropython/micropython-lib
+Author: MicroPython Developers
+Author-email: micro-python@googlegroups.com
+License: MIT
+

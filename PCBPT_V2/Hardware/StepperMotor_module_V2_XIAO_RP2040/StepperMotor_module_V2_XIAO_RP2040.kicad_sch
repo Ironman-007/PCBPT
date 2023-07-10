@@ -1,0 +1,35 @@
+(kicad_sch (version 20230121) (generator eeschema)
+
+  (uuid 67ad53b0-e724-4354-8add-ffbe056bca93)
+
+  (paper "User" 150.012 99.9998)
+
+  (title_block
+    (date "2023-07-08")
+  )
+
+  (lib_symbols
+  )
+
+
+  (sheet (at 40.64 22.86) (size 30.48 8.89) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid 07c0a6ff-eef2-4578-b5db-f7e0ea607e3d)
+    (property "Sheetname" "MCU-XIAO RP2040" (at 40.64 22.1484 0) (show_name)
+      (effects (font (size 1.27 1.27) bold italic) (justify left bottom))
+    )
+    (property "Sheetfile" "pico.kicad_sch" (at 40.64 32.3346 0) (show_name)
+      (effects (font (size 1.27 1.27) bold italic) (justify left top))
+    )
+    (instances
+      (project "StepperMotor_module_V2_XIAO_RP2040"
+        (path "/67ad53b0-e724-4354-8add-ffbe056bca93" (page "2"))
+      )
+    )
+  )
+
+  (sheet_instances
+    (path "/" (page "1"))
+  )
+)
