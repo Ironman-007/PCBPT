@@ -1,0 +1,11 @@
+Metadata-Version: 2.1
+Name: micropython-serial
+Version: 0.3
+Summary: pySerial-like module for MicroPython (unix port).
+Home-page: https://github.com/pfalcon/micropython-serial
+Author: Paul Sokolovsky
+Author-email: pfalcon@users.sourceforge.net
+License: MIT
+Requires-Dist: micropython-os
+Requires-Dist: micropython-fcntl
+

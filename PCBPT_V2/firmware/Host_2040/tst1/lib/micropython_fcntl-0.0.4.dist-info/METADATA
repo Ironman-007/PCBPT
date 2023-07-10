@@ -1,0 +1,10 @@
+Metadata-Version: 2.1
+Name: micropython-fcntl
+Version: 0.0.4
+Summary: fcntl module for MicroPython
+Home-page: https://github.com/micropython/micropython-lib
+Author: micropython-lib Developers
+Author-email: micro-python@googlegroups.com
+License: MIT
+Requires-Dist: micropython-ffilib
+

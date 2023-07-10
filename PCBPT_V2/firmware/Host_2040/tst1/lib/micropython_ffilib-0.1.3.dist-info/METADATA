@@ -1,0 +1,9 @@
+Metadata-Version: 2.1
+Name: micropython-ffilib
+Version: 0.1.3
+Summary: MicroPython FFI helper module
+Home-page: https://github.com/micropython/micropython-lib
+Author: micropython-lib Developers
+Author-email: micro-python@googlegroups.com
+License: MIT
+
