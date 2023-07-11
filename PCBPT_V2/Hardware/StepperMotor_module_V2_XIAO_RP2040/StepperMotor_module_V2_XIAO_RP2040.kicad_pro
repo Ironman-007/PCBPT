@@ -45,10 +45,16 @@
         "silk_text_thickness": 0.15,
         "silk_text_upright": false,
         "zones": {
-          "min_clearance": 0.5
+          "min_clearance": 0.15239999999999998
         }
       },
-      "diff_pair_dimensions": [],
+      "diff_pair_dimensions": [
+        {
+          "gap": 0.0,
+          "via_gap": 0.0,
+          "width": 0.0
+        }
+      ],
       "drc_exclusions": [],
       "meta": {
         "version": 2
@@ -107,7 +113,7 @@
         "max_error": 0.005,
         "min_clearance": 0.0,
         "min_connection": 0.0,
-        "min_copper_edge_clearance": 0.0,
+        "min_copper_edge_clearance": 0.254,
         "min_hole_clearance": 0.25,
         "min_hole_to_hole": 0.25,
         "min_microvia_diameter": 0.19999999999999998,
@@ -165,8 +171,22 @@
           "td_width_to_size_filter_ratio": 0.9
         }
       ],
-      "track_widths": [],
-      "via_dimensions": [],
+      "track_widths": [
+        0.0,
+        0.1524,
+        0.254,
+        0.508,
+        0.762,
+        1.016,
+        1.27,
+        1.524
+      ],
+      "via_dimensions": [
+        {
+          "diameter": 0.0,
+          "drill": 0.0
+        }
+      ],
       "zones_allow_external_fillets": false
     },
     "layer_presets": [],
@@ -392,14 +412,14 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "Cube_V1.kicad_pro",
+    "filename": "StepperMotor_module_V2_XIAO_RP2040.kicad_pro",
     "version": 1
   },
   "net_settings": {
     "classes": [
       {
         "bus_width": 12,
-        "clearance": 0.2,
+        "clearance": 0.1524,
         "diff_pair_gap": 0.25,
         "diff_pair_via_gap": 0.25,
         "diff_pair_width": 0.2,
@@ -409,9 +429,9 @@
         "name": "Default",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.25,
-        "via_diameter": 0.8,
-        "via_drill": 0.4,
+        "track_width": 0.1524,
+        "via_diameter": 0.762,
+        "via_drill": 0.381,
         "wire_width": 6
       }
     ],
@@ -477,16 +497,12 @@
       "MCU-XIAO RP2040"
     ],
     [
-      "16e69528-41c2-4221-b894-390eb49a8b88",
-      "Power"
+      "f879121b-b8b1-4c0a-8f21-a8ce38d582ad",
+      "A4988_Module"
     ],
     [
-      "33e15736-5b71-44fa-8b77-c9ac11e49871",
-      "ICM-20649"
-    ],
-    [
-      "d188eeaf-9593-4d5c-afe1-d3b61a5ccf04",
-      "SD"
+      "9c4f98f1-bc47-4c4b-bbad-ba5566d013b5",
+      "Conn"
     ]
   ],
   "text_variables": {}
