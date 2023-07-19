@@ -1,4 +1,4 @@
-21910491803072871
+21913970820175927
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -63700,6 +63700,13 @@ CYT1107
 3
 3
 Mylib
+Coral_XIAO_RP2040_stepper_ctrl
+
+
+0
+8
+8
+Mylib
 DF37C-10DP-0.4V(51)
 
 
@@ -64147,6 +64154,13 @@ nrf_mudule_fz
 0
 18
 18
+Mylib
+wemos S2 mini
+
+
+0
+32
+32
 NetTie
 NetTie-2_SMD_Pad0.5mm
 Net tie, 2 pin, 0.5mm square SMD pads
@@ -83993,6 +84007,13 @@ MOSFET (N-Channel)
 8
 8
 SamacSys_Parts
+SOT65P210X100-6N
+SC6 6 Lead Plastic SC70
+Integrated Circuit
+0
+6
+6
+SamacSys_Parts
 SOT65P210X110-5N
 SC70-5
 Integrated Circuit
@@ -84020,6 +84041,13 @@ MOSFET (P-Channel)
 0
 3
 3
+SamacSys_Parts
+SOT230P700X180-4N
+DCY (R-PDSO-G4
+Integrated Circuit
+0
+4
+4
 SamacSys_Parts
 SOTFL50P160X60-3N
 SOT-523

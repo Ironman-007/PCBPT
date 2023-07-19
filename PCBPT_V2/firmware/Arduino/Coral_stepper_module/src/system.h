@@ -2,7 +2,6 @@
 
 #include <Arduino.h>
 
-#include "system.h"
 // #include "stepper_control.h"
 
 /*
@@ -13,7 +12,7 @@
 
 extern SerialUSB SerialDebug;
 
-#define PIN_NUM 5
+#define PIN_NUM 8
 
 #define LED_ON  LOW
 #define LED_OFF HIGH

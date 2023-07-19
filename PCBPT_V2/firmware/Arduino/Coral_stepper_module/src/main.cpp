@@ -27,6 +27,7 @@ void timer_ISR_init_FZ(void) {
 void setup() {
   pin_init();
   timer_ISR_init_FZ();
+  stepper_init(MICROSTEPPING_1_8);
 }
 
 void setup1() {
@@ -35,7 +36,7 @@ void setup1() {
 }
 
 void loop() {
-  output_PWM(4);
+  output_PWM(100);
 }
 
 void loop1() {
