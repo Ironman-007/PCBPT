@@ -20,6 +20,12 @@ body {
     color: var(--primary-text);
 }
 
+body {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 .pannel {
     background-color: var(--secondary-background);
     width: 20rem;
@@ -92,6 +98,30 @@ body {
     border-bottom: 1px solid var(--primary-text);
 }
 
+.pannel-dual {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.pannel-dual button {
+    width: 45%;
+}
+
+.pannel-dual div {
+    width: 45%;
+}
+
+.pannel-dual input[type="checkbox"] {
+    width: 45%;
+    height: 1.5rem;
+
+    border: none;
+    border-radius: var(--corner-radius);
+    font-size: 0.8rem;
+}
+
 .small-offset {
     width: 100%;
     height: 1rem;
@@ -114,7 +144,7 @@ body {
 
 .control-button {
     width: 3.5rem !important;
-    height: 2.5rem;
+    height: 2rem;
 
     margin: 0.5rem 0.25rem 0 0.25rem !important;
 }
@@ -140,7 +170,7 @@ body {
 
 }
 
-#file-upload-section input[type="file"] {
+.file-upload-input {
     display: none;
 }
 
@@ -158,4 +188,47 @@ body {
     background-color: var(--primary-text);
     color: var(--secondary-background);
     font-size: 0.8rem;
+}
+
+.custom-file-upload-group:hover {
+    background-color: var(--primary-background);
+    color: var(--primary-text);
+}
+
+.toggle {
+    width: 100%;
+    min-height: 1.5rem;
+    margin: 0 0 1rem 0;
+    padding: 0.2rem 0 0 0;
+
+    border: none;
+    border-radius: var(--corner-radius);
+    font-size: 0.8rem;
+
+    position : relative ;
+    display : flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    background-color: var(--primary-text);
+    color: var(--secondary-background);
+}
+
+.toggle:hover {
+    background-color: var(--primary-background);
+}
+
+.net-selection-slider {
+    display : none;
+}
+
+.net-selection-slider:checked + .toggle {
+    background-color: var(--primary-background);
+    color: var(--primary-text);
+}
+
+#main-view {
+    width: 100%;
+    height: 100%;
 }
