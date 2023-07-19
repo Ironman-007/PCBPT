@@ -34,6 +34,12 @@ void output_PWM(uint32_t steps) {
 }
 */
 
+void stepper_init(uint8_t resolution) {
+  digitalWrite(MS1_PIN, (resolution & MS1_MASK)? HIGH:LOW);
+  digitalWrite(MS2_PIN, (resolution & MS2_MASK)? HIGH:LOW);
+  digitalWrite(MS3_PIN, (resolution & MS3_MASK)? HIGH:LOW);
+}
+
 void output_pulses(void) {
   if (output_flag) {
     digitalWrite(STEP_PIN, toggle_stat);

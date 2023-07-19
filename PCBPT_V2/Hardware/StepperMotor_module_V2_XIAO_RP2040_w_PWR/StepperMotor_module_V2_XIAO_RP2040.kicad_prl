@@ -65,7 +65,7 @@
       40
     ],
     "visible_layers": "ffc7eff_ffffffff",
-    "zone_display_mode": 1
+    "zone_display_mode": 0
   },
   "meta": {
     "filename": "StepperMotor_module_V2_XIAO_RP2040.kicad_prl",

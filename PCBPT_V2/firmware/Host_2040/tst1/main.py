@@ -6,6 +6,7 @@ import select
 
 power = machine.Pin(11,machine.Pin.OUT)
 power.value(1)
+
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 YELLOW = (255, 150, 0)
