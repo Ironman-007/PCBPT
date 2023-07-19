@@ -50,6 +50,9 @@ socket.on("nets", (nets) => {
         option.text = net;
         secondNetSelect.appendChild(option);
     });
+
+    firstNetSelect.dispatchEvent(new Event("change"));
+    secondNetSelect.dispatchEvent(new Event("change"));
 });
 
 
@@ -58,6 +61,21 @@ socket.on("net_coordinates", (result) => {
     let nets = Object.keys(data);
 
     console.log(result);
+    if (nets == 0) {
+        let statusP = document.getElementById("net-selection-status");
+        statusP.innerHTML = "No candidates for net(s): " + nets.join(", ");
+        statusP.classList.add("error");
+        statusP.classList.remove("success");
+        return;
+    }
+
+    else if (nets.length == 1) {
+        let statusP = document.getElementById("net-selection-status");
+        statusP.innerHTML = "Only one candidate for net: " + nets[0];
+        statusP.classList.add("error");
+        statusP.classList.remove("success");
+        return;
+    }
 
     let missingCoordinates = [];
     if (data[nets[0]].length == 0) {
@@ -78,6 +96,20 @@ socket.on("net_coordinates", (result) => {
         statusP.classList.remove("error");
         statusP.classList.add("success");
     }
+});
+
+
+socket.on("schematics_file", (schematics_path) => {
+    let sch_path = schematics_path.split("/").slice(1).join("/");
+    console.log("Schematics file: " + sch_path);
+    let main_view = document.getElementById("main-view");
+    main_view.innerHTML = "";
+    // Create kicad-schematic element
+    let kicad_schematic = document.createElement("kicad-schematic");
+    kicad_schematic.src = sch_path;
+    kicad_schematic.id = "schematics";
+    // Add kicad-schematic element to main-view
+    main_view.appendChild(kicad_schematic);
 });
 
 

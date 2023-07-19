@@ -81,12 +81,29 @@ def list_serial_devices():
 def send_command():
     """Sends a command to the serial port"""
     command = request.form.get("command")
+
     if "port" in session:
         serial_connections[session["port"]].write(command.encode())
     else:
-        sio.emit("command_response", "Error: Device not connected")
+        sio.emit("command_response", f"Command error '{command}': Device not connected")
     return "Sent"
 
+@api_bp.route("/upload_command", methods=["POST"])
+def upload_command():
+    """Upload a file containing commands to be sent to the serial port"""
+    if "port" in session:
+        if "command_file" in request.files:
+            file = request.files["command_file"]
+            file.save("commands.pcbpt")
+            with open("commands.pcbpt", "r") as f:
+                for line in f:
+                    # serial_connections[session["port"]].write(line.encode())
+                    sio.emit("command_response", line)
+        else:
+            sio.emit("command_response", "File Upload Error: No file provided")
+    else:
+        sio.emit("command_response", "File Upload Error: Device not connected")
+    return "Sent"
 
 @api_bp.route("/process_files", methods=["POST"])
 def process_files():
@@ -112,13 +129,15 @@ def process_files():
         session["user_id"] = str(uuid.uuid4())
 
     os.makedirs(os.path.join(UPLOAD_FOLDER, session["user_id"]), exist_ok=True)
-    schematics_file.save(os.path.join(UPLOAD_FOLDER, session["user_id"], schematics_filename))
+    schematics_file_path = os.path.join(UPLOAD_FOLDER, session["user_id"], schematics_filename)
+    schematics_file.save(schematics_file_path)
+    sio.emit("schematics_file", schematics_file_path)
     layout_file.save(os.path.join(UPLOAD_FOLDER, session["user_id"], layout_filename))
 
     schematics = Schematic().from_file(os.path.join(UPLOAD_FOLDER, session["user_id"], schematics_filename))
     board = Board().from_file(os.path.join(UPLOAD_FOLDER, session["user_id"], layout_filename))
 
-    nets = sorted(list(set([net.name for net in board.nets if not net.name.startswith("unconnected") and net.name != ""])))
+    nets = sorted(list(set([net.name if net.name[0] != "/" else net.name[1:] for net in board.nets if not net.name.startswith("unconnected") and net.name != ""])))
 
     sio.emit("nets", nets)
 
@@ -207,6 +226,9 @@ def select_nets():
                 right_center = first_centers[right_index]
             candidates_data[session["user_id"]] = {"left": left_coordinates, "right": right_coordinates, "left_center": left_center, "right_center": right_center}
 
-        sio.emit("net_coordinates", {"coordinates": {first_net: first_coordinates, second_net: second_coordinates}, "candidates": candidates_data[session["user_id"]]})
+            sio.emit("net_coordinates", {"coordinates": {first_net: first_coordinates, second_net: second_coordinates}, "candidates": candidates_data[session["user_id"]]})
+
+        else:
+            sio.emit("net_coordinates", {"coordinates": {}, "candidates": {}})
 
     return "Selected"
