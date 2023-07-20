@@ -18,7 +18,7 @@
             <p>V0</p>
         </div>
         <hr>
-        <form id="connection-section" class="pannel-section" method="post" action="/api/connect_device" target="hiddenFrame">
+        <form id="connection-section" class="pannel-section" method="post" action="/serial/connect_device" target="hiddenFrame">
             <h2>Connection</h2>
             <p>Baud Rate and Port</p>
             <select id="connection-baud-select" name="baudrate">
@@ -63,16 +63,16 @@
             </div>
         </div>
         <hr>
-        <form id="console-section" class="pannel-section" method="post" action="/api/send_command" target="hiddenFrame">
+        <form id="console-section" class="pannel-section" method="post" action="/serial/send_command" target="hiddenFrame">
             <div id="console-output">
             </div>
             <div>
-                <input id="console-input" name="command" type="text" placeholder="Enter command here">
+                <input id="console-input" name="command" type="text" placeholder="Enter command here" required minlength="1">
                 <button id="console-send-button" type="submit">Send</button>
             </div>
         </form>
         <hr>
-        <form id="command-batch-section" class="pannel-section" method="POST" action="/api/upload_command" enctype=multipart/form-data target="hiddenFrame">
+        <form id="command-batch-section" class="pannel-section" method="POST" action="/serial/upload_command" enctype=multipart/form-data target="hiddenFrame">
             <div class="custom-file-upload-group">
                 <label for="command-file" id="command-file-button" class="custom-file-upload">
                     Upload a .pcbpt file
@@ -86,7 +86,7 @@
         <!-- <kicad-schematic id="schematics" src="static/uploads/ae59d14b-1038-4a4e-8bb8-31e758580f8e/v2.kicad_sch"></kicad-schematic> -->
     </div>
     <div id="right-pannel" class="pannel">
-        <form method="POST" class="pannel-section" action="/api/process_files" enctype=multipart/form-data target="hiddenFrame">
+        <form method="POST" class="pannel-section" action="/kicad/process_files" enctype=multipart/form-data target="hiddenFrame">
             <h2>File upload</h2>
             <div class="small-offset"></div>
             <div class="custom-file-upload-group">
@@ -104,26 +104,26 @@
             <button id="upload-button">Upload</button>
         </form>
         <hr>
-        <form id="net-selection-section" class="pannel-section" action="/api/select_nets" method="post" target="hiddenFrame">
+        <form id="net-selection-section" class="pannel-section" action="/kicad/select_nets" method="post" target="hiddenFrame">
             <h2>Net selection</h2>
             <select id="net-selection-first-select" name="first-net"></select>
-            <div class="pannel-dual">
-                <div>
-                    <input id="net-selection-first-mouse-select" class="net-selection-slider" type="checkbox"/>
-                    <label class="toggle" for="net-selection-first-mouse-select" onclick="untoggle('second')">Select</label>
-                </div>
-                <button id="net-selection-first-remove" class="net-selection-button">Remove</button>
+            <!-- <div class="pannel-dual"> -->
+            <div>
+                <input id="net-selection-first-mouse-select" class="net-selection-slider" type="checkbox"/>
+                <label class="toggle" for="net-selection-first-mouse-select" onclick="untoggle('second')">Select</label>
             </div>
+                <!-- <button id="net-selection-first-remove" class="net-selection-button">Remove</button> -->
+            <!-- </div> -->
 
             <div class="small-offset"></div>
             <select id="net-selection-second-select" name="second-net"></select>
-            <div class="pannel-dual">
-                <div>
-                    <input id="net-selection-second-mouse-select" class="net-selection-slider" type="checkbox"/>
-                    <label class="toggle" for="net-selection-second-mouse-select" onclick="untoggle('first')">Select</label>
-                </div>
-                <button id="net-selection-second-remove" class="net-selection-button">Remove</button>
+            <!-- <div class="pannel-dual"> -->
+            <div>
+                <input id="net-selection-second-mouse-select" class="net-selection-slider" type="checkbox"/>
+                <label class="toggle" for="net-selection-second-mouse-select" onclick="untoggle('first')">Select</label>
             </div>
+                <!-- <button id="net-selection-second-remove" class="net-selection-button">Remove</button> -->
+            <!-- </div> -->
             <div class="small-offset"></div>
             <button id="net-selection-button">Find candidates</button>
             <p id="net-selection-status"></p>
