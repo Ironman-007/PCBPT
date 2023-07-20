@@ -14,6 +14,8 @@ const socket = io.connect(location.origin, {
 socket.on("connect", () => {
     console.log("Connected to socket.io server");
     socket.emit("list_serial_devices");
+    socket.emit("list_nets");
+    socket.emit("get_schematics_path");
 });
 
 
@@ -50,6 +52,22 @@ socket.on("nets", (nets) => {
         option.text = net;
         secondNetSelect.appendChild(option);
     });
+
+    if (nets.includes("VCC")) {
+        firstNetSelect.value = "VCC";
+    } else if (nets.includes("+3V3")) {
+        firstNetSelect.value = "+3V3";
+    } else if (nets.includes("+5V")) {
+        firstNetSelect.value = "+5V";
+    } else {
+        firstNetSelect.value = nets[0];
+    }
+
+    if (nets.includes("GND")) {
+        secondNetSelect.value = "GND";
+    } else {
+        secondNetSelect.value = nets[1];
+    }
 });
 
 
@@ -57,7 +75,22 @@ socket.on("net_coordinates", (result) => {
     let data = result["coordinates"]
     let nets = Object.keys(data);
 
-    console.log(result);
+    // console.log(result);
+    if (nets == 0) {
+        let statusP = document.getElementById("net-selection-status");
+        statusP.innerHTML = "No candidates for net(s): " + nets.join(", ");
+        statusP.classList.add("error");
+        statusP.classList.remove("success");
+        return;
+    }
+
+    else if (nets.length == 1) {
+        let statusP = document.getElementById("net-selection-status");
+        statusP.innerHTML = "Only one candidate for net: " + nets[0];
+        statusP.classList.add("error");
+        statusP.classList.remove("success");
+        return;
+    }
 
     let missingCoordinates = [];
     if (data[nets[0]].length == 0) {
@@ -70,6 +103,7 @@ socket.on("net_coordinates", (result) => {
     if (missingCoordinates.length > 0) {
         let statusP = document.getElementById("net-selection-status");
         statusP.innerHTML = "No candidates for net(s): " + missingCoordinates.join(", ");
+        // console.log(nets);
         statusP.classList.add("error");
         statusP.classList.remove("success");
     } else {
@@ -81,11 +115,36 @@ socket.on("net_coordinates", (result) => {
 });
 
 
+socket.on("schematics_path", (schematics_path) => {
+    let sch_path = schematics_path.split("/").slice(1).join("/");
+    // console.log("Schematics file: " + sch_path);
+    let main_view = document.getElementById("main-view");
+    main_view.innerHTML = "";
+
+    // Create kicad-schematic element
+    let kicad_schematic = document.createElement("kicad-schematic");
+    kicad_schematic.setAttribute("src", sch_path);
+    kicad_schematic.id = "schematics";
+    // console.log(kicad_schematic.src);
+
+    // Add kicad-schematic element to main-view
+    main_view.appendChild(kicad_schematic);
+});
+
+
 socket.on("command_response", (response) => {
+    let type = response["type"];
+    let data = response["data"];
+
     let responseDiv = document.getElementById("console-output");
     let timestamp = new Date().toLocaleTimeString();
     let responseP = document.createElement("p");
-    responseP.innerHTML = timestamp + ": " + response;
+    if(type == "error") {
+        responseP.classList.add("error");
+    } else if (type == "received") {
+        responseP.classList.add("accent");
+    }
+    responseP.innerHTML = timestamp + ": " + type.toUpperCase() + ": " + data;
     responseDiv.appendChild(responseP);
 });
 
@@ -95,14 +154,30 @@ socket.on("device_connected", (isConnected) => {
     let connectForm = document.getElementById("connection-section");
     if (isConnected) {
         connectButton.innerHTML = "Disconnect";
-        connectForm.action = "/api/disconnect_device";
+        connectForm.action = "/serial/disconnect_device";
     } else {
         connectButton.innerHTML = "Connect";
-        connectForm.action = "/api/connect_device";
+        connectForm.action = "/serial/connect_device";
     }
 });
 
 
+socket.on("devices_connection_status", (status) => {
+    let currentPort = document.getElementById("connection-port-select").value;
+    let connectButton = document.getElementById("connection-button");
+    let connectForm = document.getElementById("connection-section");
+    if (status[currentPort]) {
+        connectButton.innerHTML = "Disconnect";
+        connectForm.action = "/serial/disconnect_device";
+    }
+    else {
+        connectButton.innerHTML = "Connect";
+        connectForm.action = "/serial/connect_device";
+    }
+})
+
+
 setInterval(() => {
     socket.emit("list_serial_devices");
+    socket.emit("get_devices_connection_status");
 }, 1000);
