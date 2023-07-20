@@ -47,6 +47,12 @@ def create_app(test_config=None, do_init_db=False):
     from interface.api import api_bp
     app.register_blueprint(api_bp)
 
+    from interface.serial import serial_bp
+    app.register_blueprint(serial_bp)
+
+    from interface.kicad import kicad_bp
+    app.register_blueprint(kicad_bp)
+
     sio.init_app(app)
 
     return app
