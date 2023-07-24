@@ -8,9 +8,7 @@
  * if the module also controls a servo, define this.
  * if not, comment this
 */
-#define _W_SERVO_
-
-extern SerialUSB SerialDebug;
+// #define _W_SERVO_
 
 #define PIN_NUM 8
 
@@ -18,13 +16,13 @@ extern SerialUSB SerialDebug;
 #define LED_OFF HIGH
 
 // RGB LED pins
-#define RGB_R_PIN 17
-#define RGB_G_PIN 16
-#define RGB_B_PIN 25
+#define RGB_R_PIN D17
+#define RGB_G_PIN D16
+#define RGB_B_PIN D25
 
 // Stepper pins
-#define STEP_PIN  D0
-#define DIR_PIN   D1
+#define STEP_PIN  D26
+#define DIR_PIN   D27
 
 extern void pin_init(void);
 

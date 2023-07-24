@@ -1,9 +1,7 @@
 #include <Arduino.h>
 
 #include "system.h"
-#include "stepper_control.h"
-
-SerialUSB SerialDebug;
+#include "coral_stepper.h"
 
 static uint8_t PINS2INIT[PIN_NUM]      = {RGB_R_PIN, RGB_G_PIN, RGB_B_PIN, STEP_PIN, DIR_PIN, MS1_PIN, MS2_PIN, MS3_PIN};
 static int     PINS2INIT_MODE[PIN_NUM] = {OUTPUT, OUTPUT, OUTPUT, OUTPUT, OUTPUT, OUTPUT, OUTPUT, OUTPUT};

@@ -2,15 +2,6 @@
 
 #include "system.h"
 
-// #define TIMER_INTERRUPT_DEBUG         1
-// #define _TIMERINTERRUPT_LOGLEVEL_     4
-
-// #include "RPi_Pico_TimerInterrupt.h"
-// #include "RPi_Pico_ISR_Timer.h"
-
-// extern RPI_PICO_Timer     ITimer1;
-// extern RPI_PICO_ISR_Timer ISR_timer;
-
 #define MICROSTEPPING_1_1    0x00
 #define MICROSTEPPING_1_2    0x01
 #define MICROSTEPPING_1_4    0x02
@@ -39,8 +30,27 @@ extern volatile bool toggle_stat;
 
 extern volatile bool pulse_flag;
 
-extern void stepper_init(uint8_t resolution);
+class coral_stepper {
+private:
 
-// extern void timer_ISR_init_FZ(void);
-extern void output_pulses(void);
-extern void output_PWM(uint32_t steps);
+public:
+  coral_stepper(uint8_t resolution);
+  ~coral_stepper();
+
+  uint8_t  microstepping_res;
+  float    current_pos;  // current position
+  float    next_pos;
+  int      acceleration;
+  uint32_t steps2move;
+  uint32_t step_interval;
+
+  void set_resolution(uint8_t resolution);
+  void set_accel(int acc);
+  void set_current_pos(float pos);
+  void run(uint64_t steps); // move how many steps
+};
+
+
+extern coral_stepper Coral_stepper;
+
+

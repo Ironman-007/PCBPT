@@ -543,7 +543,7 @@
     (property "Reference" "IC1" (at 78.74 37.1108 0)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Value" "LM2940IMP-5.0_NOPB" (at 78.74 39.1588 0)
+    (property "Value" "UA78M05IDCYR" (at 78.74 39.1588 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Footprint" "SamacSys_Parts:SOT230P700X180-4N" (at 92.71 40.64 0)
