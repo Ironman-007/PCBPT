@@ -8,13 +8,13 @@ volatile bool output_done     = false;
 volatile bool pulse_flag      = false;
 volatile bool toggle_stat     = false;
 
-coral_stepper::coral_stepper(uint8_t resolution) {
+coral_stepper::coral_stepper(uint8_t resolution, uint32_t interval) {
   this -> microstepping_res = resolution;
   this -> current_pos       = 0.0;
   this -> next_pos          = 0.0;
   this -> acceleration      = 0;
   this -> steps2move        = 0;
-  this -> step_interval     = 1000;
+  this -> step_interval     = interval;
 
   digitalWrite(MS1_PIN, (this -> microstepping_res & MS1_MASK)? HIGH:LOW);
   digitalWrite(MS2_PIN, (this -> microstepping_res & MS2_MASK)? HIGH:LOW);
@@ -53,5 +53,5 @@ void coral_stepper::run(uint64_t steps) {
   }
 }
 
-coral_stepper Coral_stepper(MICROSTEPPING_1_8);
+coral_stepper Coral_stepper(MICROSTEPPING_1_8, 1000);
 
