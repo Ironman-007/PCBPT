@@ -34,7 +34,7 @@ class coral_stepper {
 private:
 
 public:
-  coral_stepper(uint8_t resolution);
+  coral_stepper(uint8_t resolution, uint32_t interval);
   ~coral_stepper();
 
   uint8_t  microstepping_res;
