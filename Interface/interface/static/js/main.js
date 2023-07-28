@@ -32,7 +32,6 @@ function untoggle(position){
 let platformBodyModel;
 let platformClipModel;
 let platformLockModel;
-let modelsTexture;
 
 function preload() {
 
@@ -40,7 +39,6 @@ function preload() {
     platformClipModel = loadModel("/static/models/platform_clip.stl");
     platformLockModel = loadModel("/static/models/platform_lock.stl");
 
-    modelsTexture = loadImage("/static/models/texture.jpeg");
 }
 
 function setup() {
@@ -81,7 +79,6 @@ function draw() {
     // spotLight(255, 255, 255, 1000, -1000, 1000, -.6, .5, -1, Math.PI );
     translate(-172.5, 20, 100);
     // ambientMaterial(255, 50, 0);
-    // texture(modelsTexture);
     // textureMode(IMAGE);
 
     fill(50, 50, 50)
