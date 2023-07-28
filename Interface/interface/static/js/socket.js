@@ -37,6 +37,25 @@ socket.on("serial_devices", (devices) => {
 });
 
 
+
+socket.on("devices_connection_status", (status) => {
+    let select = document.getElementById("connection-port-select");
+    let currentPort = select.value;
+    let connectButton = document.getElementById("connection-button");
+    let connectForm = document.getElementById("connection-section");
+    if (status[currentPort]) {
+        connectButton.innerHTML = "Disconnect";
+        connectForm.action = "/serial/disconnect_device";
+        select.classList.add("connected");
+    }
+    else {
+        connectButton.innerHTML = "Connect";
+        connectForm.action = "/serial/connect_device";
+        select.classList.remove("connected");
+    }
+})
+
+
 socket.on("nets", (nets) => {
     let firstNetSelect = document.getElementById("net-selection-first-select");
     let secondNetSelect = document.getElementById("net-selection-second-select");
@@ -114,21 +133,28 @@ socket.on("net_coordinates", (result) => {
     }
 });
 
+socket.on("net_selection_error", (error) => {
+    console.log(error);
+    let statusP = document.getElementById("net-selection-status");
+    statusP.innerHTML = error;
+    statusP.classList.add("error");
+    statusP.classList.remove("success");
+});
+
 
 socket.on("schematics_path", (schematics_path) => {
     let sch_path = schematics_path.split("/").slice(1).join("/");
     // console.log("Schematics file: " + sch_path);
-    let main_view = document.getElementById("main-view");
-    main_view.innerHTML = "";
+    let parent = document.getElementById("main-schematics-section");
+    parent.innerHTML = "";
 
     // Create kicad-schematic element
     let kicad_schematic = document.createElement("kicad-schematic");
     kicad_schematic.setAttribute("src", sch_path);
     kicad_schematic.id = "schematics";
-    // console.log(kicad_schematic.src);
 
     // Add kicad-schematic element to main-view
-    main_view.appendChild(kicad_schematic);
+    parent.appendChild(kicad_schematic);
 });
 
 
@@ -161,20 +187,6 @@ socket.on("device_connected", (isConnected) => {
     }
 });
 
-
-socket.on("devices_connection_status", (status) => {
-    let currentPort = document.getElementById("connection-port-select").value;
-    let connectButton = document.getElementById("connection-button");
-    let connectForm = document.getElementById("connection-section");
-    if (status[currentPort]) {
-        connectButton.innerHTML = "Disconnect";
-        connectForm.action = "/serial/disconnect_device";
-    }
-    else {
-        connectButton.innerHTML = "Connect";
-        connectForm.action = "/serial/connect_device";
-    }
-})
 
 
 setInterval(() => {

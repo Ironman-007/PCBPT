@@ -14,6 +14,8 @@ body {
     --primary-text: #ffffff;
     --secondary-text: #c3c3c3;
 
+    --accent-color: #c43400;
+
     --corner-radius: 0.3rem;
 
     background-color: var(--primary-background);
@@ -48,6 +50,10 @@ body {
     border-radius: 0.5rem;
     border: 0.25rem solid transparent;
     background-clip: content-box;
+}
+
+input {
+    box-sizing: border-box;
 }
 
 .pannel {
@@ -105,6 +111,8 @@ body {
 
     border: none;
     border-radius: var(--corner-radius);
+
+    transition: 0.2s ease-in-out;
 }
 
 .pannel select:hover,:focus {
@@ -120,20 +128,23 @@ body {
     border: none;
     border-radius: var(--corner-radius);
     font-size: 0.8rem;
+
+    transition: 0.2s ease-in-out;
 }
 
-.pannel button:hover {
+.pannel button:hover:not([disabled]) {
     background-color: var(--primary-background);
     color: var(--primary-text);
 }
 
 .pannel input {
-    width: 98%;
     min-height: 1.5rem;
     margin: 0 0 1rem 0;
 
     border: none;
     border-radius: var(--corner-radius);
+
+    transition: 0.2s ease-in-out;
 }
 
 .pannel input:hover,:focus {
@@ -172,6 +183,51 @@ body {
     font-size: 0.8rem;
 }
 
+.pannel-twenty-seventy {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.pannel-twenty-seventy>:first-child {
+    width: 23%;
+}
+
+.pannel-twenty-seventy>:last-child {
+    width: 73%;
+}
+
+.pannel-seventy-twenty {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.pannel-seventy-twenty>:first-child {
+    width: 73%;
+}
+
+.pannel-seventy-twenty>:last-child {
+    width: 23%;
+}
+
+.pannel-sixty-thirty {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.pannel-sixty-thirty>:first-child {
+    width: 63%;
+}
+
+.pannel-sixty-thirty>:last-child {
+    width: 33%;
+}
+
 .small-offset {
     width: 100%;
     height: 1rem;
@@ -186,6 +242,10 @@ body {
     direction: rtl;
 }
 
+.connected {
+    background-color: darkolivegreen;
+    color: white;
+}
 
 .control-button {
     width: 3.5rem !important;
@@ -233,6 +293,8 @@ body {
     background-color: var(--primary-text);
     color: var(--secondary-background);
     font-size: 0.8rem;
+
+    transition: 0.2s ease-in-out;
 }
 
 .custom-file-upload-group:hover {
@@ -276,4 +338,51 @@ body {
 #main-view {
     width: 100%;
     height: 100%;
+
+    overflow: hidden;
+}
+
+#main-display-selection {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    margin: 2rem 1rem;
+}
+
+#main-display-selection button {
+    width: calc(50%);
+    height: 2rem;
+
+    background-color: var(--secondary-background);
+    color: var(--primary-text);
+
+    border: 0;
+
+    transition: 0.2s ease-in-out;
+}
+
+
+#main-display-schematics-button {
+    border-top-left-radius: var(--corner-radius);
+    border-bottom-left-radius: var(--corner-radius);
+}
+
+#main-display-pcb-button {
+    border-top-right-radius: var(--corner-radius);
+    border-bottom-right-radius: var(--corner-radius);
+}
+
+.main-display-button-selected {
+    background-color: var(--accent-color) !important;
+}
+
+
+#main-view .main-display-section {
+    width: calc(100% - 2rem);
+    height: calc(100% - 8rem);
+    position: relative;
+    top: 0;
+    left: 1rem;
+    z-index: 1;
 }
