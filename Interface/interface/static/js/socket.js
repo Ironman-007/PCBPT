@@ -16,6 +16,7 @@ socket.on("connect", () => {
     socket.emit("list_serial_devices");
     socket.emit("list_nets");
     socket.emit("get_schematics_path");
+    socket.emit("list_edges");
 });
 
 
@@ -185,6 +186,10 @@ socket.on("device_connected", (isConnected) => {
         connectButton.innerHTML = "Connect";
         connectForm.action = "/serial/connect_device";
     }
+});
+
+socket.on("edges", (edges) => {
+    boardEdges = edges;
 });
 
 
