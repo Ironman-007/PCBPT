@@ -32,6 +32,7 @@ function untoggle(position){
 let platformBodyModel;
 let platformClipModel;
 let platformLockModel;
+let boardEdges = [];
 
 function preload() {
 
@@ -66,7 +67,7 @@ function draw() {
     background(50);
     noStroke();
     // push();
-    scale(10);
+    scale(5);
     scale(-1, 1, 1);
     rotateX(PI);
     rotateZ(PI);
@@ -93,6 +94,25 @@ function draw() {
     translate(-13.5, -15, 0);
     model(platformLockModel);
     // pop();
+
+    fill(0, 255, 0)
+
+    translate(-45, -95, 10);
+    beginShape();
+
+    for (let i = 0; i < boardEdges.length; i++) {
+        let x1 = boardEdges[i]["start"]["x"];
+        let y1 = boardEdges[i]["start"]["y"];
+        let x2 = boardEdges[i]["end"]["x"];
+        let y2 = boardEdges[i]["end"]["y"];
+
+        stroke(255, 0, 0);
+        strokeWeight(5);
+        vertex(x1, y1, 0);
+    }
+    endShape(CLOSE);
+
+
     orbitControl();
 }
 

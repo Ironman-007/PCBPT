@@ -1,6 +1,7 @@
 
 import math
 import os
+from typing import List, Dict
 
 from flask import Blueprint, request, session
 from kiutils.board import Board
@@ -19,6 +20,7 @@ schematics_data = {}
 layouts_data = {}
 nets_data = {}
 candidates_data = {}
+edges_data = {}
 
 @sio.on("get_schematics_path")
 def get_schematics_path():
@@ -35,6 +37,15 @@ def list_nets():
 
     if user_id in nets_data:
         sio.emit("nets", nets_data[user_id])
+
+
+@sio.on("list_edges")
+def list_edges():
+    """Emits the list of edges stored in the current session to the client"""
+    user_id = session.get("user_id")
+
+    if user_id in edges_data:
+        sio.emit("edges", edges_data[user_id])
 
 
 @kicad_bp.route("/process_files", methods=["POST"])
@@ -93,6 +104,7 @@ def process_files():
             )
         )
     )
+    edges = get_edges(board)
 
     # Emit a socket.io event with the list of nets
     sio.emit("nets", nets)
@@ -104,10 +116,38 @@ def process_files():
     }
     layouts_data[session["user_id"]] = board
     nets_data[session["user_id"]] = nets
+    edges_data[session["user_id"]] = edges
+
+    sio.emit("edges", edges)
 
     # Return a message indicating that the files have been processed
     return "Processed", 200
 
+
+def get_edges(layout: Board) -> List[Dict]:
+    """Returns the edges of the layout"""
+    edges = [e for e in layout.graphicItems if e.layer == "Edge.Cuts"]
+    edges = [{"start": {"x": e.start.X, "y": e.start.Y, "angle": e.start.angle if e.start.angle != None else 0}, "end": {"x": e.end.X, "y": e.end.Y, "angle": e.end.angle if e.end.angle != None else 0}} for e in edges]
+    # Sort edges by matching start and end points
+    new_edges = []
+    current_edge = edges.pop(0)
+    while len(edges) > 0:
+        for i, edge in enumerate(edges):
+            if edge["start"] == current_edge["end"]:
+                new_edges.append(current_edge)
+                current_edge = edges.pop(i)
+                break
+            elif edge["end"] == current_edge["end"]:
+                edge["start"], edge["end"] = edge["end"], edge["start"]
+                new_edges.append(current_edge)
+                current_edge = edges.pop(i)
+                break
+        else:
+            new_edges.append(current_edge)
+            current_edge = edges.pop(0)
+    new_edges.append(current_edge)
+
+    return new_edges
 
 
 @kicad_bp.route("/select_nets", methods=["POST"])
