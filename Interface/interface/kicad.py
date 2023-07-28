@@ -22,6 +22,7 @@ candidates_data = {}
 
 @sio.on("get_schematics_path")
 def get_schematics_path():
+    """Emits the path of the schematics file stored in the current session to the client"""
     user_id = session.get("user_id")
 
     if user_id in schematics_data:
@@ -29,6 +30,7 @@ def get_schematics_path():
 
 @sio.on("list_nets")
 def list_nets():
+    """Emits the list of nets stored in the current session to the client"""
     user_id = session.get("user_id")
 
     if user_id in nets_data:
@@ -107,6 +109,7 @@ def process_files():
     return "Processed", 200
 
 
+
 @kicad_bp.route("/select_nets", methods=["POST"])
 def select_nets():
     """Emits the possible nets coordinates to the client"""
@@ -138,23 +141,24 @@ def select_nets():
                     break
 
             if not tag_allowed:
+                print(footprint.tags)
                 continue
+
+            footprint_x = footprint.position.X
+            footprint_y = footprint.position.Y
+
+            if footprint.position.angle is not None:
+                footprint_angle = math.radians(footprint.position.angle)
+            elif pad.position.angle is not None:
+                footprint_angle = math.radians(pad.position.angle)
+            else:
+                footprint_angle = 0
 
             for pad in footprint.pads:
                 if pad.type != "smd":
                     continue
 
                 if pad.net is not None:
-                    footprint_x = footprint.position.X
-                    footprint_y = footprint.position.Y
-
-                    if footprint.position.angle is not None:
-                        footprint_angle = math.radians(footprint.position.angle)
-                    elif pad.position.angle is not None:
-                        footprint_angle = math.radians(pad.position.angle)
-                    else:
-                        footprint_angle = 0
-
                     if pad.net.name == first_net or pad.net.name == "/" + first_net:
                         pad_x = (
                             pad.position.X * math.cos(footprint_angle)
@@ -218,8 +222,10 @@ def select_nets():
                     "candidates": candidates_data[user_id],
                 },
             )
+            # print("Candidates:", candidates_data[user_id])
+            # print("Coordinates:", {first_net: first_coordinates, second_net: second_coordinates})
 
         else:
-            sio.emit("net_coordinates", {"coordinates": {}, "candidates": {}})
+            sio.emit("net_selection_error", f"No valid candidates found for the selected nets (first: {len(first_coordinates)}, second: {len(second_coordinates)})")
 
     return "Selected"
