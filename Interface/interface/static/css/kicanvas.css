@@ -82,7 +82,7 @@
 
 
 kicad-schematic {
-    margin: 2% 5%;
+    /* margin: 2% 5%; */
     display: block;
     text-align: center;
     --crop-height: yes;
@@ -90,8 +90,8 @@ kicad-schematic {
     --font-family: Nunito;
     --line-spacing: 1;
     --font-size: 1.8;
-    width: 90%;
-    height: 90%;
+    width: 100%;
+    height: 100%;
 }
 
 kicad-schematic canvas,
