@@ -12,6 +12,8 @@ void handle_data(void) {
   if (Wire1.available()) {
     cmd = Wire1.read();
     Serial.println(cmd);
-    Coral_stepper.run((uint64_t)cmd);
+    // Coral_stepper.run((uint64_t)cmd);
   }
 }
+
+
