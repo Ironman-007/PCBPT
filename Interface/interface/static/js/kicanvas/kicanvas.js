@@ -112,24 +112,35 @@ class KicadSchematicElement extends HTMLElement {
             this.draw();
         });
 
+        let schematicButton = document.getElementById("main-display-schematics-button");
+        this.prev_window_width = window.innerWidth;
+        this.prev_window_height = window.innerHeight;
+
+        $on(schematicButton, "click", (e) => {
+            setTimeout(() => {
+                this.updateDisplay()
+            }, 200)
+        });
 
         selector1.dispatchEvent(new Event("change"));
         selector2.dispatchEvent(new Event("change"));
 
-        let prev_window_width = window.innerWidth;
-        let prev_window_height = window.innerHeight;
 
         setInterval(() => {
-            if (window.innerWidth != prev_window_width || window.innerHeight != prev_window_height) {
-                this.create_canvas();
-                this.gather_selectable_items();
-                this.draw();
-                this.setup_click_event();
-
-                prev_window_width = window.innerWidth;
-                prev_window_height = window.innerHeight;
+            if (window.innerWidth != this.prev_window_width || window.innerHeight != this.prev_window_height) {
+                this.updateDisplay()
             }
         }, 200);
+    }
+
+    updateDisplay() {
+        this.create_canvas();
+        this.gather_selectable_items();
+        this.draw();
+        this.setup_click_event();
+
+        this.prev_window_width = window.innerWidth;
+        this.prev_window_height = window.innerHeight;
     }
 
     setWiresStyle(color, width, label) {

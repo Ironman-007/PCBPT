@@ -1,7 +1,7 @@
 import os
-import threading
+import uuid
 
-from flask import Flask, send_from_directory, render_template, g
+from flask import Flask, send_from_directory, render_template, g, session
 from flask_cors import CORS
 from flask_socketio import SocketIO
 
@@ -13,6 +13,12 @@ sio = SocketIO(
         path=f"/socket.io",
     )
 
+
+def generate_id():
+    """Generate a user ID if it doesn't exist in the session"""
+    if "user_id" not in session:
+        print("Generating user ID")
+        session["user_id"] = str(uuid.uuid4())
 
 def create_app(test_config=None, do_init_db=False):
     app = Flask(__name__, instance_relative_config=True)
@@ -39,13 +45,10 @@ def create_app(test_config=None, do_init_db=False):
     def global_static(path):
         return send_from_directory("static", path)
 
-
     @app.route("/")
     def home():
+        generate_id()
         return render_template("base.html")
-
-    from interface.api import api_bp
-    app.register_blueprint(api_bp)
 
     from interface.serial import serial_bp
     app.register_blueprint(serial_bp)
