@@ -155,9 +155,11 @@ Probe2 = Probe(0.0, 0.0)
 # initialize all IOs to be used
 Pins_init()
 
-if supervisor.runtime.serial_connected:
-    flash_led(0.05)
-    print("PCBPT connected!")
+while not supervisor.runtime.serial_connected:
+    time.sleep(0.01)
+
+flash_led(0.05)
+print("PCBPT connected!")
 
 # Sca I2C bus and find all Coral modules
 scan_Coral_modules()
