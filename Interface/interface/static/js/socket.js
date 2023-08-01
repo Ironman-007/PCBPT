@@ -17,6 +17,8 @@ socket.on("connect", () => {
     socket.emit("list_nets");
     socket.emit("get_schematics_path");
     socket.emit("list_edges");
+    socket.emit("list_pads");
+    socket.emit("list_dimensions");
 });
 
 
@@ -62,6 +64,7 @@ socket.on("nets", (nets) => {
     let secondNetSelect = document.getElementById("net-selection-second-select");
     firstNetSelect.innerHTML = "";
     secondNetSelect.innerHTML = "";
+    availableNets = nets;
     nets.forEach((net) => {
         var option = document.createElement("option");
         option.value = net;
@@ -91,47 +94,15 @@ socket.on("nets", (nets) => {
 });
 
 
-socket.on("net_coordinates", (result) => {
-    let data = result["coordinates"]
-    let nets = Object.keys(data);
+socket.on("probe_candidates", (candidates) => {
+    console.log(candidates);
+    padCandidates = candidates;
 
-    // console.log(result);
-    if (nets == 0) {
-        let statusP = document.getElementById("net-selection-status");
-        statusP.innerHTML = "No candidates for net(s): " + nets.join(", ");
-        statusP.classList.add("error");
-        statusP.classList.remove("success");
-        return;
-    }
+    let candidatesLabel1 = document.getElementById("candidates-selection-first-label");
+    let candidatesLabel2 = document.getElementById("candidates-selection-second-label");
 
-    else if (nets.length == 1) {
-        let statusP = document.getElementById("net-selection-status");
-        statusP.innerHTML = "Only one candidate for net: " + nets[0];
-        statusP.classList.add("error");
-        statusP.classList.remove("success");
-        return;
-    }
-
-    let missingCoordinates = [];
-    if (data[nets[0]].length == 0) {
-        missingCoordinates.push(nets[0]);
-    }
-    if (data[nets[1]].length == 0) {
-        missingCoordinates.push(nets[1]);
-    }
-
-    if (missingCoordinates.length > 0) {
-        let statusP = document.getElementById("net-selection-status");
-        statusP.innerHTML = "No candidates for net(s): " + missingCoordinates.join(", ");
-        // console.log(nets);
-        statusP.classList.add("error");
-        statusP.classList.remove("success");
-    } else {
-        let statusP = document.getElementById("net-selection-status");
-        statusP.innerHTML = "Candidates found for both nets";
-        statusP.classList.remove("error");
-        statusP.classList.add("success");
-    }
+    candidatesLabel1.innerHTML = "Probe 1: " + candidates["left"][4];
+    candidatesLabel2.innerHTML = "Probe 2: " + candidates["right"][4];
 });
 
 socket.on("net_selection_error", (error) => {
@@ -189,9 +160,47 @@ socket.on("device_connected", (isConnected) => {
 });
 
 socket.on("edges", (edges) => {
-    boardEdges = edges;
+    layoutEdges = edges;
 });
 
+socket.on("pads", (pads) => {
+    console.log(pads);
+    layoutPads = pads;
+});
+
+socket.on("dimensions", (dimensions) => {
+    console.log(dimensions);
+    layoutDimensions = dimensions;
+});
+
+
+function switchOrientation(angle) {
+    let toWord = angle === 0 ? "first" : angle === 90 ? "second" : angle === 180 ? "third" : "fourth";
+    let selectedOrientationButton = document.getElementById("orientation-selection-" + toWord + "-button");
+    let orientationButtons = document.getElementsByClassName("orientation-selection-button");
+
+    if(selectedOrientationButton.classList.contains("orientation-selection-button-selected")) {
+        return;
+    }
+
+    for(let i = 0; i < orientationButtons.length; i++) {
+        orientationButtons[i].classList.remove("orientation-selection-button-selected");
+    }
+
+    selectedOrientationButton.classList.add("orientation-selection-button-selected");
+
+    boardRotation = angle;
+
+    socket.emit("board_orientation", angle);
+}
+
+
+function sendProbeCommand() {
+    socket.emit("probe", {
+        "first": padCandidates["left"],
+        "second": padCandidates["right"],
+    });
+}
 
 
 setInterval(() => {

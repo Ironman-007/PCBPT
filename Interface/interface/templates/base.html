@@ -23,12 +23,12 @@
             <h2>Connection</h2>
             <p>Baud Rate and Port</p>
             <select id="connection-baud-select" name="baudrate">
-                <option value="9600" selected>9600</option>
+                <option value="9600">9600</option>
                 <option value="19200">19200</option>
                 <option value="38400">38400</option>
                 <option value="57600">57600</option>
                 <option value="74880">74880</option>
-                <option value="115200">115200</option>
+                <option value="115200" selected>115200</option>
             </select>
             <div class=" pannel-sixty-thirty">
                 <select id="connection-port-select" name="port"></select>
@@ -89,10 +89,12 @@
     <div id="main-view">
         <div id="main-display-selection">
             <button id="main-display-schematics-button" class="main-display-button" onclick="switchToSchematics()">Schematics</button>
-            <button id="main-display-pcb-button" class="main-display-button main-display-button-selected"  onclick="switchToPCB()">PCB</button>
+            <button id="main-display-pcb-3D-button" class="main-display-button" onclick="switchToPCB('3D')">PCB 3D View</button>
+            <button id="main-display-pcb-2D-button" class="main-display-button main-display-button-selected" onclick="switchToPCB('2D')">PCB 2D View</button>
         </div>
         <div id="main-schematics-section" class="main-display-section" hidden></div>
-        <div id="main-pcb-section" class="main-display-section"></div>
+        <div id="main-pcb-3D-section" class="main-display-section" hidden></div>
+        <div id="main-pcb-2D-section" class="main-display-section"></div>
     </div>
     <div id="right-pannel" class="pannel">
         <form method="POST" class="pannel-section" action="/kicad/process_files" enctype=multipart/form-data target="hiddenFrame">
@@ -113,13 +115,24 @@
             <button id="upload-button">Upload</button>
         </form>
         <hr>
+        <div id="layout-config-selection-section" class="pannel-section">
+            <h2>Orientation selection</h2>
+
+            <div id="orientation-selection" class="full-line">
+                <button id="orientation-selection-first-button" class="orientation-selection-button orientation-selection-button-selected" onclick="switchOrientation(0)">0°</button>
+                <button id="orientation-selection-second-button" class="orientation-selection-button" onclick="switchOrientation(90)">90°</button>
+                <button id="orientation-selection-third-button" class="orientation-selection-button" onclick="switchOrientation(180)">180°</button>
+                <button id="orientation-selection-fourth-button" class="orientation-selection-button" onclick="switchOrientation(270)">270°</button>
+            </div>
+        </div>
+        <hr>
         <form id="net-selection-section" class="pannel-section" action="/kicad/select_nets" method="post" target="hiddenFrame">
             <h2>Net selection</h2>
 
             <div class="pannel-twenty-seventy">
                 <div>
                     <input id="net-selection-first-mouse-select" class="net-selection-slider" type="checkbox"/>
-                    <label class="toggle" for="net-selection-first-mouse-select" onclick="untoggle('second')">Pick</label>
+                    <label class="toggle" for="net-selection-first-mouse-select" onclick="untoggle('second');untoggleCandidate('first');untoggleCandidate('second')">Pick</label>
                 </div>
                 <select id="net-selection-first-select" name="first-net"></select>
             </div>
@@ -127,14 +140,33 @@
             <div class="pannel-twenty-seventy">
                 <div>
                     <input id="net-selection-second-mouse-select" class="net-selection-slider" type="checkbox"/>
-                    <label class="toggle" for="net-selection-second-mouse-select" onclick="untoggle('first')">Pick</label>
+                    <label class="toggle" for="net-selection-second-mouse-select" onclick="untoggle('first');untoggleCandidate('first');untoggleCandidate('second')">Pick</label>
                 </div>
                 <select id="net-selection-second-select" name="second-net"></select>
             </div>
 
-            <button id="net-selection-button">Find candidates</button>
+            <button id="net-selection-button">Find probe candidates</button>
             <p id="net-selection-status"></p>
         </form>
+        <hr>
+        <div class="pannel-section">
+            <h2>Probe selection</h2>
+            <div class=" pannel-fifty-fifty">
+                <div>
+                    <input id="candidates-selection-first-mouse-select" class="net-selection-slider" type="checkbox"/>
+                    <label id="candidates-selection-first-label" class="toggle" for="candidates-selection-first-mouse-select" onclick="untoggleCandidate('second');untoggle('first');untoggle('second')">Probe 1: </label>
+                </div>
+
+                <div>
+                    <input id="candidates-selection-second-mouse-select" class="net-selection-slider" type="checkbox"/>
+                    <label id="candidates-selection-second-label" class="toggle" for="candidates-selection-second-mouse-select" onclick="untoggleCandidate('first');untoggle('first');untoggle('second')">Probe 2: </label>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="pannel-section">
+            <button id="probe-button" onclick="sendProbeCommand()">Probe</button>
+        </div>
     </div>
     <iframe name="hiddenFrame" width="0" height="0" border="0" style="display: none;"></iframe>
     <script type="module" src="/static/js/kicanvas/kicanvas.js"></script>

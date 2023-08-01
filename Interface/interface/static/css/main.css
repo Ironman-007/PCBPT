@@ -228,6 +228,21 @@ input {
     width: 33%;
 }
 
+.pannel-fifty-fifty {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.pannel-fifty-fifty>:first-child {
+    width: 48%;
+}
+
+.pannel-fifty-fifty>:last-child {
+    width: 48%;
+}
+
 .small-offset {
     width: 100%;
     height: 1rem;
@@ -335,6 +350,7 @@ input {
     color: var(--primary-text);
 }
 
+
 #main-view {
     width: 100%;
     height: 100%;
@@ -362,16 +378,16 @@ input {
     transition: 0.2s ease-in-out;
 }
 
-
 #main-display-schematics-button {
     border-top-left-radius: var(--corner-radius);
     border-bottom-left-radius: var(--corner-radius);
 }
 
-#main-display-pcb-button {
+#main-display-pcb-2D-button {
     border-top-right-radius: var(--corner-radius);
     border-bottom-right-radius: var(--corner-radius);
 }
+
 
 .main-display-button-selected {
     background-color: var(--accent-color) !important;
@@ -385,4 +401,28 @@ input {
     top: 0;
     left: 1rem;
     z-index: 1;
+}
+
+.orientation-selection-button {
+    width: 25%;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    color: var(--primary-background);
+}
+
+.orientation-selection-button-selected {
+    background-color: var(--accent-color) !important;
+    color: var(--primary-text) !important;
+}
+
+.full-line {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#orientation-selection {
+    overflow: hidden;
+    border-radius: var(--corner-radius);
 }
