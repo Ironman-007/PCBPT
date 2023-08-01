@@ -40,6 +40,7 @@ def get_schematics_path():
 def list_nets():
     """Emits the list of nets stored in the current session to the client"""
     user_id = session.get("user_id")
+    load_files()
 
     if user_id in nets_data:
         sio.emit("nets", nets_data[user_id])
@@ -49,6 +50,7 @@ def list_nets():
 def list_edges():
     """Emits the list of edges stored in the current session to the client"""
     user_id = session.get("user_id")
+    load_files()
 
     if user_id in edges_data:
         sio.emit("edges", edges_data[user_id])
@@ -58,6 +60,7 @@ def list_edges():
 def list_pads():
     """Emits the list of pads stored in the current session to the client"""
     user_id = session.get("user_id")
+    load_files()
 
     if user_id in pads_data:
         sio.emit("pads", pads_data[user_id])
@@ -66,6 +69,7 @@ def list_pads():
 def list_dimensions():
     """Emits the list of dimensions stored in the current session to the client"""
     user_id = session.get("user_id")
+    load_files()
 
     if user_id in dimensions_data:
         sio.emit("dimensions", dimensions_data[user_id])
@@ -95,12 +99,12 @@ def process_files():
     schematics_filename = secure_filename(schematics_file.filename)
     layout_filename = secure_filename(layout_file.filename)
 
+    # Create the user's folder if it doesn't exist
+    os.makedirs(os.path.join(UPLOAD_FOLDER, session["user_id"]), exist_ok=True)
+
     # Store the filenames in the session
     session["schematics_filename"] = schematics_filename
     session["layout_filename"] = layout_filename
-
-    # Create the user's folder if it doesn't exist
-    os.makedirs(os.path.join(UPLOAD_FOLDER, session["user_id"]), exist_ok=True)
 
     # Save the schematics file
     schematics_file_path = os.path.join(UPLOAD_FOLDER, session["user_id"], schematics_filename)
@@ -111,6 +115,28 @@ def process_files():
 
     # Save the layout file
     layout_file.save(os.path.join(UPLOAD_FOLDER, session["user_id"], layout_filename))
+
+    load_files(force=True)
+
+    # Return a message indicating that the files have been processed
+    return "Processed", 200
+
+
+def load_files(force: bool=False):
+    """Loads the schematics and layout files and stores them in the session."""
+
+    if "schematics_filename" not in session or "layout_filename" not in session:
+        return
+
+    user_id = session["user_id"]
+    schematics_filename = session["schematics_filename"]
+    layout_filename = session["layout_filename"]
+
+    # Return if already loaded
+    if user_id in schematics_data and user_id in layouts_data and not force:
+        return
+
+    schematics_file_path = os.path.join(UPLOAD_FOLDER, session["user_id"], schematics_filename)
 
     # Load the schematics and layout files
     schematics = Schematic().from_file(os.path.join(UPLOAD_FOLDER, session["user_id"], schematics_filename))
@@ -149,8 +175,6 @@ def process_files():
     sio.emit("pads", pads)
     sio.emit("dimensions", {"origin": origin, "width": width, "height": height})
 
-    # Return a message indicating that the files have been processed
-    return "Processed", 200
 
 
 def get_edges(layout: Board) -> List[Dict]:
@@ -300,7 +324,7 @@ def select_nets():
 
                 board_angle = BOARD_ORIENTATION * math.pi / 180
 
-                print(footprint_x, footprint_y, footprint_angle, pad_x, pad_y, relative_angle, board_angle)
+                # print(footprint_x, footprint_y, footprint_angle, pad_x, pad_y, relative_angle, board_angle)
 
                 local_pad_x = footprint_x + pad_x * math.cos(-1*footprint_angle) - pad_y * math.sin(-1*footprint_angle)
                 local_pad_y = footprint_y + pad_x * math.sin(-1*footprint_angle) + pad_y * math.cos(-1*footprint_angle)
@@ -323,8 +347,8 @@ def select_nets():
             x2 = [x[1] for x in second_coordinates]
             delta1 = max(x1) - min(x2)
             delta2 = max(x2) - min(x1)
-            print(x1)
-            print(x2)
+            # print(x1)
+            # print(x2)
             if delta1 < delta2:
                 left_index = x1.index(min(x1))
                 right_index = x2.index(max(x2))
@@ -333,8 +357,8 @@ def select_nets():
             else:
                 left_index = x2.index(min(x2))
                 right_index = x1.index(max(x1))
-                left_coordinates = second_coordinates[left_index]
-                right_coordinates = first_coordinates[right_index]
+                left_coordinates = first_coordinates[right_index]
+                right_coordinates = second_coordinates[left_index]
             candidates_data[user_id] = {
                 "left": left_coordinates,
                 "right": right_coordinates,

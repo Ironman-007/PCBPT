@@ -201,7 +201,7 @@ def probe(candidates):
         return "Not enough coordinates", 400
 
 
-    if first[1] < second[1]:
+    if first[1] > second[1]:
         first, second = second, first
 
     command = f"C A{first[1]:.3f} B{first[2]:.3f} X{second[1]:.3f} Y{second[2]:.3f}"
@@ -209,7 +209,7 @@ def probe(candidates):
     if port is None or port not in serial_connections:
         sio.emit("command_response", {
             "type": "error",
-            "data": f"Command error '{command}': Device not connected"
+            "data": f"Command error <br>'{command}': Device not connected"
         })
 
         return "Device not connected", 400
