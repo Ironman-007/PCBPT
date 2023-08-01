@@ -9,6 +9,11 @@
  * if not, comment this
 */
 // #define _W_SERVO_
+#define HOME_POS    -20
+
+#define SERIAL_DEBUG true
+
+#define I2C_ADDRESS  0x32
 
 #define PIN_NUM 8
 
