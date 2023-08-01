@@ -2,6 +2,10 @@
 
 #include "system.h"
 
+#define COE_D_TO_STEPS_1_1   0.2   // needs to be calibrated
+#define COE_D_TO_STEPS_1_2   0.1   // needs to be calibrated
+#define COE_D_TO_STEPS_1_8   0.025 // needs to be calibrated
+
 #define MICROSTEPPING_1_1    0x00
 #define MICROSTEPPING_1_2    0x01
 #define MICROSTEPPING_1_4    0x02
@@ -12,9 +16,9 @@
 #define MS2_MASK             0x02
 #define MS3_MASK             0x04
 
-#define MS1_PIN              D7
-#define MS2_PIN              D8
-#define MS3_PIN              D9
+#define MS1_PIN              D1
+#define MS2_PIN              D2
+#define MS3_PIN              D4
 
 extern volatile bool output_flag;
 extern volatile bool output_done;
@@ -46,8 +50,9 @@ public:
 
   void set_resolution(uint8_t resolution);
   void set_accel(int acc);
+  void home(float home_pos); // stepper move to home position
   void set_current_pos(float pos);
-  void run(uint64_t steps); // move how many steps
+  void run(float distance);  // move how many steps
 };
 
 
