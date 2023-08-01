@@ -131,11 +131,7 @@ def send_command():
             serial_delays[port] = int(command.split(" ")[1])
             return "Sent", 200
         else:
-            serial_connections[session["port"]].write((command + "\n") .encode())
-            sio.emit("command_response", {
-                "type": "sent",
-                "data": command
-            })
+            _send_command(port, command.strip())
             return "Sent", 200
     else:
         sio.emit("command_response", {
@@ -144,6 +140,16 @@ def send_command():
         })
 
         return "Device not connected", 400
+
+def _send_command(port, command):
+    if port not in serial_connections:
+        return -1
+
+    serial_connections[port].write((command + "\r\n") .encode())
+    sio.emit("command_response", {
+        "type": "sent",
+        "data": command
+    })
 
 
 @serial_bp.route("/upload_command", methods=["POST"])
@@ -160,11 +166,7 @@ def upload_command():
                     if command.startswith("SETDELAY"):
                         serial_delays[port] = int(command.split(" ")[1]) / 1000
                     else:
-                        serial_connections[session["port"]].write(command.encode())
-                        sio.emit("command_response", {
-                            "type": "sent",
-                            "data": command
-                        })
+                        _send_command(port, command.strip())
                         time.sleep(serial_delays.get(port, 0.1))
         else:
             sio.emit("command_response", {
@@ -179,3 +181,37 @@ def upload_command():
         })
         return "Device not connected", 400
     return "Sent", 200
+
+
+@sio.on("probe")
+def probe(candidates):
+    """Probes to the coordinates"""
+
+    port = session.get("port")
+
+    first = candidates["first"]
+    second = candidates["second"]
+
+    if len(first) < 4 or len(second) < 4:
+        sio.emit("command_response", {
+            "type": "error",
+            "data": f"Command error: Not enough coordinates: {first}, {second}"
+        })
+
+        return "Not enough coordinates", 400
+
+
+    if first[1] < second[1]:
+        first, second = second, first
+
+    command = f"C A{first[1]:.3f} B{first[2]:.3f} X{second[1]:.3f} Y{second[2]:.3f}"
+
+    if port is None or port not in serial_connections:
+        sio.emit("command_response", {
+            "type": "error",
+            "data": f"Command error '{command}': Device not connected"
+        })
+
+        return "Device not connected", 400
+
+    _send_command(session["port"], command)
