@@ -194,6 +194,8 @@ let Context2D = new p5(p => {
                     p.rect(0, 0, sizeX, sizeY);
                 } else if (shape == "roundrect") {
                     p.rect(0, 0, sizeX, sizeY, sizeX * roundrectRatio);
+                } else if (shape == "oval") {
+                    p.ellipse(0, 0, sizeX, sizeY);
                 } else {
                     p.fill(0, 255, 0);
                     p.stroke(0, 255, 0);
@@ -269,19 +271,13 @@ let Context2D = new p5(p => {
                 sizeX = p.abs(rotatedSizeX * Math.cos(radianFootprintAngle) - rotatedSizeY * Math.sin(radianFootprintAngle));
                 sizeY = p.abs(rotatedSizeX * Math.sin(radianFootprintAngle) + rotatedSizeY * Math.cos(radianFootprintAngle));
 
-                if (shape == "circle") {
+                if (shape == "circle" || shape == "oval") {
                     if (p.dist(p.mouseX, p.mouseY, padCenterX, padCenterY) < sizeX / 2) {
                         if (isAllowed) {
                             selectedNet = net;
                         }
                     }
-                } else if (shape == "rect") {
-                    if (p.abs(p.mouseX - padCenterX) < sizeX / 2 && p.abs(p.mouseY - padCenterY) < sizeY / 2) {
-                        if (isAllowed) {
-                            selectedNet = net;
-                        }
-                    }
-                } else if (shape == "roundrect") {
+                } else if (shape == "rect" || shape == "roundrect") {
                     if (p.abs(p.mouseX - padCenterX) < sizeX / 2 && p.abs(p.mouseY - padCenterY) < sizeY / 2) {
                         if (isAllowed) {
                             selectedNet = net;
@@ -344,15 +340,23 @@ let Context2D = new p5(p => {
             return;
         }
 
+        let pX = p.mouseX / p.width;
+        let pY = p.mouseY / p.height;
+
         if (event.delta > 0) {
-            if (scale < 20) {
-                scale += 0.2;
+            if (scale < 40) {
+                scale *= 1.05;
+                // centerX = pX * p.width + (centerX - pX * p.width) * 1.2;
+                // centerY = pY * p.height + (centerY - pY * p.height) * 1.2;
             }
         } else {
             if (scale > 6) {
-                scale -= 0.2;
+                scale /= 1.05;
+                // centerX = pX * p.width + (centerX - pX * p.width) / 1.2;
+                // centerY = pY * p.height + (centerY - pY * p.height) / 1.2;
             }
         }
+
     }
 
     p.mouseDragged = () => {
