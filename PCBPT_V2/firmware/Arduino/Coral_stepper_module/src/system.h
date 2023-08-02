@@ -29,6 +29,8 @@
 #define STEP_PIN  D26
 #define DIR_PIN   D27
 
+extern volatile bool Coral_homed;
+
 extern void pin_init(void);
 
 extern void TURN_ON_LED(bool R, bool G, bool B);
