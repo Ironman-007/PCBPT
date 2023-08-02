@@ -9,7 +9,7 @@
  * if not, comment this
 */
 // #define _W_SERVO_
-#define HOME_POS    -20
+// #define HOME_POS    -20
 
 #define SERIAL_DEBUG true
 
