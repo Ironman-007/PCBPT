@@ -26,9 +26,9 @@ zsafe=5.0000
 extra-passes=20
 mill-feed=200
 mill-speed=10000
-offset=0.2000
+offset=0.25000
 #offset=20  # Uncomment (and comment the previous line) for voronoi regions
-zwork=-0.2000
+zwork=-0.18000
 
 # Drill options
 drill-feed=200
@@ -49,7 +49,7 @@ cut-speed=10000
 cutter-diameter=1.1000
 fill-outline=true
 zbridges=-0.6000
-zcut=-2.000
+zcut=-2.5000
 
 # Autoleveller options
 al-back=false

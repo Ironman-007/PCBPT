@@ -89,7 +89,8 @@ void coral_stepper::run(float distance) {
 }
 
 void coral_stepper::home (float home_pos) {
-  ;
+  // this -> run(home_pos);
+  // this -> current_pos = home_pos;
 }
 
 coral_stepper Coral_stepper(MICROSTEPPING_1_4, 1000);

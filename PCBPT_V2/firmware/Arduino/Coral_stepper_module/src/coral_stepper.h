@@ -32,6 +32,8 @@ extern volatile bool toggle_stat;
 #define SIMPLE_TIMER_MS         2000L
 #define TIMER_INTERVAL_MS       1L
 
+#define HOME_POS                130
+
 extern volatile bool pulse_flag;
 
 class coral_stepper {

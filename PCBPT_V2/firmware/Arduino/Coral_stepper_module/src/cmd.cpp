@@ -25,6 +25,9 @@ void comm_init(void) {
 }
 
 void handle_data(void) {
+  if (!Coral_homed) {
+    Coral_stepper.home(HOME_POS);
+  }
   if (Wire1.available() > 0) {
     cmd = Wire1.read();
     if (cmd == 0) {
