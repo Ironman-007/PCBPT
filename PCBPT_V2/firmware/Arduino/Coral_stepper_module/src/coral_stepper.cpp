@@ -48,24 +48,31 @@ void coral_stepper::run(float distance) {
 
   if (distance_to_move > 0) {
     digitalWrite(DIR_PIN, LOW);
-  } 
+  }
   else {
     distance_to_move = -1 * distance_to_move;
     digitalWrite(DIR_PIN, HIGH);
   }
 
-  steps_to_move = floor(distance_to_move/COE_D_TO_STEPS_1_2);
+  // steps_to_move = floor(distance_to_move/COE_D_TO_STEPS_1_2);
+  steps_to_move = round(distance_to_move/COE_D_TO_STEPS_1_2);
 
   if (SERIAL_DEBUG) {
     Serial.print("steps_to_move_1_1 = ");
     Serial.println(steps_to_move);
   }
 
-  Coral_stepper.set_resolution(MICROSTEPPING_1_2);
+  this -> set_resolution(MICROSTEPPING_1_2);
 
   uint64_t _steps2move   = 2 * steps_to_move;
   uint64_t _steps2move_i = 0;
   uint32_t _interval     = this->step_interval;
+
+  for (_steps2move_i = 0; _steps2move_i < _steps2move; _steps2move_i ++) {
+    toggle_stat = !toggle_stat;
+    digitalWrite(STEP_PIN, toggle_stat);
+    delayMicroseconds(_interval);
+  }
 
   steps_to_move = round((distance_to_move - steps_to_move*COE_D_TO_STEPS_1_2)/COE_D_TO_STEPS_1_8);
 
@@ -74,13 +81,12 @@ void coral_stepper::run(float distance) {
     Serial.println(steps_to_move);
   }
 
-  for (_steps2move_i = 0; _steps2move_i < _steps2move; _steps2move_i ++) {
-    toggle_stat = !toggle_stat;
-    digitalWrite(STEP_PIN, toggle_stat);
-    delayMicroseconds(_interval);
-  }
+  this -> set_resolution(MICROSTEPPING_1_8);
 
-  Coral_stepper.set_resolution(MICROSTEPPING_1_8);
+  _steps2move   = 2 * steps_to_move;
+  _steps2move_i = 0;
+  // _interval     = this->step_interval;
+
   for (_steps2move_i = 0; _steps2move_i < _steps2move; _steps2move_i ++) {
     toggle_stat = !toggle_stat;
     digitalWrite(STEP_PIN, toggle_stat);
