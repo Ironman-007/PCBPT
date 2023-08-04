@@ -13,161 +13,172 @@
     {% block head %}{% endblock %}
 </head>
 <body>
-    <div id="left-pannel" class="pannel">
-        <div id="title-section" class="pannel-section">
-            <h1>PCBPT</h1>
-            <p>V0</p>
+    <nav>
+        <div>
+            <h1>PCBPT Beta</h1>
         </div>
-        <hr>
-        <form id="connection-section" class="pannel-section" method="post" action="/serial/connect_device" target="hiddenFrame">
-            <h2>Connection</h2>
-            <p>Baud Rate and Port</p>
-            <select id="connection-baud-select" name="baudrate">
-                <option value="9600">9600</option>
-                <option value="19200">19200</option>
-                <option value="38400">38400</option>
-                <option value="57600">57600</option>
-                <option value="74880">74880</option>
-                <option value="115200" selected>115200</option>
-            </select>
-            <div class=" pannel-sixty-thirty">
-                <select id="connection-port-select" name="port"></select>
-                <button id="connection-button" type="submit">Connect</button>
-            </div>
-        </form>
-        <hr>
-        <div id="control-section" class="pannel-section">
-            <h2>Control</h2>
-            <p>Left probe</p>
-            <div>
-                <button id="left-move-top-button" class="control-button">Top</button>
-            </div>
-            <div>
-                <button id="left-move-left-button" class="control-button">Left</button>
-                <button id="left-move-probe-button" class="control-button">Probe</button>
-                <button id="left-move-right-button" class="control-button">Right</button>
-            </div>
-            <div>
-                <button id="left-move-bottom-button" class="control-button">Bottom</button>
-            </div>
 
-            <div class="small-offset"></div>
-            <p>Right probe</p>
-            <div>
-                <button id="right-move-top-button" class="control-button">Top</button>
-            </div>
-            <div>
-                <button id="right-move-left-button" class="control-button">Left</button>
-                <button id="right-move-probe-button" class="control-button">Probe</button>
-                <button id="right-move-right-button" class="control-button">Right</button>
-            </div>
-            <div>
-                <button id="right-move-bottom-button" class="control-button">Bottom</button>
-            </div>
+        <div>
+            <button id="nav-button-settings">Settings</button>
+            <button id="nav-button-controls">Controls</button>
+            <button id="nav-button-information">Information</button>
         </div>
-        <hr>
-        <form id="console-section" class="pannel-section" method="post" action="/serial/send_command" target="hiddenFrame">
-            <div id="console-output">
+    </nav>
+    <main>
+        <div id="left-pannel" class="pannel">
+            <form id="connection-section" class="pannel-section" method="post" action="/serial/connect_device" target="hiddenFrame">
+                <h2>Connection</h2>
+                <p>Port and Baud Rate</p>
+                <div class=" pannel-sixty-thirty">
+                    <select id="connection-port-select" name="port"></select>
+                    <button id="connection-port-refresh-button" type="button" onclick="refreshDevices()">Refresh</button>
+                </div>
+                <div class=" pannel-sixty-thirty">
+                    <select id="connection-baud-select" name="baudrate">
+                        <option value="9600">9600</option>
+                        <option value="19200">19200</option>
+                        <option value="38400">38400</option>
+                        <option value="57600">57600</option>
+                        <option value="74880">74880</option>
+                        <option value="115200" selected>115200</option>
+                    </select>
+                    <button id="connection-button" type="submit">Connect</button>
+                </div>
+            </form>
+            <hr>
+            <div id="control-section" class="pannel-section">
+                <h2>Control</h2>
+                <p>Left probe</p>
+                <div>
+                    <button id="left-move-top-button" class="control-button">Top</button>
+                </div>
+                <div>
+                    <button id="left-move-left-button" class="control-button">Left</button>
+                    <button id="left-move-probe-button" class="control-button">Probe</button>
+                    <button id="left-move-right-button" class="control-button">Right</button>
+                </div>
+                <div>
+                    <button id="left-move-bottom-button" class="control-button">Bottom</button>
+                </div>
+
+                <div class="small-offset"></div>
+                <p>Right probe</p>
+                <div>
+                    <button id="right-move-top-button" class="control-button">Top</button>
+                </div>
+                <div>
+                    <button id="right-move-left-button" class="control-button">Left</button>
+                    <button id="right-move-probe-button" class="control-button">Probe</button>
+                    <button id="right-move-right-button" class="control-button">Right</button>
+                </div>
+                <div>
+                    <button id="right-move-bottom-button" class="control-button">Bottom</button>
+                </div>
             </div>
-            <div class="pannel-seventy-twenty">
-                <input id="console-input" name="command" type="text" placeholder="Enter command here" required minlength="1">
-                <button id="console-send-button" type="submit">Send</button>
+            <hr>
+            <form id="console-section" class="pannel-section" method="post" action="/serial/send_command" target="hiddenFrame">
+                <div id="console-output">
+                </div>
+                <div class="pannel-seventy-twenty">
+                    <input id="console-input" name="command" type="text" placeholder="Enter command here" required minlength="1">
+                    <button id="console-send-button" type="submit">Send</button>
+                </div>
+            </form>
+            <form id="command-batch-section" class="pannel-section" method="POST" action="/serial/upload_command" enctype=multipart/form-data target="hiddenFrame">
+                <div class="pannel-seventy-twenty">
+                    <div class="custom-file-upload-group">
+                        <label for="command-file" id="command-file-button" class="custom-file-upload">
+                            Select a .pcbpt file
+                        </label>
+                        <input type="file" id="command-file" class="file-upload-input" name="command_file" accept=".pcbpt" onchange="subFile(this, 'command')" required>
+                    </div>
+                    <button id="command-upload-button" type="submit">Upload</button>
+                </div>
+            </form>
+        </div>
+        <div id="main-view">
+            <div id="main-display-selection">
+                <button id="main-display-schematics-button" class="main-display-button" onclick="switchToSchematics()">Schematics</button>
+                <button id="main-display-pcb-3D-button" class="main-display-button" onclick="switchToPCB('3D')">PCB 3D View</button>
+                <button id="main-display-pcb-2D-button" class="main-display-button main-display-button-selected" onclick="switchToPCB('2D')">PCB 2D View</button>
             </div>
-        </form>
-        <form id="command-batch-section" class="pannel-section" method="POST" action="/serial/upload_command" enctype=multipart/form-data target="hiddenFrame">
-            <div class="pannel-seventy-twenty">
+            <div id="main-schematics-section" class="main-display-section" hidden></div>
+            <div id="main-pcb-3D-section" class="main-display-section" hidden></div>
+            <div id="main-pcb-2D-section" class="main-display-section"></div>
+        </div>
+        <div id="right-pannel" class="pannel">
+            <form method="POST" class="pannel-section" action="/kicad/process_files" enctype=multipart/form-data target="hiddenFrame">
+                <h2>File upload</h2>
+                <div class="small-offset"></div>
                 <div class="custom-file-upload-group">
-                    <label for="command-file" id="command-file-button" class="custom-file-upload">
-                        Select a .pcbpt file
+                    <label for="schematics-file" id="schematics-file-button" class="custom-file-upload">
+                        Select the schematics
                     </label>
-                    <input type="file" id="command-file" class="file-upload-input" name="command_file" accept=".pcbpt" onchange="subFile(this, 'command')" required>
+                    <input type="file" id="schematics-file" class="file-upload-input"  name="schematics_file" accept=".kicad_sch" onchange="subFile(this, 'schematics')" required>
                 </div>
-                <button id="command-upload-button" type="submit">Upload</button>
-            </div>
-        </form>
-    </div>
-    <div id="main-view">
-        <div id="main-display-selection">
-            <button id="main-display-schematics-button" class="main-display-button" onclick="switchToSchematics()">Schematics</button>
-            <button id="main-display-pcb-3D-button" class="main-display-button" onclick="switchToPCB('3D')">PCB 3D View</button>
-            <button id="main-display-pcb-2D-button" class="main-display-button main-display-button-selected" onclick="switchToPCB('2D')">PCB 2D View</button>
-        </div>
-        <div id="main-schematics-section" class="main-display-section" hidden></div>
-        <div id="main-pcb-3D-section" class="main-display-section" hidden></div>
-        <div id="main-pcb-2D-section" class="main-display-section"></div>
-    </div>
-    <div id="right-pannel" class="pannel">
-        <form method="POST" class="pannel-section" action="/kicad/process_files" enctype=multipart/form-data target="hiddenFrame">
-            <h2>File upload</h2>
-            <div class="small-offset"></div>
-            <div class="custom-file-upload-group">
-                <label for="schematics-file" id="schematics-file-button" class="custom-file-upload">
-                    Select the schematics
-                </label>
-                <input type="file" id="schematics-file" class="file-upload-input"  name="schematics_file" accept=".kicad_sch" onchange="subFile(this, 'schematics')" required>
-            </div>
-            <div class="custom-file-upload-group">
-                <label for="layout-file" id="layout-file-button" class="custom-file-upload">
-                    Select the layout
-                </label>
-                <input type="file" id="layout-file" class="file-upload-input" name="layout_file" accept=".kicad_pcb" onchange="subFile(this, 'layout')" required>
-            </div>
-            <button id="upload-button">Upload</button>
-        </form>
-        <hr>
-        <div id="layout-config-selection-section" class="pannel-section">
-            <h2>Orientation selection</h2>
-
-            <div id="orientation-selection" class="full-line">
-                <button id="orientation-selection-first-button" class="orientation-selection-button orientation-selection-button-selected" onclick="switchOrientation(0)">0°</button>
-                <button id="orientation-selection-second-button" class="orientation-selection-button" onclick="switchOrientation(90)">90°</button>
-                <button id="orientation-selection-third-button" class="orientation-selection-button" onclick="switchOrientation(180)">180°</button>
-                <button id="orientation-selection-fourth-button" class="orientation-selection-button" onclick="switchOrientation(270)">270°</button>
-            </div>
-        </div>
-        <hr>
-        <form id="net-selection-section" class="pannel-section" action="/kicad/select_nets" method="post" target="hiddenFrame">
-            <h2>Net selection</h2>
-
-            <div class="pannel-twenty-seventy">
-                <div>
-                    <input id="net-selection-first-mouse-select" class="net-selection-slider" type="checkbox"/>
-                    <label class="toggle" for="net-selection-first-mouse-select" onclick="untoggle('second');untoggleCandidate('first');untoggleCandidate('second')">Pick</label>
+                <div class="custom-file-upload-group">
+                    <label for="layout-file" id="layout-file-button" class="custom-file-upload">
+                        Select the layout
+                    </label>
+                    <input type="file" id="layout-file" class="file-upload-input" name="layout_file" accept=".kicad_pcb" onchange="subFile(this, 'layout')" required>
                 </div>
-                <select id="net-selection-first-select" name="first-net"></select>
-            </div>
+                <button id="upload-button">Upload</button>
+            </form>
+            <hr>
+            <div id="layout-config-selection-section" class="pannel-section">
+                <h2>Orientation selection</h2>
 
-            <div class="pannel-twenty-seventy">
-                <div>
-                    <input id="net-selection-second-mouse-select" class="net-selection-slider" type="checkbox"/>
-                    <label class="toggle" for="net-selection-second-mouse-select" onclick="untoggle('first');untoggleCandidate('first');untoggleCandidate('second')">Pick</label>
+                <div id="orientation-selection" class="full-line">
+                    <button id="orientation-selection-first-button" class="orientation-selection-button orientation-selection-button-selected" onclick="switchOrientation(0)">0°</button>
+                    <button id="orientation-selection-second-button" class="orientation-selection-button" onclick="switchOrientation(90)">90°</button>
+                    <button id="orientation-selection-third-button" class="orientation-selection-button" onclick="switchOrientation(180)">180°</button>
+                    <button id="orientation-selection-fourth-button" class="orientation-selection-button" onclick="switchOrientation(270)">270°</button>
                 </div>
-                <select id="net-selection-second-select" name="second-net"></select>
             </div>
+            <hr>
+            <form id="net-selection-section" class="pannel-section" action="/kicad/select_nets" method="post" target="hiddenFrame">
+                <h2>Net selection</h2>
 
-            <button id="net-selection-button">Find probe candidates</button>
-            <p id="net-selection-status"></p>
-        </form>
-        <hr>
-        <div class="pannel-section">
-            <h2>Probe selection</h2>
-            <div class=" pannel-fifty-fifty">
-                <div>
-                    <input id="candidates-selection-first-mouse-select" class="net-selection-slider" type="checkbox"/>
-                    <label id="candidates-selection-first-label" class="toggle" for="candidates-selection-first-mouse-select" onclick="untoggleCandidate('second');untoggle('first');untoggle('second')">Probe 1: </label>
+                <div class="pannel-twenty-seventy">
+                    <div>
+                        <input id="net-selection-first-mouse-select" class="net-selection-slider" type="checkbox"/>
+                        <label class="toggle" for="net-selection-first-mouse-select" onclick="untoggle('second');untoggleCandidate('first');untoggleCandidate('second')">Pick</label>
+                    </div>
+                    <select id="net-selection-first-select" name="first-net"></select>
                 </div>
 
-                <div>
-                    <input id="candidates-selection-second-mouse-select" class="net-selection-slider" type="checkbox"/>
-                    <label id="candidates-selection-second-label" class="toggle" for="candidates-selection-second-mouse-select" onclick="untoggleCandidate('first');untoggle('first');untoggle('second')">Probe 2: </label>
+                <div class="pannel-twenty-seventy">
+                    <div>
+                        <input id="net-selection-second-mouse-select" class="net-selection-slider" type="checkbox"/>
+                        <label class="toggle" for="net-selection-second-mouse-select" onclick="untoggle('first');untoggleCandidate('first');untoggleCandidate('second')">Pick</label>
+                    </div>
+                    <select id="net-selection-second-select" name="second-net"></select>
                 </div>
+
+                <button id="net-selection-button">Find probe candidates</button>
+                <p id="net-selection-status"></p>
+            </form>
+            <hr>
+            <div class="pannel-section">
+                <h2>Probe selection</h2>
+                <div class=" pannel-fifty-fifty">
+                    <div>
+                        <input id="candidates-selection-first-mouse-select" class="net-selection-slider" type="checkbox"/>
+                        <label id="candidates-selection-first-label" class="toggle" for="candidates-selection-first-mouse-select" onclick="untoggleCandidate('second');untoggle('first');untoggle('second')">Probe 1: </label>
+                    </div>
+
+                    <div>
+                        <input id="candidates-selection-second-mouse-select" class="net-selection-slider" type="checkbox"/>
+                        <label id="candidates-selection-second-label" class="toggle" for="candidates-selection-second-mouse-select" onclick="untoggleCandidate('first');untoggle('first');untoggle('second')">Probe 2: </label>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="pannel-section">
+                <button id="probe-button" onclick="sendProbeCommand()">Probe</button>
             </div>
         </div>
-        <hr>
-        <div class="pannel-section">
-            <button id="probe-button" onclick="sendProbeCommand()">Probe</button>
-        </div>
-    </div>
+    </main>
     <iframe name="hiddenFrame" width="0" height="0" border="0" style="display: none;"></iframe>
     <script type="module" src="/static/js/kicanvas/kicanvas.js"></script>
     <script src="/static/js/main.js"></script>

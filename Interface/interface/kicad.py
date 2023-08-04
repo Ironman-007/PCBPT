@@ -18,7 +18,7 @@ LAYOUT_EXTENSION = ".kicad_pcb"
 ALLOWED_FOOTPRINT_TAGS = ["capacitor", "resistor", "LED"]
 
 MIN_PAD_SIZE = 1.5
-BOARD_ORIENTATION = 0
+# BOARD_ORIENTATION = 0
 
 schematics_data = {}
 layouts_data = {}
@@ -169,7 +169,7 @@ def load_files(force: bool=False):
     nets_data[session["user_id"]] = nets
     edges_data[session["user_id"]] = edges
     pads_data[session["user_id"]] = pads
-    dimensions_data[session["user_id"]] = {"origin": origin, "width": width, "height": height}
+    dimensions_data[session["user_id"]] = {"origin": origin, "width": width, "height": height, "orientation": 0}
 
     sio.emit("edges", edges)
     sio.emit("pads", pads)
@@ -305,8 +305,8 @@ def select_nets():
         first_coordinates = []
         second_coordinates = []
 
-        x_offset = (layout_dimensions["height"] if BOARD_ORIENTATION == 90 else 0) + (layout_dimensions["width"] if BOARD_ORIENTATION == 180 else 0)
-        y_offset = (layout_dimensions["height"] if BOARD_ORIENTATION == 180 else 0) + (layout_dimensions["height"] if BOARD_ORIENTATION == 270 else 0)
+        x_offset = (layout_dimensions["height"] if layout_dimensions["orientation"] == 90 else 0) + (layout_dimensions["width"] if layout_dimensions["orientation"] == 180 else 0)
+        y_offset = (layout_dimensions["height"] if layout_dimensions["orientation"] == 180 else 0) + (layout_dimensions["height"] if layout_dimensions["orientation"] == 270 else 0)
 
         for pads in pads_data[user_id]:
             for pad in pads:
@@ -322,7 +322,7 @@ def select_nets():
 
                 relative_angle = pad["relative_angle"]
 
-                board_angle = BOARD_ORIENTATION * math.pi / 180
+                board_angle = layout_dimensions["orientation"] * math.pi / 180
 
                 # print(footprint_x, footprint_y, footprint_angle, pad_x, pad_y, relative_angle, board_angle)
 
@@ -375,6 +375,4 @@ def select_nets():
 @sio.on("board_orientation")
 def board_orientation(orientation):
     """Updates the board orientation"""
-    global BOARD_ORIENTATION
-    BOARD_ORIENTATION = orientation
-    # print(f"Board orientation: {BOARD_ORIENTATION}")
+    dimensions_data[session["user_id"]]["orientation"] = orientation

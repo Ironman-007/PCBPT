@@ -11,7 +11,9 @@ body {
 
     --primary-background: #3b3b3b;
     --secondary-background: #111111;
+    --filling-color: var(--secondary-background);
     --primary-text: #ffffff;
+    /* --border-color:  */
     --secondary-text: #c3c3c3;
 
     --accent-color: #c43400;
@@ -24,10 +26,68 @@ body {
 
 body {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 100vw;
+}
+
+nav {
+    width: calc(100% - 2rem);
+    height: 2rem;
+    padding: 0 1rem 0 1rem;
+
+    background-color: var(--secondary-background);
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+nav div:first-child {
+    width: 17.1rem;
+}
+nav div:last-child {
+    width: 17.1rem;
+    justify-content: space-between;
+    border-radius: var(--corner-radius);
+    overflow: hidden;
+}
+
+
+nav button {
+    width: calc(17.1rem / 3);
+    min-height: 1.5rem;
+
+    color: var(--primary-text);
+    border: 2px solid var(--primary-text);
+    border-radius: 0;
+    background-color: var(--secondary-background);
+    font-size: 0.8rem;
+
+    transition: 0.1s ease-in-out;
+
+}
+
+nav button:hover:not([disabled]) {
+    background-color: var(--primary-background);
+}
+
+main {
+    display: flex;
     flex-direction: row;
     justify-content: space-between;
 
-    max-width: 100vw;
+    width: 100vw;
+    height: calc(100vh - 2rem);
 }
 
 ::-webkit-scrollbar {
@@ -109,15 +169,16 @@ input {
     min-height: 1.5rem;
     margin: 0 0 1rem 0;
 
-    border: none;
+    color: var(--primary-text);
+    border: 2px solid var(--primary-text);
     border-radius: var(--corner-radius);
+    background-color: var(--secondary-background);
 
     transition: 0.2s ease-in-out;
 }
 
 .pannel select:hover,:focus {
     background-color: var(--primary-background);
-    color: var(--primary-text);
 }
 
 .pannel button {
@@ -125,26 +186,30 @@ input {
     min-height: 1.5rem;
     margin: 0 0 1rem 0;
 
-    border: none;
+    color: var(--primary-text);
+    border: 2px solid var(--primary-text);
     border-radius: var(--corner-radius);
+    background-color: var(--secondary-background);
     font-size: 0.8rem;
 
-    transition: 0.2s ease-in-out;
+    transition: 0.1s ease-in-out;
+
 }
 
 .pannel button:hover:not([disabled]) {
     background-color: var(--primary-background);
-    color: var(--primary-text);
 }
 
 .pannel input {
     min-height: 1.5rem;
     margin: 0 0 1rem 0;
 
-    border: none;
+    color: var(--primary-text);
+    border: 2px solid var(--primary-text);
     border-radius: var(--corner-radius);
+    background-color: var(--secondary-background);
 
-    transition: 0.2s ease-in-out;
+    transition: 0.1s ease-in-out;
 }
 
 .pannel input:hover,:focus {
@@ -303,13 +368,13 @@ input {
     flex-direction: column;
     justify-content: center;
 
-    border: none;
+    color: var(--primary-text);
+    border: 2px solid var(--primary-text);
     border-radius: var(--corner-radius);
-    background-color: var(--primary-text);
-    color: var(--secondary-background);
+    background-color: var(--secondary-background);
     font-size: 0.8rem;
 
-    transition: 0.2s ease-in-out;
+    transition: 0.1s ease-in-out;
 }
 
 .custom-file-upload-group:hover {
@@ -323,8 +388,10 @@ input {
     margin: 0 0 1rem 0;
     padding: 0.2rem 0 0 0;
 
-    border: none;
+    color: var(--primary-text);
+    border: 2px solid var(--primary-text);
     border-radius: var(--corner-radius);
+    background-color: var(--secondary-background);
     font-size: 0.8rem;
 
     position : relative ;
@@ -332,9 +399,6 @@ input {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-
-    background-color: var(--primary-text);
-    color: var(--secondary-background);
 }
 
 .toggle:hover {
@@ -346,7 +410,7 @@ input {
 }
 
 .net-selection-slider:checked + .toggle {
-    background-color: var(--primary-background);
+    background-color: var(--accent-color);
     color: var(--primary-text);
 }
 

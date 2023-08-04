@@ -97,12 +97,13 @@ let Context2D = new p5(p => {
         p.scale(scale);
 
         p.stroke(255, 100, 0);
-        p.strokeWeight(1);
-        p.fill(255, 100, 0);
+        p.strokeWeight(0.8);
+        // p.fill(255, 100, 0);
+        p.noFill();
 
         p.circle(0, 0, 2);
-        p.line(0, 0, 10, 0);
-        p.line(0, 0, 0, 10);
+        p.line(1, 0, 10, 0);
+        p.line(0, 1, 0, 10);
 
 
         p.stroke(255);
@@ -214,6 +215,43 @@ let Context2D = new p5(p => {
                 // p.text(tags, 0, 0);
                 p.pop();
             }
+        }
+    }
+
+    p.keyPressed = () => {
+        let netCheckBox1 = document.getElementById("net-selection-first-mouse-select");
+        let netCheckBox2 = document.getElementById("net-selection-second-mouse-select");
+        let candidatesCheckBox1 = document.getElementById("candidates-selection-first-mouse-select");
+        let candidatesCheckBox2 = document.getElementById("candidates-selection-second-mouse-select");
+
+        switch (p.key) {
+            case "e":
+                netCheckBox1.checked = !netCheckBox1.checked;
+                netCheckBox2.checked = false;
+                candidatesCheckBox1.checked = false;
+                candidatesCheckBox2.checked = false;
+                break;
+            case "t":
+                netCheckBox1.checked = false;
+                netCheckBox2.checked = !netCheckBox2.checked;;
+                candidatesCheckBox1.checked = false;
+                candidatesCheckBox2.checked = false;
+                break;
+            case "d":
+                netCheckBox1.checked = false;
+                netCheckBox2.checked = false;
+                candidatesCheckBox1.checked = !candidatesCheckBox1.checked;
+                candidatesCheckBox2.checked = false;
+                break;
+            case "g":
+                netCheckBox1.checked = false;
+                netCheckBox2.checked = false;
+                candidatesCheckBox1.checked = false;
+                candidatesCheckBox2.checked = !candidatesCheckBox2.checked;
+                break;
+            case "f":
+                document.getElementById("net-selection-section").submit();
+                break;
         }
     }
 
@@ -395,6 +433,8 @@ let Context3D = new p5(p => {
         setTimeout(() => {
             p.windowResized();
         }, 200);
+
+        p.debugMode();
     }
 
     p.windowResized = () => {
@@ -419,7 +459,7 @@ let Context3D = new p5(p => {
         p.scale(-1, 1, 1);
         p.rotateX(p.PI);
         p.rotateZ(p.PI);
-        p.ambientLight(50);
+        p.ambientLight(0);
         p.directionalLight(255, 255, 255, -1, 0, -1);
         // directionalLight(50, 50, 50, 1, 0, -1);
         // directionalLight(50, 50, 50, 0, 0, 1);
@@ -442,12 +482,13 @@ let Context3D = new p5(p => {
         p.model(platformLockModel);
         // pop();
 
-        p.fill(0, 255, 0)
+        p.fill(0)
         p.strokeWeight(5);
-        p.stroke(0);
+        p.stroke(255);
 
         p.translate(-45, -95, 10);
 
+        p.rotateZ(boardRotation* p.PI / 180);
         p.beginShape();
 
         for (let i = 0; i < layoutEdges.length; i++) {

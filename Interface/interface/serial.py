@@ -206,12 +206,12 @@ def probe(candidates):
 
     command = f"C A{first[1]:.3f} B{first[2]:.3f} X{second[1]:.3f} Y{second[2]:.3f}"
 
-    if port is None or port not in serial_connections:
-        sio.emit("command_response", {
-            "type": "error",
-            "data": f"Command error <br>'{command}': Device not connected"
-        })
+    # if port is None or port not in serial_connections:
+    #     sio.emit("command_response", {
+    #         "type": "error",
+    #         "data": f"Command error <br>'{command}': Device not connected"
+    #     })
 
-        return "Device not connected", 400
+    #     return "Device not connected", 400
 
     _send_command(session["port"], command)
