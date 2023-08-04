@@ -4,7 +4,13 @@
 
 #define COE_D_TO_STEPS_1_1   0.2   // needs to be calibrated
 #define COE_D_TO_STEPS_1_2   0.1   // needs to be calibrated
+#define COE_D_TO_STEPS_1_4   0.05  // needs to be calibrated
 #define COE_D_TO_STEPS_1_8   0.025 // needs to be calibrated
+
+#define COE_A_TO_STEPS_1_1   1.8   // needs to be calibrated
+#define COE_A_TO_STEPS_1_2   0.9   // needs to be calibrated
+#define COE_A_TO_STEPS_1_4   0.45  // needs to be calibrated
+#define COE_A_TO_STEPS_1_8   0.225 // needs to be calibrated
 
 #define MICROSTEPPING_1_1    0x00
 #define MICROSTEPPING_1_2    0x01
@@ -38,10 +44,13 @@ extern volatile bool stepper_homed;
 
 // #define HOME_POS_6           117.5
 // #define HOME_POS_5           -10
-#define HOME_POS                -10
+// #define HOME_POS_4           90
+#define HOME_POS                117.5
 
 #define DIR2HOME                LOW
 #define DIR2BOARD               HIGH
+
+#define RIGHT_ANGLE_STEPS       290
 
 extern volatile bool pulse_flag;
 

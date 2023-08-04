@@ -50,16 +50,16 @@ void coral_stepper::run(float distance) {
 
   if (distance_to_move > 0) {
     // #6
-    // digitalWrite(DIR_PIN, DIR2HOME);
+    digitalWrite(DIR_PIN, DIR2HOME);
     // #5
-    digitalWrite(DIR_PIN, DIR2BOARD);
+    // digitalWrite(DIR_PIN, DIR2BOARD);
   }
   else {
     distance_to_move = -1 * distance_to_move;
     // #6
-    // digitalWrite(DIR_PIN, DIR2BOARD);
+    digitalWrite(DIR_PIN, DIR2BOARD);
     // #5
-    digitalWrite(DIR_PIN, DIR2HOME);
+    // digitalWrite(DIR_PIN, DIR2HOME);
   }
 
   // steps_to_move = floor(distance_to_move/COE_D_TO_STEPS_1_2);
@@ -93,7 +93,6 @@ void coral_stepper::run(float distance) {
 
   _steps2move   = 2 * steps_to_move;
   _steps2move_i = 0;
-  // _interval     = this->step_interval;
 
   for (_steps2move_i = 0; _steps2move_i < _steps2move; _steps2move_i ++) {
     toggle_stat = !toggle_stat;
@@ -103,7 +102,7 @@ void coral_stepper::run(float distance) {
 }
 
 void coral_stepper::home(void) {
-  uint32_t _interval     = this->step_interval;
+  uint32_t _interval = this->step_interval;
 
   digitalWrite(DIR_PIN, DIR2HOME);
 
@@ -113,9 +112,23 @@ void coral_stepper::home(void) {
     digitalWrite(STEP_PIN, LOW);
     delayMicroseconds(_interval);
   }
+
+  this -> set_resolution(MICROSTEPPING_1_8);
+
+  if (CORAL_RORATION) {
+    uint64_t _steps2move   = 2 * RIGHT_ANGLE_STEPS;
+    uint64_t _steps2move_i = 0;
+
+    for (_steps2move_i = 0; _steps2move_i < _steps2move; _steps2move_i ++) {
+      toggle_stat = !toggle_stat;
+      digitalWrite(STEP_PIN, toggle_stat);
+      delayMicroseconds(_interval);
+    }
+  }
+
 }
 
-coral_stepper Coral_stepper(MICROSTEPPING_1_2, 1000);
+coral_stepper Coral_stepper(MICROSTEPPING_1_4, 1000);
 
 
 
