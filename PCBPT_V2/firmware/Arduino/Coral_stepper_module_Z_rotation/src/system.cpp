@@ -2,8 +2,9 @@
 
 #include "system.h"
 #include "coral_stepper.h"
+#include "servo_control.h"
 
-#define PIN_NUM 9
+#define PIN_NUM 10
 
 static uint8_t PINS2INIT[PIN_NUM]      = {RGB_R_PIN, RGB_G_PIN, RGB_B_PIN, STEP_PIN, DIR_PIN, MS1_PIN, MS2_PIN, MS3_PIN, LIMIT_SW_0};
 static int     PINS2INIT_MODE[PIN_NUM] = {OUTPUT, OUTPUT, OUTPUT, OUTPUT, OUTPUT, OUTPUT, OUTPUT, OUTPUT, INPUT};

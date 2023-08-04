@@ -61,7 +61,7 @@ void control_motion(void) {
     got_data = false;
 
     // if (target_pos >= HOME_POS) {
-    if (target_pos <= HOME_POS) {
+    if (target_pos >= HOME_POS) {
       Coral_stepper.home();
       Coral_stepper.set_current_pos(HOME_POS);
     }

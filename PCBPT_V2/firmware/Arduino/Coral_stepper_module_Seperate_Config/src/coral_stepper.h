@@ -4,7 +4,13 @@
 
 #define COE_D_TO_STEPS_1_1   0.2   // needs to be calibrated
 #define COE_D_TO_STEPS_1_2   0.1   // needs to be calibrated
+#define COE_D_TO_STEPS_1_4   0.05  // needs to be calibrated
 #define COE_D_TO_STEPS_1_8   0.025 // needs to be calibrated
+
+#define COE_A_TO_STEPS_1_1   1.8   // needs to be calibrated
+#define COE_A_TO_STEPS_1_2   0.9   // needs to be calibrated
+#define COE_A_TO_STEPS_1_4   0.45  // needs to be calibrated
+#define COE_A_TO_STEPS_1_8   0.225 // needs to be calibrated
 
 #define MICROSTEPPING_1_1    0x00
 #define MICROSTEPPING_1_2    0x01
@@ -15,12 +21,6 @@
 #define MS1_MASK             0x01
 #define MS2_MASK             0x02
 #define MS3_MASK             0x04
-
-#define MS1_PIN              D1
-#define MS2_PIN              D2
-#define MS3_PIN              D4
-
-#define LIMIT_SW_0           D3
 
 extern volatile bool output_flag;
 extern volatile bool output_done;
@@ -35,13 +35,6 @@ extern volatile bool stepper_homed;
 #define LED_TOGGLE_INTERVAL_MS  1000L
 #define SIMPLE_TIMER_MS         2000L
 #define TIMER_INTERVAL_MS       1L
-
-// #define HOME_POS_6           117.5
-// #define HOME_POS_5           -10
-#define HOME_POS                -10
-
-#define DIR2HOME                LOW
-#define DIR2BOARD               HIGH
 
 extern volatile bool pulse_flag;
 

@@ -2,6 +2,8 @@
 
 #include <Arduino.h>
 
+#define CORAL_RORATION 0
+
 #define CORAL_NUM 1
 
 // #include "stepper_control.h"
@@ -15,7 +17,7 @@
 
 #define SERIAL_DEBUG false
 
-#define I2C_ADDRESS  0x35
+#define I2C_ADDRESS  0x36
 
 #define LED_ON  LOW
 #define LED_OFF HIGH
