@@ -171,6 +171,7 @@ socket.on("pads", (pads) => {
 socket.on("dimensions", (dimensions) => {
     console.log(dimensions);
     layoutDimensions = dimensions;
+    switchOrientation(dimensions["orientation"]);
 });
 
 
@@ -179,9 +180,9 @@ function switchOrientation(angle) {
     let selectedOrientationButton = document.getElementById("orientation-selection-" + toWord + "-button");
     let orientationButtons = document.getElementsByClassName("orientation-selection-button");
 
-    if(selectedOrientationButton.classList.contains("orientation-selection-button-selected")) {
-        return;
-    }
+    // if(selectedOrientationButton.classList.contains("orientation-selection-button-selected")) {
+    //     return;
+    // }
 
     for(let i = 0; i < orientationButtons.length; i++) {
         orientationButtons[i].classList.remove("orientation-selection-button-selected");
@@ -194,6 +195,22 @@ function switchOrientation(angle) {
     socket.emit("board_orientation", angle);
 }
 
+// On pressing 'r' key, rotate the board
+document.addEventListener("keydown", (event) => {
+    if(event.key == "r") {
+        let angle = boardRotation + 90;
+        if(angle == 360) {
+            angle = 0;
+        }
+        console.log("Rotating board to " + angle + " degrees");
+        console.log("Board rotation: " + boardRotation);
+        switchOrientation(angle);
+    }
+    if (event.key == "p") {
+        sendProbeCommand();
+    }
+});
+
 
 function sendProbeCommand() {
     socket.emit("probe", {
@@ -203,7 +220,11 @@ function sendProbeCommand() {
 }
 
 
-setInterval(() => {
+function refreshDevices() {
     socket.emit("list_serial_devices");
+}
+
+
+setInterval(() => {
     socket.emit("get_devices_connection_status");
 }, 1000);

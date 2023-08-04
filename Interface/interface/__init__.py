@@ -20,7 +20,7 @@ def generate_id():
         print("Generating user ID")
         session["user_id"] = str(uuid.uuid4())
 
-def create_app(test_config=None, do_init_db=False):
+def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY="dev",
