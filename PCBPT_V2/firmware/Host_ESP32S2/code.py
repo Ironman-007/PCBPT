@@ -5,12 +5,19 @@ import supervisor
 import digitalio
 import struct
 
-Coral_addr_1 = '0x32'
-Coral_addr_2 = '0x33'
-Coral_addr_3 = '0x34'
-Coral_addr_4 = '0x35'
-Coral_addr_5 = '0x36'
-Coral_addr_6 = '0x37'
+Coral_addr_1  = '0x31' # A
+Coral_addr_2  = '0x32' # B
+Coral_addr_3  = '0x33' # C
+Coral_addr_4  = '0x34' # Z
+Coral_addr_5  = '0x35' # Y
+Coral_addr_6  = '0x36' # X
+
+Coral_1_EXIST = False
+Coral_2_EXIST = False
+Coral_3_EXIST = False
+Coral_4_EXIST = False
+Coral_5_EXIST = False
+Coral_6_EXIST = False
 
 IND1 = digitalio.DigitalInOut(board.IO21)
 IND2 = digitalio.DigitalInOut(board.IO35)
@@ -18,6 +25,7 @@ IND3 = digitalio.DigitalInOut(board.IO33)
 IND4 = digitalio.DigitalInOut(board.IO18)
 IND5 = digitalio.DigitalInOut(board.IO17)
 IND6 = digitalio.DigitalInOut(board.IO16)
+
 led  = digitalio.DigitalInOut(board.LED)
 
 # i2c = busio.I2C(board.SCL, board.SDA)
@@ -74,23 +82,33 @@ def scan_Coral_modules():
 
     Coral_I2C_addr = [hex(x) for x in i2c.scan()]
 
+    print(Coral_I2C_addr)
+    
+    global Coral_1_EXIST, Coral_2_EXIST, Coral_3_EXIST, Coral_4_EXIST, Coral_5_EXIST, Coral_6_EXIST
+
     if Coral_addr_1 in Coral_I2C_addr:
         IND1.value = True
+        Coral_1_EXIST = True
         print('Found Coral #1')
     if Coral_addr_2 in Coral_I2C_addr:
         IND2.value = True
+        Coral_2_EXIST = True
         print('Found Coral #2')
     if Coral_addr_3 in Coral_I2C_addr:
         IND3.value = True
+        Coral_3_EXIST = True
         print('Found Coral #3')
     if Coral_addr_4 in Coral_I2C_addr:
         IND4.value = True
+        Coral_4_EXIST = True
         print('Found Coral #4')
     if Coral_addr_5 in Coral_I2C_addr:
         IND5.value = True
+        Coral_5_EXIST = True
         print('Found Coral #5')
     if Coral_addr_6 in Coral_I2C_addr:
         IND6.value = True
+        Coral_6_EXIST = True
         print('Found Coral #6')
 
 def check_if_number(str_input):
@@ -149,8 +167,36 @@ def send_cmd(addr, pos_bytes):
 
     return True
 
+def double_check_ack(coral_num, target, addr, pos_bytes):
+        # sleep for slave to react
+    time.sleep(0.05);
+
+    # check if slave reaceived the command correctly
+    slave_ack = bytearray(12);
+    i2c.readfrom_into(addr_int, slave_ack)
+    
+    b_ack_done        = slave_ack[0:4]
+    b_ack_current_pos = slave_ack[4:8]
+    b_ack_target_pos  = slave_ack[8:12]
+
+    ack_done        = struct.unpack('f', b_ack_done)
+    ack_current_pos = struct.unpack('f', b_ack_current_pos)
+    ack_target_pos  = struct.unpack('f', b_ack_target_pos)
+
+    # the i2c slave receives the command correctly
+    if (target == ack_target_pos):
+    #    print("Coral", coral_num, "receive")
+        pass
+    # if i2c slave didn't receive the comamnd correctly, resend
+    else:
+        print("Coral #", coral_num, "didn't receive the command correcly.")
+        send_cmd(addr, pos_bytes)
+        print("Resent")
+
+    # print(ack_done, ack_current_pos, ack_target_pos)
+
 Probe1 = Probe(0.0, 0.0)
-Probe2 = Probe(0.0, 0.0)
+Probe2 = Probe(117.5, -10.0)
 
 # initialize all IOs to be used
 Pins_init()
@@ -243,41 +289,72 @@ while True:
 
         if (comm_A_exist == True and comm_B_exist == True):
             print("Probe #1 move to ", (A_pos, B_pos))
+            ################## X ##################
             Probe1.Target_X = float(A_pos)
-            print(Probe1.Target_X)
 
-            if (Probe1.Target_X == Probe1.Current_X):
-                print("Probe #1 X not changing")
+            if (Probe1.Target_X > 100):
+                print("Probe #1 X OVER LIMIT")
                 pass
             else:
               # Translate Probe1.Target_X to bytes array pos_bytes
               pos_bytes = bytearray(struct.pack("f", Probe1.Target_X))  
               # send it to Probe1
-              send_cmd(Coral_addr_1, pos_bytes)
+              if Coral_1_EXIST == True:
+                  send_cmd(Coral_addr_1, pos_bytes)
+                  double_check_ack(Coral_addr_1, Probe1.Target_X, Coral_addr_1, pos_bytes):
               Probe1.Current_X = Probe1.Target_X
 
-            # Probe1.Target_Y = B_pos
-            # if (Probe1.Target_Y == Probe1.Current_Y):
-            #     print("Probe #1 Y not changing")
-            #     pass
-            # else:
-            #   steps = calculate_steps(Probe1.Target_Y - Probe1.Current_Y)
-            #   send_cmd(addr_B, steps)
-            #   Probe1.Current_Y = B_move
+            ################## Y ##################
+            Probe1.Target_Y = float(B_pos)
+            print(Probe1.Target_Y)
+
+            if (Probe1.Target_Y > 100):
+                print("Probe #1 Y OVER LIMIT")
+                pass
+            else:
+              # Translate Probe1.Target_Y to bytes array pos_bytes
+              pos_bytes = bytearray(struct.pack("f", Probe1.Target_Y))  
+              # send it to Probe1
+              if Coral_2_EXIST == True:
+                  send_cmd(Coral_addr_2, pos_bytes)
+                  double_check_ack(Coral_addr_2, Probe1.Target_Y, Coral_addr_2, pos_bytes):
+              Probe1.Current_Y = Probe1.Target_Y
+
         if (comm_X_exist == True and comm_Y_exist == True):
             print("Probe #2 move to ", (X_pos, Y_pos))
-            Probe2.Target_Y = X_move
-            # if (Probe2.Target_X == Probe2.Current_X):
-            #   pass
-            # else:
-            #   steps = calculate_steps(Probe2.Target_X - Probe2.Current_X)
-            #   send_cmd(addr_X, steps)
-            #   Probe2.Current_X = X_move
-            Probe2.Target_Y = Y_move
-            # if (Probe2.Target_X == Probe2.Current_X):
-            #   pass
-            # else:
-            #   steps = calculate_steps(Probe2.Target_Y - Probe2.Current_Y)
-            #   send_cmd(addr_Y, steps)
-            #   Probe2.Current_Y = Y_move
+            ################## X ##################
+            Probe2.Target_X = float(X_pos)
+            print(Probe2.Target_X)
+
+            if (Probe2.Target_X < 0):
+                print("Probe #2 X OVER LIMIT")
+                pass
+            else:
+                # Translate Probe1.Target_X to bytes array pos_bytes
+                pos_bytes = bytearray(struct.pack("f", Probe2.Target_X))  
+                # send it to Probe1
+                print(Coral_6_EXIST)
+                if Coral_6_EXIST == True:
+                    send_cmd(Coral_addr_6, pos_bytes)
+                    double_check_ack(Coral_addr_6, Probe2.Target_X, Coral_addr_6, pos_bytes):
+                Probe2.Current_X = Probe2.Target_X
+
+            ################## Y ##################
+            Probe2.Target_Y = float(Y_pos)
+            print(Probe2.Target_Y)
+
+            #if (Probe2.Target_Y == Probe2.Current_Y):
+            #    print("Probe #1 Y not changing")
+            #    pass
+            if (Probe2.Target_Y > 120):
+                print("Probe #2 Y OVER LIMIT")
+                pass
+            else:
+                # Translate Probe1.Target_Y to bytes array pos_bytes
+                pos_bytes = bytearray(struct.pack("f", Probe2.Target_Y))  
+                # send it to Probe1
+                if Coral_5_EXIST == True:
+                    send_cmd(Coral_addr_5, pos_bytes)
+                    double_check_ack(Coral_addr_5, Probe2.Target_Y, Coral_addr_5, pos_bytes):
+                Probe2.Current_Y = Probe2.Target_Y
 

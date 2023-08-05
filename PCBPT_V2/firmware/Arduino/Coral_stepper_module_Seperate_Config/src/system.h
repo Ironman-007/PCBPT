@@ -2,13 +2,11 @@
 
 #include <Arduino.h>
 
-#define SERIAL_DEBUG false
+#define SERIAL_DEBUG true
 
 #define CORAL_RORATION 0
 
 #define CORAL_NUM 1
-
-#define I2C_ADDRESS  0x36
 
 #define LED_ON  LOW
 #define LED_OFF HIGH
@@ -88,6 +86,7 @@ struct CoralConfig {
 */
 
 // Coral #4
+/*
 struct CoralConfig {
     uint8_t I2C_ADDR = 0x34;
 
@@ -106,5 +105,50 @@ struct CoralConfig {
 
     int     RIGHT_ANGLE_STEPS = 370;
 };
+*/
+
+// Coral #3
+/*
+struct CoralConfig {
+    uint8_t I2C_ADDR = 0x33;
+
+    int     DIR2HOME  = HIGH;
+    int     DIR2BOARD = LOW;
+
+    bool    IS_ROT    = true;
+
+    uint8_t PINS2INIT[PIN_NUM] = {RGB_R_PIN, RGB_G_PIN, RGB_B_PIN, STEP_PIN, DIR_PIN, MS1_PIN, MS2_PIN, MS3_PIN, LIMIT_SW_0};
+    int     PINS2INIT_MODE[PIN_NUM] = {OUTPUT, OUTPUT, OUTPUT, OUTPUT, OUTPUT, OUTPUT, OUTPUT, OUTPUT, INPUT};
+    int     PINS2INIT_STAT[PIN_NUM] = {LED_OFF, LED_OFF, LED_OFF, LOW, HIGH, HIGH, HIGH, LOW};
+
+    float   HOME_POS = 90;
+
+    bool    M_control = SMALLER;
+
+    int     RIGHT_ANGLE_STEPS = 370;
+};
+*/
+
+// Coral #3
+// /*
+struct CoralConfig {
+    uint8_t I2C_ADDR = 0x31;
+
+    int     DIR2HOME  = HIGH;
+    int     DIR2BOARD = LOW;
+
+    bool    IS_ROT    = true;
+
+    uint8_t PINS2INIT[PIN_NUM] = {RGB_R_PIN, RGB_G_PIN, RGB_B_PIN, STEP_PIN, DIR_PIN, MS1_PIN, MS2_PIN, MS3_PIN, LIMIT_SW_0};
+    int     PINS2INIT_MODE[PIN_NUM] = {OUTPUT, OUTPUT, OUTPUT, OUTPUT, OUTPUT, OUTPUT, OUTPUT, OUTPUT, INPUT};
+    int     PINS2INIT_STAT[PIN_NUM] = {LED_OFF, LED_OFF, LED_OFF, LOW, HIGH, HIGH, HIGH, LOW};
+
+    float   HOME_POS = 90;
+
+    bool    M_control = BIGGER;
+
+    int     RIGHT_ANGLE_STEPS = 370;
+};
+// */
 
 extern CoralConfig Coral;

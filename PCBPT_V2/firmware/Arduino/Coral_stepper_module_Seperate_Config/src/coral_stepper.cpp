@@ -1,6 +1,7 @@
 #include <Arduino.h>
 
 #include "coral_stepper.h"
+#include "cmd.h"
 
 volatile bool output_flag   = false;
 volatile bool output_done   = false;
@@ -44,6 +45,8 @@ void coral_stepper::set_current_pos(float pos) {
 }
 
 void coral_stepper::run(float distance) {
+  set_coral_state_done(MOVING);
+
   float distance_to_move     = distance;
 
   uint64_t steps_to_move     = 0;
@@ -94,9 +97,12 @@ void coral_stepper::run(float distance) {
     digitalWrite(STEP_PIN, toggle_stat);
     delayMicroseconds(_interval);
   }
+  set_coral_state_done(MOTION_DONE);
 }
 
 void coral_stepper::home(void) {
+  set_coral_state_done(MOVING);
+
   uint32_t _interval = this->step_interval;
 
   digitalWrite(DIR_PIN, Coral.DIR2HOME);
@@ -121,7 +127,7 @@ void coral_stepper::home(void) {
       delayMicroseconds(_interval);
     }
   }
-
+  set_coral_state_done(MOTION_DONE);
 }
 
 coral_stepper Coral_stepper(MICROSTEPPING_1_4, 1000);
