@@ -17,7 +17,7 @@ sio = SocketIO(
 def generate_id():
     """Generate a user ID if it doesn't exist in the session"""
     if "user_id" not in session:
-        print("Generating user ID")
+        # print("Generating user ID")
         session["user_id"] = str(uuid.uuid4())
 
 def create_app(test_config=None):

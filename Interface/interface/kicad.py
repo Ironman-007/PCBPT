@@ -169,11 +169,12 @@ def load_files(force: bool=False):
     nets_data[session["user_id"]] = nets
     edges_data[session["user_id"]] = edges
     pads_data[session["user_id"]] = pads
-    dimensions_data[session["user_id"]] = {"origin": origin, "width": width, "height": height, "orientation": 0}
+    dimensions = {"origin": origin, "width": width, "height": height, "orientation": 0}
+    dimensions_data[session["user_id"]] = dimensions
 
     sio.emit("edges", edges)
     sio.emit("pads", pads)
-    sio.emit("dimensions", {"origin": origin, "width": width, "height": height})
+    sio.emit("dimensions", dimensions)
 
 
 
@@ -375,4 +376,5 @@ def select_nets():
 @sio.on("board_orientation")
 def board_orientation(orientation):
     """Updates the board orientation"""
+    # print("Board orientation:", orientation)
     dimensions_data[session["user_id"]]["orientation"] = orientation
