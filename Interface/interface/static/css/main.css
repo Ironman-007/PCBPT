@@ -16,6 +16,12 @@ body {
     /* --border-color:  */
     --secondary-text: #c3c3c3;
 
+    --button-background: #111111;
+    --button-background-hover: #3b3b3b;
+    --button-text: #ffffff;
+    --button-border: #ffffff;
+    --button-border-width: 2px;
+
     --accent-color: #c43400;
 
     --corner-radius: 0.3rem;
@@ -64,13 +70,9 @@ nav div:last-child {
 
 
 nav button {
-    width: calc(17.1rem / 3);
+    width: 5rem;
     min-height: 1.5rem;
 
-    color: var(--primary-text);
-    border: 2px solid var(--primary-text);
-    border-radius: 0;
-    background-color: var(--secondary-background);
     font-size: 0.8rem;
 
     transition: 0.1s ease-in-out;
@@ -114,6 +116,17 @@ main {
 
 input {
     box-sizing: border-box;
+}
+
+.clickable {
+    color: var(--button-text);
+    border: var(--button-border-width) solid var(--button-border);
+    border-radius: var(--corner-radius);
+    background-color: var(--button-background);
+}
+
+.clickable:hover:not([disabled]) {
+    background-color: var(--button-background-hover);
 }
 
 .pannel {
@@ -169,16 +182,11 @@ input {
     min-height: 1.5rem;
     margin: 0 0 1rem 0;
 
-    color: var(--primary-text);
-    border: 2px solid var(--primary-text);
-    border-radius: var(--corner-radius);
-    background-color: var(--secondary-background);
-
     transition: 0.2s ease-in-out;
 }
 
 .pannel select:hover,:focus {
-    background-color: var(--primary-background);
+    background-color: var(--button-background-hover);
 }
 
 .pannel button {
@@ -186,35 +194,17 @@ input {
     min-height: 1.5rem;
     margin: 0 0 1rem 0;
 
-    color: var(--primary-text);
-    border: 2px solid var(--primary-text);
-    border-radius: var(--corner-radius);
-    background-color: var(--secondary-background);
     font-size: 0.8rem;
 
     transition: 0.1s ease-in-out;
 
 }
 
-.pannel button:hover:not([disabled]) {
-    background-color: var(--primary-background);
-}
-
 .pannel input {
     min-height: 1.5rem;
     margin: 0 0 1rem 0;
 
-    color: var(--primary-text);
-    border: 2px solid var(--primary-text);
-    border-radius: var(--corner-radius);
-    background-color: var(--secondary-background);
-
     transition: 0.1s ease-in-out;
-}
-
-.pannel input:hover,:focus {
-    background-color: var(--primary-background);
-    color: var(--primary-text);
 }
 
 .pannel hr {
@@ -323,7 +313,7 @@ input {
 }
 
 .connected {
-    background-color: darkolivegreen;
+    background-color: darkolivegreen !important;
     color: white;
 }
 
@@ -368,18 +358,14 @@ input {
     flex-direction: column;
     justify-content: center;
 
-    color: var(--primary-text);
-    border: 2px solid var(--primary-text);
-    border-radius: var(--corner-radius);
-    background-color: var(--secondary-background);
     font-size: 0.8rem;
 
     transition: 0.1s ease-in-out;
 }
 
-.custom-file-upload-group:hover {
-    background-color: var(--primary-background);
-    color: var(--primary-text);
+.custom-file-upload {
+    height: 1.5rem;
+    line-height: 1.5rem;
 }
 
 .toggle {
@@ -388,10 +374,6 @@ input {
     margin: 0 0 1rem 0;
     padding: 0.2rem 0 0 0;
 
-    color: var(--primary-text);
-    border: 2px solid var(--primary-text);
-    border-radius: var(--corner-radius);
-    background-color: var(--secondary-background);
     font-size: 0.8rem;
 
     position : relative ;
@@ -399,10 +381,6 @@ input {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-}
-
-.toggle:hover {
-    background-color: var(--primary-background);
 }
 
 .net-selection-slider {
@@ -471,7 +449,6 @@ input {
     width: 25%;
     border-radius: 0 !important;
     margin: 0 !important;
-    color: var(--primary-background);
 }
 
 .orientation-selection-button-selected {
