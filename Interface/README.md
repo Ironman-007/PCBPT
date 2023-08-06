@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The PCBPT Interface is a web application that allows users to interact with the PCBPT system. It is built using the python [Flask](https://flask.palletsprojects.com/en/2.3.x/) framework and is designed to be run on a standalone raspberry pi. The interface is designed to be used on a local network and is not intended to be exposed to the internet.
+The PCBPT Interface is a web application that allows users to interact with the PCBPT system. It is built using the python [Flask](https://flask.palletsprojects.com/en/2.3.x/) framework and is designed to be run on a standalone raspberry pi. The interface is accessible via a web browser on any device connected to the same network as the raspberry pi (see [Usage](#usage) for more details).
 
 ![PCBPT Interface](docs/interface_main.png)
 
