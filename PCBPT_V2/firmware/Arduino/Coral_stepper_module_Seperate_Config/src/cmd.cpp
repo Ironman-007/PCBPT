@@ -2,6 +2,7 @@
 
 #include "cmd.h"
 #include "system.h"
+#include "servo_control.h"
 
 #define RECV_DATA_LEN  5
 
@@ -110,38 +111,39 @@ void control_motion(void) {
   if (got_data) {
     got_data = false;
 
-    if (Coral.M_control) {
-      if (target_pos >= Coral.HOME_POS) {
-        Coral_stepper.home();
-        Coral_stepper.set_current_pos(Coral.HOME_POS);
-        set_coral_state_currentpos(Coral.HOME_POS);
+    if (!Coral.HAS_SERVO) {
+      if (Coral.M_control) {
+        if (target_pos >= Coral.HOME_POS) {
+          Coral_stepper.home();
+          Coral_stepper.set_current_pos(Coral.HOME_POS);
+          set_coral_state_currentpos(Coral.HOME_POS);
+        }
+        else {
+          distance2move = target_pos - Coral_stepper.current_pos;
+
+          if (SERIAL_DEBUG) {
+            Serial.print("distance2move = ");
+            Serial.println(round(distance2move));
+          }
+
+          Coral_stepper.run(distance2move);
+
+          if (SERIAL_DEBUG) {
+            Serial.print("move_steps = ");
+            Serial.println(round(move_steps));
+          }
+
+          Coral_stepper.set_current_pos(target_pos);
+          set_coral_state_currentpos(target_pos);
+        }
       }
       else {
-        distance2move = target_pos - Coral_stepper.current_pos;
-
-        if (SERIAL_DEBUG) {
-          Serial.print("distance2move = ");
-          Serial.println(round(distance2move));
+        if (target_pos <= Coral.HOME_POS) {
+          Coral_stepper.home();
+          Coral_stepper.set_current_pos(Coral.HOME_POS);
+          set_coral_state_currentpos(Coral.HOME_POS);
         }
-
-        Coral_stepper.run(distance2move);
-
-        if (SERIAL_DEBUG) {
-          Serial.print("move_steps = ");
-          Serial.println(round(move_steps));
-        }
-
-        Coral_stepper.set_current_pos(target_pos);
-        set_coral_state_currentpos(target_pos);
-      }
-    }
-    else {
-      if (target_pos <= Coral.HOME_POS) {
-        Coral_stepper.home();
-        Coral_stepper.set_current_pos(Coral.HOME_POS);
-        set_coral_state_currentpos(Coral.HOME_POS);
-      }
-      else {
+        else {
           distance2move = target_pos - Coral_stepper.current_pos;
 
           if (SERIAL_DEBUG) {
@@ -161,4 +163,14 @@ void control_motion(void) {
         }
       }
     }
+    else {
+      if (SERIAL_DEBUG) {
+        Serial.print("Probing");
+        Serial.println(target_pos);
+      }
+
+      if (target_pos > 0) probe(PROBE_POS);
+      else                probe(UNPROBE_POS);
+    }
+  }
 }
