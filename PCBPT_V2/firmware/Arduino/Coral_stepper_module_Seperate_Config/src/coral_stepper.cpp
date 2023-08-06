@@ -2,6 +2,7 @@
 
 #include "coral_stepper.h"
 #include "cmd.h"
+#include "servo_control.h"
 
 volatile bool output_flag   = false;
 volatile bool output_done   = false;
@@ -102,6 +103,11 @@ void coral_stepper::run(float distance) {
 
 void coral_stepper::home(void) {
   set_coral_state_done(MOVING);
+
+  if (Coral.HAS_SERVO) {
+    probe(UNPROBE_POS); // Lift up the probe
+    if (SERIAL_DEBUG) Serial.println("probe(UNPROBE_POS)");
+  }
 
   uint32_t _interval = this->step_interval;
 

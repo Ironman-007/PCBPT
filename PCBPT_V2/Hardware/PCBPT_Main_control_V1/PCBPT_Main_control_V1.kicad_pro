@@ -448,7 +448,7 @@
       "idf": "",
       "netlist": "",
       "specctra_dsn": "",
-      "step": "",
+      "step": "PCBPT_Main_control_V1.step",
       "vrml": ""
     },
     "page_layout_descr_file": ""
