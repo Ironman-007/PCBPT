@@ -2,7 +2,7 @@
 
 #include <Arduino.h>
 
-#define SERIAL_DEBUG true
+#define SERIAL_DEBUG false
 
 #define CORAL_RORATION 0
 
@@ -96,7 +96,7 @@ struct CoralConfig {
 */
 
 // Coral #4
-// /*
+/*
 struct CoralConfig {
     uint8_t I2C_ADDR  = 0x34;
 
@@ -119,10 +119,10 @@ struct CoralConfig {
 
     int     RIGHT_ANGLE_STEPS = 370;
 };
-// */
+*/
 
 // Coral #3
-/*
+// /*
 struct CoralConfig {
     uint8_t I2C_ADDR = 0x33;
 
@@ -143,9 +143,9 @@ struct CoralConfig {
 
     bool    M_control = SMALLER;
 
-    int     RIGHT_ANGLE_STEPS = 370;
+    int     RIGHT_ANGLE_STEPS = 430;
 };
-*/
+// */
 
 // Coral #2
 /*
@@ -162,14 +162,14 @@ struct CoralConfig {
     int     PINS2INIT_MODE[PIN_NUM] = {OUTPUT, OUTPUT, OUTPUT, OUTPUT, OUTPUT, OUTPUT, OUTPUT, OUTPUT, INPUT};
     int     PINS2INIT_STAT[PIN_NUM] = {LED_OFF, LED_OFF, LED_OFF, LOW, HIGH, HIGH, HIGH, LOW};
 
-    float   HOME_POS = 90;
+    float   HOME_POS = -13;
 
     float   LIMIT_L  = -10;
     float   LIMIT_H  = 120;
 
-    bool    M_control = BIGGER;
+    bool    M_control = SMALLER;
 
-    int     RIGHT_ANGLE_STEPS = 370;
+    int     RIGHT_ANGLE_STEPS = 290;
 };
 */
 
@@ -178,24 +178,24 @@ struct CoralConfig {
 struct CoralConfig {
     uint8_t I2C_ADDR = 0x31;
 
-    int     DIR2HOME  = HIGH;
-    int     DIR2BOARD = LOW;
+    int     DIR2HOME  = LOW;
+    int     DIR2BOARD = HIGH;
 
-    bool    IS_ROT    = true;
+    bool    IS_ROT    = false;
     bool    HAS_SERVO = false;
 
     uint8_t PINS2INIT[PIN_NUM] = {RGB_R_PIN, RGB_G_PIN, RGB_B_PIN, STEP_PIN, DIR_PIN, MS1_PIN, MS2_PIN, MS3_PIN, LIMIT_SW_0};
     int     PINS2INIT_MODE[PIN_NUM] = {OUTPUT, OUTPUT, OUTPUT, OUTPUT, OUTPUT, OUTPUT, OUTPUT, OUTPUT, INPUT};
     int     PINS2INIT_STAT[PIN_NUM] = {LED_OFF, LED_OFF, LED_OFF, LOW, HIGH, HIGH, HIGH, LOW};
 
-    float   HOME_POS = 90;
+    float   HOME_POS = -9;
 
-    float   LIMIT_L  = -10;
-    float   LIMIT_H  = 120;
+    float   LIMIT_L  = -20;
+    float   LIMIT_H  = 110;
 
-    bool    M_control = BIGGER;
+    bool    M_control = SMALLER;
 
-    int     RIGHT_ANGLE_STEPS = 370;
+    int     RIGHT_ANGLE_STEPS = 290;
 };
 */
 
