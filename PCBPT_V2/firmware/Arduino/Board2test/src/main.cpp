@@ -1,6 +1,7 @@
 #include <Arduino.h>
-#include <SHT1x.h>
 #include <Adafruit_NeoPixel.h>
+
+#include "Adafruit_VEML7700.h"
 
 #define PIN_LED_1 A0
 #define PIN_LED_2 A1
@@ -13,11 +14,6 @@
 #define V_3V3_PIN A8
 
 #define RGB_DIN   A6
-
-SHT1x sht1x(SHT_DATA, SHT_CLK);
-
-float temp_c    = 0.0;
-float humidity  = 0.0;
 
 float voltage   = 0.0;
 
@@ -38,13 +34,10 @@ int LED_change_2  = 1;
 int LED_change_3  = 1;
 int LED_change_4  = 1;
 
-Adafruit_NeoPixel pixels(1, RGB_DIN, NEO_GRB + NEO_KHZ800);
+float LUX = 0.0;
 
-void read_TH(void) {
-  // Read values from the sensor
-  temp_c   = sht1x.readTemperatureC();
-  humidity = sht1x.readHumidity();
-}
+Adafruit_NeoPixel pixels(1, RGB_DIN, NEO_GRB + NEO_KHZ800);
+// Adafruit_VEML7700 veml = Adafruit_VEML7700();
 
 void calc_DAC_change(void) {
   wave_1 = (int)(511.5 + 511.5 * sin(x));
@@ -60,6 +53,9 @@ void calc_LED_change(int led_value, int * led_change_value) {
 }
 
 void setup() {
+  // veml.begin();
+  // veml.setIntegrationTime(VEML7700_IT_25MS);
+
   analogWriteResolution(10);
 
   pinMode(PIN_LED_2, OUTPUT);
@@ -72,8 +68,8 @@ void setup() {
 
   pixels.begin();
 
-  SerialUSB.begin(115200);
-  while (!SerialUSB) delay(10);
+  // SerialUSB.begin(115200);
+  // while (!SerialUSB) delay(10);
 }
 
 void loop() {
@@ -97,20 +93,15 @@ void loop() {
   pixels.setPixelColor(0, pixels.Color(wave_2*0.05, wave_3*0.05, wave_4*0.05));
   pixels.show();
 
-  read_TH();
-
   voltage = analogRead(V_3V3_PIN);
   voltage = voltage/1024*3.3*2;
 
-  SerialUSB.print("3.3V value = ");
-  SerialUSB.print(voltage);
-  SerialUSB.print("V / ");
-  SerialUSB.print("Temperature: ");
-  SerialUSB.print(temp_c, DEC);
-  SerialUSB.print("C / ");
-  SerialUSB.print("Humidity: ");
-  SerialUSB.print(humidity, DEC);
-  SerialUSB.println("%");
+  // LUX = veml.readLux();
+
+  // SerialUSB.print("lux: ");
+  // SerialUSB.print(LUX);
+  // SerialUSB.print(" | 3.3V value = ");
+  // SerialUSB.println(voltage);
 
   delay(10);
 }
