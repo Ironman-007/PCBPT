@@ -39,6 +39,11 @@ START_BYTE = 'S'
 
 command_correct = True
 
+probing         = False
+
+PROBE_CMD       = 10
+UNPROBE_CMD     = -10
+
 class Probe:
   def __init__(self, Init_Coor_X, Init_Coor_Y):
     self.Current_X = Init_Coor_X
@@ -252,6 +257,10 @@ while True:
             continue
 
         if cmd[0] == "P" or cmd[0] == "C":
+            if cmd[0] == "P":
+                probing = True
+            if cmd[0] == "C":
+                probing = False
             pass
         else:
             command_correct == False
@@ -315,10 +324,16 @@ while True:
 
         if (comm_A_exist == True and comm_B_exist == True):
             print("Probe #1 move to ", (A_pos, B_pos))
+
+            if Coral_3_EXIST == True:
+                pos_bytes = bytearray(struct.pack("f", UNPROBE_CMD))
+                send_cmd(Coral_addr_3, pos_bytes)
+                time.sleep(0.2);
+ 
             ################## X ##################
             Probe1.Target_X = float(A_pos)
 
-            if (Probe1.Target_X > 100):
+            if (Probe1.Target_X > 110):
                 print("Probe #1 X OVER LIMIT")
                 pass
             else:
@@ -339,7 +354,7 @@ while True:
             ################## Y ##################
             Probe1.Target_Y = float(B_pos)
 
-            if (Probe1.Target_Y > 100):
+            if (Probe1.Target_Y > 120):
                 print("Probe #1 Y OVER LIMIT")
                 pass
             else:
@@ -357,10 +372,23 @@ while True:
                     post_processing(2, Coral_addr_2, Probe1.Current_Y, Probe1.Target_Y)
                     Probe1.Current_Y = Probe1.Target_Y
 
+            if Coral_3_EXIST == True:
+                if probing == True:
+                    pos_bytes = bytearray(struct.pack("f", PROBE_CMD)) 
+                    send_cmd(Coral_addr_3, pos_bytes)
+                else:
+                    pos_bytes = bytearray(struct.pack("f", UNPROBE_CMD))
+                    send_cmd(Coral_addr_3, pos_bytes)
+
         if (comm_X_exist == True and comm_Y_exist == True):
             print("Probe #2 move to ", (X_pos, Y_pos))
             ################## X ##################
             Probe2.Target_X = float(X_pos)
+
+            if Coral_4_EXIST == True:
+                pos_bytes = bytearray(struct.pack("f", UNPROBE_CMD))
+                send_cmd(Coral_addr_4, pos_bytes)
+                time.sleep(0.2);
 
             if (Probe2.Target_X < 0):
                 print("Probe #2 X OVER LIMIT")
@@ -404,5 +432,14 @@ while True:
 
                     post_processing(5, Coral_addr_5, Probe2.Current_Y, Probe2.Target_Y)
                     Probe2.Current_Y = Probe2.Target_Y
+
+            if Coral_4_EXIST == True:
+                if probing == True:
+                    pos_bytes = bytearray(struct.pack("f", PROBE_CMD)) 
+                    send_cmd(Coral_addr_4, pos_bytes)
+                else:
+                    pos_bytes = bytearray(struct.pack("f", UNPROBE_CMD))
+                    send_cmd(Coral_addr_4, pos_bytes)
                     
                 
+

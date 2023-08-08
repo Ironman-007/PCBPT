@@ -162,7 +162,7 @@ struct CoralConfig {
     int     PINS2INIT_MODE[PIN_NUM] = {OUTPUT, OUTPUT, OUTPUT, OUTPUT, OUTPUT, OUTPUT, OUTPUT, OUTPUT, INPUT};
     int     PINS2INIT_STAT[PIN_NUM] = {LED_OFF, LED_OFF, LED_OFF, LOW, HIGH, HIGH, HIGH, LOW};
 
-    float   HOME_POS = -13;
+    float   HOME_POS = -13.5;
 
     float   LIMIT_L  = -10;
     float   LIMIT_H  = 120;
@@ -188,7 +188,7 @@ struct CoralConfig {
     int     PINS2INIT_MODE[PIN_NUM] = {OUTPUT, OUTPUT, OUTPUT, OUTPUT, OUTPUT, OUTPUT, OUTPUT, OUTPUT, INPUT};
     int     PINS2INIT_STAT[PIN_NUM] = {LED_OFF, LED_OFF, LED_OFF, LOW, HIGH, HIGH, HIGH, LOW};
 
-    float   HOME_POS = -9;
+    float   HOME_POS = -8;
 
     float   LIMIT_L  = -20;
     float   LIMIT_H  = 110;

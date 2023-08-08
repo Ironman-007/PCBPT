@@ -6,8 +6,8 @@
 
 #define SERVO_PIN D29
 
-#define PROBE_POS   140
-#define UNPROBE_POS 10
+#define PROBE_POS   100
+#define UNPROBE_POS 0
 
 extern void servo_init(void);
 extern void probe(int value);
