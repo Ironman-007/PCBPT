@@ -1,0 +1,562 @@
+%%% -*-BibTeX-*-
+%%% Do NOT edit. File created by BibTeX with style
+%%% ACM-Reference-Format-Journals [18-Jan-2012].
+
+\begin{thebibliography}{38}
+
+%%% ====================================================================
+%%% NOTE TO THE USER: you can override these defaults by providing
+%%% customized versions of any of these macros before the \bibliography
+%%% command.  Each of them MUST provide its own final punctuation,
+%%% except for \shownote{}, \showDOI{}, and \showURL{}.  The latter two
+%%% do not use final punctuation, in order to avoid confusing it with
+%%% the Web address.
+%%%
+%%% To suppress output of a particular field, define its macro to expand
+%%% to an empty string, or better, \unskip, like this:
+%%%
+%%% \newcommand{\showDOI}[1]{\unskip}   % LaTeX syntax
+%%%
+%%% \def \showDOI #1{\unskip}           % plain TeX syntax
+%%%
+%%% ====================================================================
+
+\ifx \showCODEN    \undefined \def \showCODEN     #1{\unskip}     \fi
+\ifx \showDOI      \undefined \def \showDOI       #1{#1}\fi
+\ifx \showISBNx    \undefined \def \showISBNx     #1{\unskip}     \fi
+\ifx \showISBNxiii \undefined \def \showISBNxiii  #1{\unskip}     \fi
+\ifx \showISSN     \undefined \def \showISSN      #1{\unskip}     \fi
+\ifx \showLCCN     \undefined \def \showLCCN      #1{\unskip}     \fi
+\ifx \shownote     \undefined \def \shownote      #1{#1}          \fi
+\ifx \showarticletitle \undefined \def \showarticletitle #1{#1}   \fi
+\ifx \showURL      \undefined \def \showURL       {\relax}        \fi
+% The following commands are used for tagged output and should be
+% invisible to TeX
+\providecommand\bibfield[2]{#2}
+\providecommand\bibinfo[2]{#2}
+\providecommand\natexlab[1]{#1}
+\providecommand\showeprint[2][]{arXiv:#2}
+
+\bibitem[\protect\citeauthoryear{Ablamowicz and Fauser}{Ablamowicz and
+  Fauser}{2007}]%
+        {Ablamowicz07}
+\bibfield{author}{\bibinfo{person}{Rafal Ablamowicz} {and}
+  \bibinfo{person}{Bertfried Fauser}.} \bibinfo{year}{2007}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{CLIFFORD: a Maple 11 Package for Clifford
+  Algebra Computations, version 11}}.
+\newblock
+\urldef\tempurl%
+\url{http://math.tntech.edu/rafal/cliff11/index.html}
+\showURL{%
+Retrieved February 28, 2008 from \tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Abril and Plant}{Abril and Plant}{2007}]%
+        {Abril07}
+\bibfield{author}{\bibinfo{person}{Patricia~S. Abril} {and}
+  \bibinfo{person}{Robert Plant}.} \bibinfo{year}{2007}\natexlab{}.
+\newblock \showarticletitle{The patent holder's dilemma: Buy, sell, or troll?}
+\newblock \bibinfo{journal}{\emph{Commun. ACM}} \bibinfo{volume}{50},
+  \bibinfo{number}{1} (\bibinfo{date}{Jan.} \bibinfo{year}{2007}),
+  \bibinfo{pages}{36--44}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1145/1188913.1188915}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Andler}{Andler}{1979}]%
+        {Andler79}
+\bibfield{author}{\bibinfo{person}{Sten Andler}.}
+  \bibinfo{year}{1979}\natexlab{}.
+\newblock \showarticletitle{Predicate Path expressions}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the 6th. ACM SIGACT-SIGPLAN
+  symposium on Principles of Programming Languages}}
+  \emph{(\bibinfo{series}{POPL '79})}. \bibinfo{publisher}{ACM Press},
+  \bibinfo{address}{New York, NY}, \bibinfo{pages}{226--236}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1145/567752.567774}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Anisi}{Anisi}{2003}]%
+        {anisi03}
+\bibfield{author}{\bibinfo{person}{David~A. Anisi}.}
+  \bibinfo{year}{2003}\natexlab{}.
+\newblock \emph{\bibinfo{title}{Optimal Motion Control of a Ground Vehicle}}.
+\newblock \bibinfo{thesistype}{Master's\ thesis}. \bibinfo{school}{Royal
+  Institute of Technology (KTH), Stockholm, Sweden}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Anzaroot and McCallum}{Anzaroot and
+  McCallum}{2013}]%
+        {UMassCitations}
+\bibfield{author}{\bibinfo{person}{Sam Anzaroot} {and} \bibinfo{person}{Andrew
+  McCallum}.} \bibinfo{year}{2013}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{{UMass} Citation Field Extraction
+  Dataset}}.
+\newblock
+\urldef\tempurl%
+\url{http://www.iesl.cs.umass.edu/data/data-umasscitationfield}
+\showURL{%
+Retrieved May 27, 2019 from \tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Anzaroot, Passos, Belanger, and
+  McCallum}{Anzaroot et~al\mbox{.}}{2014}]%
+        {AnzarootPBM14}
+\bibfield{author}{\bibinfo{person}{Sam Anzaroot}, \bibinfo{person}{Alexandre
+  Passos}, \bibinfo{person}{David Belanger}, {and} \bibinfo{person}{Andrew
+  McCallum}.} \bibinfo{year}{2014}\natexlab{}.
+\newblock \bibinfo{title}{Learning Soft Linear Constraints with Application to
+  Citation Field Extraction}.
+\newblock
+\newblock
+\showeprint[arxiv]{1403.1349}
+
+
+\bibitem[\protect\citeauthoryear{Bornmann, Wray, and Haunschild}{Bornmann
+  et~al\mbox{.}}{2019}]%
+        {Bornmann2019}
+\bibfield{author}{\bibinfo{person}{Lutz Bornmann}, \bibinfo{person}{K.~Brad
+  Wray}, {and} \bibinfo{person}{Robin Haunschild}.}
+  \bibinfo{year}{2019}\natexlab{}.
+\newblock \bibinfo{title}{Citation concept analysis {(CCA)}---A new form of
+  citation analysis revealing the usefulness of concepts for other researchers
+  illustrated by two exemplary case studies including classic books by {Thomas
+  S.~Kuhn} and {Karl R.~Popper}}.
+\newblock
+\newblock
+\showeprint[arxiv]{1905.12410}~[cs.DL]
+
+
+\bibitem[\protect\citeauthoryear{Clarkson}{Clarkson}{1985}]%
+        {Clarkson85}
+\bibfield{author}{\bibinfo{person}{Kenneth~L. Clarkson}.}
+  \bibinfo{year}{1985}\natexlab{}.
+\newblock \emph{\bibinfo{title}{Algorithms for Closest-Point Problems
+  (Computational Geometry)}}.
+\newblock \bibinfo{thesistype}{Ph.D. Dissertation}. \bibinfo{school}{Stanford
+  University}, \bibinfo{address}{Palo Alto, CA}.
+\newblock
+\newblock
+\shownote{UMI Order Number: AAT 8506171.}
+
+
+\bibitem[\protect\citeauthoryear{Cohen}{Cohen}{1996}]%
+        {JCohen96}
+\bibfield{editor}{\bibinfo{person}{Jacques Cohen}} (Ed.).
+  \bibinfo{year}{1996}\natexlab{}. \showarticletitle{Special issue: Digital
+  Libraries}.
+\newblock \bibinfo{journal}{\emph{Commun. {ACM}}} \bibinfo{volume}{39},
+  \bibinfo{number}{11} (\bibinfo{date}{Nov.} \bibinfo{year}{1996}).
+
+\bibitem[\protect\citeauthoryear{Cohen, Nutt, and Sagic}{Cohen
+  et~al\mbox{.}}{2007}]%
+        {Cohen07}
+\bibfield{author}{\bibinfo{person}{Sarah Cohen}, \bibinfo{person}{Werner Nutt},
+  {and} \bibinfo{person}{Yehoshua Sagic}.} \bibinfo{year}{2007}\natexlab{}.
+\newblock \showarticletitle{Deciding equivalances among conjunctive aggregate
+  queries}.
+\newblock \bibinfo{journal}{\emph{J. ACM}} \bibinfo{volume}{54},
+  \bibinfo{number}{2}, Article \bibinfo{articleno}{5} (\bibinfo{date}{April}
+  \bibinfo{year}{2007}), \bibinfo{numpages}{50}~pages.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1145/1219092.1219093}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Douglass, Harel, and Trakhtenbrot}{Douglass
+  et~al\mbox{.}}{1998}]%
+        {Douglass98}
+\bibfield{author}{\bibinfo{person}{Bruce~P. Douglass}, \bibinfo{person}{David
+  Harel}, {and} \bibinfo{person}{Mark~B. Trakhtenbrot}.}
+  \bibinfo{year}{1998}\natexlab{}.
+\newblock \showarticletitle{Statecarts in use: structured analysis and
+  object-orientation}.
+\newblock In \bibinfo{booktitle}{\emph{Lectures on Embedded Systems}},
+  \bibfield{editor}{\bibinfo{person}{Grzegorz Rozenberg} {and}
+  \bibinfo{person}{Frits~W. Vaandrager}} (Eds.). \bibinfo{series}{Lecture Notes
+  in Computer Science}, Vol.~\bibinfo{volume}{1494}.
+  \bibinfo{publisher}{Springer-Verlag}, \bibinfo{address}{London},
+  \bibinfo{pages}{368--394}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1007/3-540-65193-4_29}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Editor}{Editor}{2007}]%
+        {Editor00}
+\bibfield{editor}{\bibinfo{person}{Ian Editor}} (Ed.).
+  \bibinfo{year}{2007}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{The title of book one}
+  (\bibinfo{edition}{1st.} ed.)}. \bibinfo{series}{The name of the series one},
+  Vol.~\bibinfo{volume}{9}.
+\newblock \bibinfo{publisher}{University of Chicago Press},
+  \bibinfo{address}{Chicago}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1007/3-540-09237-4}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Editor}{Editor}{2008}]%
+        {Editor00a}
+\bibfield{editor}{\bibinfo{person}{Ian Editor}} (Ed.).
+  \bibinfo{year}{2008}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{The title of book two}
+  (\bibinfo{edition}{2nd.} ed.)}.
+\newblock \bibinfo{publisher}{University of Chicago Press},
+  \bibinfo{address}{Chicago}, Chapter 100.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1007/3-540-09237-4}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Gundy, Balzarotti, and Vigna}{Gundy
+  et~al\mbox{.}}{2007}]%
+        {VanGundy07}
+\bibfield{author}{\bibinfo{person}{Matthew~Van Gundy}, \bibinfo{person}{Davide
+  Balzarotti}, {and} \bibinfo{person}{Giovanni Vigna}.}
+  \bibinfo{year}{2007}\natexlab{}.
+\newblock \showarticletitle{Catch me, if you can: Evading network signatures
+  with web-based polymorphic worms}. In \bibinfo{booktitle}{\emph{Proceedings
+  of the first USENIX workshop on Offensive Technologies}}
+  \emph{(\bibinfo{series}{WOOT '07})}. \bibinfo{publisher}{USENIX Association},
+  \bibinfo{address}{Berkley, CA}, Article \bibinfo{articleno}{7},
+  \bibinfo{numpages}{9}~pages.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Hagerup, Mehlhorn, and Munro}{Hagerup
+  et~al\mbox{.}}{1993}]%
+        {Hagerup1993}
+\bibfield{author}{\bibinfo{person}{Torben Hagerup}, \bibinfo{person}{Kurt
+  Mehlhorn}, {and} \bibinfo{person}{J.~Ian Munro}.}
+  \bibinfo{year}{1993}\natexlab{}.
+\newblock \showarticletitle{Maintaining Discrete Probability Distributions
+  Optimally}. In \bibinfo{booktitle}{\emph{Proceedings of the 20th
+  International Colloquium on Automata, Languages and Programming}}
+  \emph{(\bibinfo{series}{Lecture Notes in Computer Science},
+  Vol.~\bibinfo{volume}{700})}. \bibinfo{publisher}{Springer-Verlag},
+  \bibinfo{address}{Berlin}, \bibinfo{pages}{253--264}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Harel}{Harel}{1978}]%
+        {Harel78}
+\bibfield{author}{\bibinfo{person}{David Harel}.}
+  \bibinfo{year}{1978}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{LOGICS of Programs: AXIOMATICS and
+  DESCRIPTIVE POWER}}.
+\newblock \bibinfo{type}{MIT Research Lab Technical Report} TR-200.
+  \bibinfo{institution}{Massachusetts Institute of Technology},
+  \bibinfo{address}{Cambridge, MA}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Harel}{Harel}{1979}]%
+        {Harel79}
+\bibfield{author}{\bibinfo{person}{David Harel}.}
+  \bibinfo{year}{1979}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{First-Order Dynamic Logic}}.
+  \bibinfo{series}{Lecture Notes in Computer Science},
+  Vol.~\bibinfo{volume}{68}.
+\newblock \bibinfo{publisher}{Springer-Verlag}, \bibinfo{address}{New York,
+  NY}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1007/3-540-09237-4}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{H{\"o}rmander}{H{\"o}rmander}{1985a}]%
+        {MR781537}
+\bibfield{author}{\bibinfo{person}{Lars H{\"o}rmander}.}
+  \bibinfo{year}{1985}\natexlab{a}.
+\newblock \bibinfo{booktitle}{\emph{The analysis of linear partial differential
+  operators. {III}}}. \bibinfo{series}{Grundlehren der Mathematischen
+  Wissenschaften [Fundamental Principles of Mathematical Sciences]},
+  Vol.~\bibinfo{volume}{275}.
+\newblock \bibinfo{publisher}{Springer-Verlag}, \bibinfo{address}{Berlin,
+  Germany}. viii+525 pages.
+\newblock
+\showISBNx{3-540-13828-5}
+\newblock
+\shownote{Pseudodifferential operators.}
+
+
+\bibitem[\protect\citeauthoryear{H{\"o}rmander}{H{\"o}rmander}{1985b}]%
+        {MR781536}
+\bibfield{author}{\bibinfo{person}{Lars H{\"o}rmander}.}
+  \bibinfo{year}{1985}\natexlab{b}.
+\newblock \bibinfo{booktitle}{\emph{The analysis of linear partial differential
+  operators. {IV}}}. \bibinfo{series}{Grundlehren der Mathematischen
+  Wissenschaften [Fundamental Principles of Mathematical Sciences]},
+  Vol.~\bibinfo{volume}{275}.
+\newblock \bibinfo{publisher}{Springer-Verlag}, \bibinfo{address}{Berlin,
+  Germany}. vii+352 pages.
+\newblock
+\showISBNx{3-540-13829-3}
+\newblock
+\shownote{Fourier integral operators.}
+
+
+\bibitem[\protect\citeauthoryear{IEEE}{IEEE}{2004}]%
+        {2004:ITE:1009386.1010128}
+IEEE \bibinfo{year}{2004}\natexlab{}.
+\newblock \showarticletitle{IEEE TCSC Executive Committee}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the IEEE International Conference on
+  Web Services}} \emph{(\bibinfo{series}{ICWS '04})}. \bibinfo{publisher}{IEEE
+  Computer Society}, \bibinfo{address}{Washington, DC, USA},
+  \bibinfo{pages}{21--22}.
+\newblock
+\showISBNx{0-7695-2167-3}
+\urldef\tempurl%
+\url{https://doi.org/10.1109/ICWS.2004.64}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Kirschmer and Voight}{Kirschmer and
+  Voight}{2010}]%
+        {Kirschmer:2010:AEI:1958016.1958018}
+\bibfield{author}{\bibinfo{person}{Markus Kirschmer} {and}
+  \bibinfo{person}{John Voight}.} \bibinfo{year}{2010}\natexlab{}.
+\newblock \showarticletitle{Algorithmic Enumeration of Ideal Classes for
+  Quaternion Orders}.
+\newblock \bibinfo{journal}{\emph{SIAM J. Comput.}} \bibinfo{volume}{39},
+  \bibinfo{number}{5} (\bibinfo{date}{Jan.} \bibinfo{year}{2010}),
+  \bibinfo{pages}{1714--1747}.
+\newblock
+\showISSN{0097-5397}
+\urldef\tempurl%
+\url{https://doi.org/10.1137/080734467}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Knuth}{Knuth}{1997}]%
+        {Knuth97}
+\bibfield{author}{\bibinfo{person}{Donald~E. Knuth}.}
+  \bibinfo{year}{1997}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{The Art of Computer Programming, Vol. 1:
+  Fundamental Algorithms (3rd. ed.)}}.
+\newblock \bibinfo{publisher}{Addison Wesley Longman Publishing Co., Inc.}
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Kosiur}{Kosiur}{2001}]%
+        {Kosiur01}
+\bibfield{author}{\bibinfo{person}{David Kosiur}.}
+  \bibinfo{year}{2001}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{Understanding Policy-Based Networking}
+  (\bibinfo{edition}{2nd.} ed.)}.
+\newblock \bibinfo{publisher}{Wiley}, \bibinfo{address}{New York, NY}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Lamport}{Lamport}{1986}]%
+        {Lamport:LaTeX}
+\bibfield{author}{\bibinfo{person}{Leslie Lamport}.}
+  \bibinfo{year}{1986}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{\it {\LaTeX}: A Document Preparation
+  System}}.
+\newblock \bibinfo{publisher}{Addison-Wesley}, \bibinfo{address}{Reading, MA.}
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Lee}{Lee}{2005}]%
+        {Lee05}
+\bibfield{author}{\bibinfo{person}{Newton Lee}.}
+  \bibinfo{year}{2005}\natexlab{}.
+\newblock \showarticletitle{Interview with Bill Kinder: January 13, 2005}.
+\newblock \bibinfo{howpublished}{Video}.
+\newblock \bibinfo{journal}{\emph{Comput. Entertain.}} \bibinfo{volume}{3},
+  \bibinfo{number}{1}, Article \bibinfo{articleno}{4}
+  (\bibinfo{date}{Jan.-March} \bibinfo{year}{2005}).
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1145/1057270.1057278}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Novak}{Novak}{2003}]%
+        {Novak03}
+\bibfield{author}{\bibinfo{person}{Dave Novak}.}
+  \bibinfo{year}{2003}\natexlab{}.
+\newblock \showarticletitle{Solder man}. \bibinfo{howpublished}{Video}. In
+  \bibinfo{booktitle}{\emph{ACM SIGGRAPH 2003 Video Review on Animation theater
+  Program: Part I - Vol. 145 (July 27--27, 2003)}}. \bibinfo{publisher}{ACM
+  Press}, \bibinfo{address}{New York, NY}, \bibinfo{pages}{4}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/99.9999/woot07-S422}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Obama}{Obama}{2008}]%
+        {Obama08}
+\bibfield{author}{\bibinfo{person}{Barack Obama}.}
+  \bibinfo{year}{2008}\natexlab{}.
+\newblock \bibinfo{title}{A more perfect union}.
+\newblock \bibinfo{howpublished}{Video}.
+\newblock
+\urldef\tempurl%
+\url{http://video.google.com/videoplay?docid=6528042696351994555}
+\showURL{%
+Retrieved March 21, 2008 from \tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Poker-Edge.Com}{Poker-Edge.Com}{2006}]%
+        {Poker06}
+\bibfield{author}{\bibinfo{person}{Poker-Edge.Com}.}
+  \bibinfo{year}{2006}\natexlab{}.
+\newblock \bibinfo{title}{Stats and Analysis}.
+\newblock
+\newblock
+\urldef\tempurl%
+\url{http://www.poker-edge.com/stats.php}
+\showURL{%
+Retrieved June 7, 2006 from \tempurl}
+
+
+\bibitem[\protect\citeauthoryear{{R Core Team}}{{R Core Team}}{2019}]%
+        {R}
+\bibfield{author}{\bibinfo{person}{{R Core Team}}.}
+  \bibinfo{year}{2019}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{R: A Language and Environment for
+  Statistical Computing}}.
+\newblock R Foundation for Statistical Computing, Vienna, Austria.
+\newblock
+\urldef\tempurl%
+\url{https://www.R-project.org/}
+\showURL{%
+\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Rous}{Rous}{2008}]%
+        {rous08}
+\bibfield{author}{\bibinfo{person}{Bernard Rous}.}
+  \bibinfo{year}{2008}\natexlab{}.
+\newblock \showarticletitle{The Enabling of Digital Libraries}.
+\newblock \bibinfo{journal}{\emph{Digital Libraries}} \bibinfo{volume}{12},
+  \bibinfo{number}{3}, Article \bibinfo{articleno}{5} (\bibinfo{date}{July}
+  \bibinfo{year}{2008}).
+\newblock
+\newblock
+\shownote{To appear.}
+
+
+\bibitem[\protect\citeauthoryear{Saeedi, Zamani, and Sedighi}{Saeedi
+  et~al\mbox{.}}{2010a}]%
+        {SaeediMEJ10}
+\bibfield{author}{\bibinfo{person}{Mehdi Saeedi},
+  \bibinfo{person}{Morteza~Saheb Zamani}, {and} \bibinfo{person}{Mehdi
+  Sedighi}.} \bibinfo{year}{2010}\natexlab{a}.
+\newblock \showarticletitle{A library-based synthesis methodology for
+  reversible logic}.
+\newblock \bibinfo{journal}{\emph{Microelectron. J.}} \bibinfo{volume}{41},
+  \bibinfo{number}{4} (\bibinfo{date}{April} \bibinfo{year}{2010}),
+  \bibinfo{pages}{185--194}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Saeedi, Zamani, Sedighi, and Sasanian}{Saeedi
+  et~al\mbox{.}}{2010b}]%
+        {SaeediJETC10}
+\bibfield{author}{\bibinfo{person}{Mehdi Saeedi},
+  \bibinfo{person}{Morteza~Saheb Zamani}, \bibinfo{person}{Mehdi Sedighi},
+  {and} \bibinfo{person}{Zahra Sasanian}.} \bibinfo{year}{2010}\natexlab{b}.
+\newblock \showarticletitle{Synthesis of Reversible Circuit Using Cycle-Based
+  Approach}.
+\newblock \bibinfo{journal}{\emph{J. Emerg. Technol. Comput. Syst.}}
+  \bibinfo{volume}{6}, \bibinfo{number}{4} (\bibinfo{date}{Dec.}
+  \bibinfo{year}{2010}).
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Scientist}{Scientist}{2009}]%
+        {JoeScientist001}
+\bibfield{author}{\bibinfo{person}{Joseph Scientist}.}
+  \bibinfo{year}{2009}\natexlab{}.
+\newblock \bibinfo{title}{The fountain of youth}.
+\newblock
+\newblock
+\newblock
+\shownote{Patent No. 12345, Filed July 1st., 2008, Issued Aug. 9th., 2009.}
+
+
+\bibitem[\protect\citeauthoryear{Smith}{Smith}{2010}]%
+        {Smith10}
+\bibfield{author}{\bibinfo{person}{Stan~W. Smith}.}
+  \bibinfo{year}{2010}\natexlab{}.
+\newblock \showarticletitle{An experiment in bibliographic mark-up: Parsing
+  metadata for XML export}. In \bibinfo{booktitle}{\emph{Proceedings of the
+  3rd. annual workshop on Librarians and Computers}}
+  \emph{(\bibinfo{series}{LAC '10}, Vol.~\bibinfo{volume}{3})},
+  \bibfield{editor}{\bibinfo{person}{Reginald~N. Smythe} {and}
+  \bibinfo{person}{Alexander Noble}} (Eds.). \bibinfo{publisher}{Paparazzi
+  Press}, \bibinfo{address}{Milan Italy}, \bibinfo{pages}{422--431}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/99.9999/woot07-S422}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Spector}{Spector}{1990}]%
+        {Spector90}
+\bibfield{author}{\bibinfo{person}{Asad~Z. Spector}.}
+  \bibinfo{year}{1990}\natexlab{}.
+\newblock \showarticletitle{Achieving application requirements}.
+\newblock In \bibinfo{booktitle}{\emph{Distributed Systems}
+  (\bibinfo{edition}{2nd.} ed.)}, \bibfield{editor}{\bibinfo{person}{Sape
+  Mullender}} (Ed.). \bibinfo{publisher}{ACM Press}, \bibinfo{address}{New
+  York, NY}, \bibinfo{pages}{19--33}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1145/90417.90738}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Thornburg}{Thornburg}{2001}]%
+        {Thornburg01}
+\bibfield{author}{\bibinfo{person}{Harry Thornburg}.}
+  \bibinfo{year}{2001}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{Introduction to Bayesian Statistics}}.
+\newblock
+\urldef\tempurl%
+\url{http://ccrma.stanford.edu/~jos/bayes/bayes.html}
+\showURL{%
+Retrieved March 2, 2005 from \tempurl}
+
+
+\bibitem[\protect\citeauthoryear{TUG}{TUG}{2017}]%
+        {TUGInstmem}
+TUG \bibinfo{year}{2017}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{Institutional members of the {\TeX} Users
+  Group}}.
+\newblock
+\urldef\tempurl%
+\url{http://wwtug.org/instmem.html}
+\showURL{%
+Retrieved May 27, 2017 from \tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Veytsman}{Veytsman}{2017}]%
+        {CTANacmart}
+\bibfield{author}{\bibinfo{person}{Boris Veytsman}.}
+  \bibinfo{year}{2017}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{acmart---{Class} for typesetting
+  publications of {ACM}}}.
+\newblock
+\urldef\tempurl%
+\url{http://www.ctan.org/pkg/acmart}
+\showURL{%
+Retrieved May 27, 2017 from \tempurl}
+
+
+\end{thebibliography}
