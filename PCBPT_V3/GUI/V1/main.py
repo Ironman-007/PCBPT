@@ -44,7 +44,7 @@ def get_footprint(board_in):
 
         PARTS.append(part)
 
-    # print(PARTS)
+    print(PARTS)
 
 def calc_rotation(x, y, angle):
     rad = -1*angle/180 * np.pi
@@ -60,21 +60,24 @@ def get_pads(board_in):
         for pad in pads:
             # print(pad)
             apad = dict()
-            if (pad.net != None):
-                padpos = dict()
+            # if (pad.net != None):
+            padpos = dict()
+            if (pad.net == None):
+                apad['net'] = 'None'
+            else:
                 apad['net'] = pad.net.name
-                rotation = footprint.position.angle
-                if (rotation != None):
-                    temp_x, temp_y = calc_rotation(pad.position.X, pad.position.Y, rotation)
-                    padpos['x'] = footprint.position.X + temp_x
-                    padpos['y'] = footprint.position.Y + temp_y
-                else:
-                    padpos['x'] = footprint.position.X + pad.position.X
-                    padpos['y'] = footprint.position.Y + pad.position.Y
+            rotation = footprint.position.angle
+            if (rotation != None):
+                temp_x, temp_y = calc_rotation(pad.position.X, pad.position.Y, rotation)
+                padpos['x'] = footprint.position.X + temp_x
+                padpos['y'] = footprint.position.Y + temp_y
+            else:
+                padpos['x'] = footprint.position.X + pad.position.X
+                padpos['y'] = footprint.position.Y + pad.position.Y
 
-                apad['pos'] = padpos
-                apad['size'] = pad.size.X * pad.size.Y
-                PADS.append(apad)
+            apad['pos'] = padpos
+            apad['size'] = pad.size.X * pad.size.Y
+            PADS.append(apad)
 
     # print(PADS)
 
@@ -106,16 +109,18 @@ PARTS    = []
 if __name__ == '__main__':
     get_net(board)  # get the list of the network in the design
     get_pads(board) # get all pads that connected with some signal
-
-    # get_footprint(board)
+    get_footprint(board)
 
     # plot
     fig, ax = plt.subplots()
+
     x, y = get_co(PADS)
-
-    tst_func(board)
-
     ax.scatter(x, y, s=30, c='r')
+
+    x, y = get_co(PARTS)
+    ax.scatter(x, y, s=60, c='b')
+
+    # ax.scatter([0], [0], s=100, c='k')
 
     plt.show()
 
