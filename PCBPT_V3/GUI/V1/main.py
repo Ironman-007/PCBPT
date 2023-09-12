@@ -118,7 +118,7 @@ if __name__ == '__main__':
     ax.scatter(x, y, s=30, c='r')
 
     x, y = get_co(PARTS)
-    ax.scatter(x, y, s=60, c='b')
+    ax.scatter(x, y, s=60, c='b', marker='+')
 
     # ax.scatter([0], [0], s=100, c='k')
 
