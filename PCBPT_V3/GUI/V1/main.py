@@ -21,7 +21,7 @@ def get_net(board_in):
             net['name'] = network.name
             NET_LIST.append(net)
 
-    print(NET_LIST)
+    # print(NET_LIST)
         # print(network)
 
 # def get_components(sch_in):
@@ -44,7 +44,7 @@ def get_footprint(board_in):
 
         PARTS.append(part)
 
-    print(PARTS)
+    # print(PARTS)
 
 def calc_rotation(x, y, angle):
     rad = -1*angle/180 * np.pi
@@ -58,7 +58,7 @@ def get_pads(board_in):
     for footprint in board_in.footprints:
         pads = footprint.pads
         for pad in pads:
-            print(pad)
+            # print(pad)
             apad = dict()
             if (pad.net != None):
                 padpos = dict()
@@ -76,11 +76,12 @@ def get_pads(board_in):
                 apad['size'] = pad.size.X * pad.size.Y
                 PADS.append(apad)
 
-    print(PADS)
+    # print(PADS)
 
 def tst_func(board_in):
     for footprint in board_in.footprints:
-        print(footprint)
+        # print(footprint)
+        pass
 
 def get_co(PADS_in):
     x_axis = []
