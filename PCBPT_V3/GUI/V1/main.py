@@ -8,6 +8,7 @@ from kiutils.dru import DesignRules
 from kiutils.items.fpitems import FpText
 
 import matplotlib.pyplot as plt
+import numpy as np
 
 from os import path
 
@@ -45,6 +46,14 @@ def get_footprint(board_in):
 
     print(PARTS)
 
+def calc_rotation(x, y, angle):
+    rad = -1*angle/180 * np.pi
+
+    x_r = x * np.cos(rad) - y * np.sin(rad)
+    y_r = x * np.sin(rad) + y * np.cos(rad)
+
+    return x_r, y_r
+
 def get_pads(board_in):
     for footprint in board_in.footprints:
         pads = footprint.pads
@@ -54,8 +63,15 @@ def get_pads(board_in):
             if (pad.net != None):
                 padpos = dict()
                 apad['net'] = pad.net.name
-                padpos['x'] = footprint.position.X + pad.position.X
-                padpos['y'] = footprint.position.Y + pad.position.Y
+                rotation = footprint.position.angle
+                if (rotation != None):
+                    temp_x, temp_y = calc_rotation(pad.position.X, pad.position.Y, rotation)
+                    padpos['x'] = footprint.position.X + temp_x
+                    padpos['y'] = footprint.position.Y + temp_y
+                else:
+                    padpos['x'] = footprint.position.X + pad.position.X
+                    padpos['y'] = footprint.position.Y + pad.position.Y
+
                 apad['pos'] = padpos
                 apad['size'] = pad.size.X * pad.size.Y
                 PADS.append(apad)
@@ -64,16 +80,14 @@ def get_pads(board_in):
 
 def tst_func(board_in):
     for footprint in board_in.footprints:
-        pads = footprint.pads
-        for pad in pads:
-            print(pad)
+        print(footprint)
 
 def get_co(PADS_in):
     x_axis = []
     y_axis = []
     for pad in PADS_in:
         x_axis.append(pad['pos']['x'])
-        y_axis.append(pad['pos']['y'])
+        y_axis.append(-1*pad['pos']['y'])
 
     return x_axis, y_axis
 
@@ -92,12 +106,13 @@ if __name__ == '__main__':
     get_net(board)  # get the list of the network in the design
     get_pads(board) # get all pads that connected with some signal
 
-    # tst_func(board)
     # get_footprint(board)
 
     # plot
     fig, ax = plt.subplots()
     x, y = get_co(PADS)
+
+    tst_func(board)
 
     ax.scatter(x, y, s=30, c='r')
 
