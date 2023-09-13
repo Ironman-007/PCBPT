@@ -10,6 +10,12 @@ extern "C"
 {
 #endif
 
+#define DATA_FOR_A 0
+#define DATA_FOR_B 1
+#define DATA_FOR_X 2
+#define DATA_FOR_Y 3
+#define DATA_FOR_NONE 3
+
 extern bool probe_cmd;
 
 extern uint8_t cmd_in[100];
