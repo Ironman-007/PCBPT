@@ -10,12 +10,16 @@ extern "C"
 {
 #endif
 
-extern void comm_init(void);
+extern bool probe_cmd;
 
-// your normal definitions here
+extern uint8_t cmd_in[100];
+
+extern void comm_init(void);
+extern void comm_update(void);
+//extern void comm_handle_cmd(uint8_t * cmd);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif //PICOW_COMM_H
+#endif //__COMM_H
