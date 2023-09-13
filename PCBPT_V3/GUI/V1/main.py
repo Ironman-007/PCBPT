@@ -139,8 +139,6 @@ if __name__ == '__main__':
     x, y = get_co(PARTS)
     ax.scatter(x, y, s=60, c='b', marker='+')
 
-    ax.scatter([0], [0], s=100, c='k')
-
     plt.show()
 
 
