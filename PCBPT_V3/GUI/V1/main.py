@@ -44,7 +44,7 @@ def get_footprint(board_in):
 
         PARTS.append(part)
 
-    print(PARTS)
+    # print(PARTS)
 
 def calc_rotation(x, y, angle):
     rad = -1*angle/180 * np.pi
@@ -56,6 +56,11 @@ def calc_rotation(x, y, angle):
 
 def get_pads(board_in):
     for footprint in board_in.footprints:
+        for graph in footprint.graphicItems:
+            if (type(graph) is FpText):
+                if (graph.type == 'reference'):
+                    refernce = graph.text
+                    break
         pads = footprint.pads
         for pad in pads:
             # print(pad)
@@ -75,11 +80,15 @@ def get_pads(board_in):
                 padpos['x'] = footprint.position.X + pad.position.X
                 padpos['y'] = footprint.position.Y + pad.position.Y
 
-            apad['pos'] = padpos
+            apad['pos']  = padpos
             apad['size'] = pad.size.X * pad.size.Y
+            apad['type'] = pad.type
+            apad['component']  = refernce # blongs to which component
+            print(apad)
+
             PADS.append(apad)
 
-    # print(PADS)
+    print(PADS)
 
 def tst_func(board_in):
     for footprint in board_in.footprints:
@@ -89,11 +98,20 @@ def tst_func(board_in):
 def get_co(PADS_in):
     x_axis = []
     y_axis = []
+
     for pad in PADS_in:
         x_axis.append(pad['pos']['x'])
         y_axis.append(-1*pad['pos']['y'])
 
     return x_axis, y_axis
+
+def get_size(PADS_in):
+    sizes  = []
+
+    for pad in PADS_in:
+        sizes.append(pad['size']*20)
+
+    return sizes
 
 board_path = "C:\DATA\Documents\Lab\github\PCBPT\PCBPT_V3\PCB\Board_To_Be_Tested_V2\Board_To_Be_Tested.kicad_pcb"
 board_sch_path = "C:\DATA\Documents\Lab\github\PCBPT\PCBPT_V3\PCB\Board_To_Be_Tested_V2\Board_To_Be_Tested.kicad_sch"
@@ -115,7 +133,8 @@ if __name__ == '__main__':
     fig, ax = plt.subplots()
 
     x, y = get_co(PADS)
-    ax.scatter(x, y, s=30, c='r')
+    s    = get_size(PADS)
+    ax.scatter(x, y, s=s, c='r', marker='s')
 
     x, y = get_co(PARTS)
     ax.scatter(x, y, s=60, c='b', marker='+')
