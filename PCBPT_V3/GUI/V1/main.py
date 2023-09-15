@@ -12,6 +12,18 @@ import numpy as np
 
 from os import path
 
+board_path = "C:\DATA\Documents\Lab\github\PCBPT\PCBPT_V3\PCB\Board_To_Be_Tested_V2\Board_To_Be_Tested.kicad_pcb"
+board_sch_path = "C:\DATA\Documents\Lab\github\PCBPT\PCBPT_V3\PCB\Board_To_Be_Tested_V2\Board_To_Be_Tested.kicad_sch"
+
+board = Board().from_file(board_path)
+sch   = Schematic().from_file(board_sch_path)
+
+PADS     = []
+NET_LIST = []
+PARTS    = []
+EDGE_X   = []
+EDGE_Y   = []
+
 def get_net(board_in):
     # Use a breakpoint in the code line below to debug your script.
     for network in board_in.nets:
@@ -84,11 +96,11 @@ def get_pads(board_in):
             apad['size'] = pad.size.X * pad.size.Y
             apad['type'] = pad.type
             apad['component']  = refernce # blongs to which component
-            print(apad)
+            # print(apad)
 
             PADS.append(apad)
 
-    print(PADS)
+    # print(PADS)
 
 def tst_func(board_in):
     for footprint in board_in.footprints:
@@ -113,21 +125,23 @@ def get_size(PADS_in):
 
     return sizes
 
-board_path = "C:\DATA\Documents\Lab\github\PCBPT\PCBPT_V3\PCB\Board_To_Be_Tested_V2\Board_To_Be_Tested.kicad_pcb"
-board_sch_path = "C:\DATA\Documents\Lab\github\PCBPT\PCBPT_V3\PCB\Board_To_Be_Tested_V2\Board_To_Be_Tested.kicad_sch"
+def get_outline(board_in):
+    for graphic in board_in.graphicItems:
+        # print(graphic)
+        if(graphic.layer == 'Edge.Cuts'): # edge_cuts
+            for pos in graphic.coordinates:
+                EDGE_X.append(pos.X)
+                EDGE_Y.append(-1*pos.Y)
 
-board = Board().from_file(board_path)
-sch   = Schematic().from_file(board_sch_path)
-
-PADS     = []
-NET_LIST = []
-PARTS    = []
+    # print(EDGE_X, EDGE_Y)
+            # print(graphic)
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     get_net(board)  # get the list of the network in the design
     get_pads(board) # get all pads that connected with some signal
     get_footprint(board)
+    get_outline(board)
 
     # plot
     fig, ax = plt.subplots()
@@ -138,6 +152,12 @@ if __name__ == '__main__':
 
     x, y = get_co(PARTS)
     ax.scatter(x, y, s=60, c='b', marker='+')
+
+    # x, y = EDGE_X.append(EDGE_X[0]), EDGE_Y.append(EDGE_Y[0])
+    EDGE_X.append(EDGE_X[0])
+    EDGE_Y.append(EDGE_Y[0])
+    x, y = EDGE_X, EDGE_Y
+    ax.plot(x, y, c='Black')
 
     plt.show()
 
