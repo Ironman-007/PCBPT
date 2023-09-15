@@ -44,6 +44,11 @@ public:
   uint8_t X_position[10];
   uint8_t Y_position[10];
 
+  float A_position_f;
+  float B_position_f;
+  float X_position_f;
+  float Y_position_f;
+
   void tst_function();
 
 private:
