@@ -46,8 +46,6 @@ void comm_handle_cmd(uint8_t * cmd, int len) {
   int distance_data_i = 0;
 
   while (cmd_i < len) {
-    debug_info(cmd_i);
-
     if (cmd[cmd_i++] == 'A') {
       recv_CMD.set_cmd_REG(CMD_A_POS, 0x01);
 
