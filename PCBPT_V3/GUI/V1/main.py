@@ -24,6 +24,8 @@ PARTS    = []
 EDGE_X   = []
 EDGE_Y   = []
 
+BOARD_ANGLE = 0
+
 def get_net(board_in):
     # Use a breakpoint in the code line below to debug your script.
     for network in board_in.nets:
@@ -136,6 +138,11 @@ def get_outline(board_in):
     # print(EDGE_X, EDGE_Y)
             # print(graphic)
 
+def rotate_board(angle, co_x, co_y):
+    data_len = len(co_x)
+    for i in np.arange(data_len):
+        co_x[i], co_y[i] = calc_rotation(co_x[i], co_y[i], angle)
+
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     get_net(board)  # get the list of the network in the design
@@ -148,15 +155,18 @@ if __name__ == '__main__':
 
     x, y = get_co(PADS)
     s    = get_size(PADS)
+    rotate_board(BOARD_ANGLE, x, y)
     ax.scatter(x, y, s=s, c='r', marker='s')
 
     x, y = get_co(PARTS)
+    rotate_board(BOARD_ANGLE, x, y)
     ax.scatter(x, y, s=60, c='b', marker='+')
 
     # x, y = EDGE_X.append(EDGE_X[0]), EDGE_Y.append(EDGE_Y[0])
     EDGE_X.append(EDGE_X[0])
     EDGE_Y.append(EDGE_Y[0])
     x, y = EDGE_X, EDGE_Y
+    rotate_board(BOARD_ANGLE, x, y)
     ax.plot(x, y, c='Black')
 
     plt.show()
