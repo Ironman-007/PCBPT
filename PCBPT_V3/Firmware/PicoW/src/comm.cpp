@@ -46,8 +46,9 @@ void comm_handle_cmd(uint8_t * cmd, int len) {
   int distance_data_i = 0;
 
   while (cmd_i < len) {
-    if (cmd[cmd_i++] == 'A') {
+    if (cmd[cmd_i] == 'A') {
       recv_CMD.set_cmd_REG(CMD_A_POS, 0x01);
+      cmd_i++;
 
       for (distance_data_i = 0; cmd[cmd_i] < 'A' && cmd_i < len;) {
         recv_CMD.A_position[distance_data_i] = cmd[cmd_i];
@@ -55,8 +56,9 @@ void comm_handle_cmd(uint8_t * cmd, int len) {
         cmd_i++;
       }
     }
-    if (cmd[cmd_i++] == 'B') {
+    if (cmd[cmd_i] == 'B') {
       recv_CMD.set_cmd_REG(CMD_B_POS, 0x01);
+      cmd_i++;
 
       for (distance_data_i = 0; cmd[cmd_i] < 'A' && cmd_i < len;) {
         recv_CMD.B_position[distance_data_i] = cmd[cmd_i];
@@ -64,8 +66,9 @@ void comm_handle_cmd(uint8_t * cmd, int len) {
         cmd_i++;
       }
     }
-    if (cmd[cmd_i++] == 'X') {
+    if (cmd[cmd_i] == 'X') {
       recv_CMD.set_cmd_REG(CMD_X_POS, 0x01);
+      cmd_i++;
 
       for (distance_data_i = 0; cmd[cmd_i] < 'A' && cmd_i < len;) {
         recv_CMD.X_position[distance_data_i] = cmd[cmd_i];
@@ -73,8 +76,9 @@ void comm_handle_cmd(uint8_t * cmd, int len) {
         cmd_i++;
       }
     }
-    if (cmd[cmd_i++] == 'Y') {
+    if (cmd[cmd_i] == 'Y') {
       recv_CMD.set_cmd_REG(CMD_Y_POS, 0x01);
+      cmd_i++;
 
       for (distance_data_i = 0; cmd[cmd_i] < 'A' && cmd_i < len;) {
         recv_CMD.Y_position[distance_data_i] = cmd[cmd_i];
