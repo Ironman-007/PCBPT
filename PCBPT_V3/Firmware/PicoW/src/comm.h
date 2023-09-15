@@ -5,10 +5,7 @@
 #ifndef __COMM_H
 #define __COMM_H
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
+#include "cmd.h"
 
 #define DATA_FOR_A 0
 #define DATA_FOR_B 1
@@ -23,9 +20,5 @@ extern uint8_t cmd_in[100];
 extern void comm_init(void);
 extern void comm_update(void);
 //extern void comm_handle_cmd(uint8_t * cmd);
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif //__COMM_H
