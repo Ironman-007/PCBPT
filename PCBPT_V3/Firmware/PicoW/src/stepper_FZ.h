@@ -5,11 +5,6 @@
 #ifndef __STEPPER_FZ_H
 #define __STEPPER_FZ_H
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
-
 #include "Arduino.h"
 
 extern float motion_A;
@@ -31,9 +26,5 @@ extern float motion_Y;
 //extern stepper_FZ motor_B;
 //extern stepper_FZ motor_P;
 //extern stepper_FZ motor_Q;
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif //PICOW_STEPPER_FZ_H

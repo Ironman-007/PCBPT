@@ -5,6 +5,7 @@
 #include "Arduino.h"
 #include "comm.h"
 #include "stepper_FZ.h"
+#include "system.h"
 
 bool probe_cmd = false;
 
@@ -26,84 +27,63 @@ void comm_init(void) {
   Serial.begin(115200);
 }
 
-void which_data(uint8_t data_flag) {
-  if (data_flag == DATA_FOR_A) {
-    bool A_flag = true;
-    bool B_flag = false;
-    bool X_flag = false;
-    bool Y_flag = false;
-  }
-  if (data_flag == DATA_FOR_B) {
-    bool A_flag = false;
-    bool B_flag = true;
-    bool X_flag = false;
-    bool Y_flag = false;
-  }
-  if (data_flag == DATA_FOR_X) {
-    bool A_flag = false;
-    bool B_flag = false;
-    bool X_flag = true;
-    bool Y_flag = false;
-  }
-  if (data_flag == DATA_FOR_Y) {
-    bool A_flag = false;
-    bool B_flag = false;
-    bool X_flag = false;
-    bool Y_flag = true;
-  }
-  if (data_flag == DATA_FOR_NONE) {
-    bool A_flag = false;
-    bool B_flag = false;
-    bool X_flag = false;
-    bool Y_flag = false;
-  }
-}
-
 void comm_handle_cmd(uint8_t * cmd, int len) {
-  if (cmd[0] == 'P') {
-    probe_cmd = true;
-  }
-  if (cmd[0] == 'C') {
-    probe_cmd = false;
-  }
+  recv_CMD.init_cmd();
+
+  if (cmd[0] == 'P') recv_CMD.set_cmd_TYPE(PROBE_CMD);
+  if (cmd[0] == 'C') recv_CMD.set_cmd_TYPE(CALI_CMD);
   if (cmd[0] == 'H') {
-//    TODO:
-//    Home the machine:
-//      - Lift all probes first
-//      - Home X;
-//      - Home Y;
-    ;
+    recv_CMD.set_cmd_TYPE(HOME_CMD);
+    //  TODO: Home the machine:
+    //    - Lift all probes first
+    //    - Home X;
+    //    - Home Y;
+    recv_CMD.init_cmd();
+    //    homing_machine();
   }
 
-  int ii = 0;
+  int cmd_i           = 1;
+  int distance_data_i = 0;
 
-  for (ii=1; ii<len; ii++) {
-    int iii = 0;
+  while (cmd_i < len) {
+    debug_info(cmd_i);
 
-    if (cmd[ii] == 'A') {
-      which_data(DATA_FOR_A);
-      iii = 0;
-    }
-    if (cmd[ii] == 'B') {
-      which_data(DATA_FOR_B);
-      iii = 0;
-    }
-    if (cmd[ii] == 'X') {
-      which_data(DATA_FOR_X);
-      iii = 0;
-    }
-    if (cmd[ii] == 'Y') {
-      which_data(DATA_FOR_Y);
-      iii = 0;
-    }
-    if (cmd[ii] == '\n') {
-    // TODO: cleanup all buffer
-    }
+    if (cmd[cmd_i++] == 'A') {
+      recv_CMD.set_cmd_REG(CMD_A_POS, 0x01);
 
-    if (A_flag) A_coo_c[iii++] = cmd[ii];
-    if (B_flag) B_coo_c[iii++] = cmd[ii];
-    if (X_flag) X_coo_c[iii++] = cmd[ii];
-    if (Y_flag) Y_coo_c[iii++] = cmd[ii];
+      for (distance_data_i = 0; cmd[cmd_i] < 'A' && cmd_i < len;) {
+        recv_CMD.A_position[distance_data_i] = cmd[cmd_i];
+        distance_data_i++;
+        cmd_i++;
+      }
+    }
+    if (cmd[cmd_i++] == 'B') {
+      recv_CMD.set_cmd_REG(CMD_B_POS, 0x01);
+
+      for (distance_data_i = 0; cmd[cmd_i] < 'A' && cmd_i < len;) {
+        recv_CMD.B_position[distance_data_i] = cmd[cmd_i];
+        distance_data_i++;
+        cmd_i++;
+      }
+    }
+    if (cmd[cmd_i++] == 'X') {
+      recv_CMD.set_cmd_REG(CMD_X_POS, 0x01);
+
+      for (distance_data_i = 0; cmd[cmd_i] < 'A' && cmd_i < len;) {
+        recv_CMD.X_position[distance_data_i] = cmd[cmd_i];
+        distance_data_i++;
+        cmd_i++;
+      }
+    }
+    if (cmd[cmd_i++] == 'Y') {
+      recv_CMD.set_cmd_REG(CMD_Y_POS, 0x01);
+
+      for (distance_data_i = 0; cmd[cmd_i] < 'A' && cmd_i < len;) {
+        recv_CMD.Y_position[distance_data_i] = cmd[cmd_i];
+        distance_data_i++;
+        cmd_i++;
+      }
+    }
   }
 }
 
@@ -116,6 +96,7 @@ void comm_update(void) {
     }
     else {
       comm_handle_cmd(cmd_in, i);
+      recv_CMD.tst_function();
       i = 0;
     }
   }
