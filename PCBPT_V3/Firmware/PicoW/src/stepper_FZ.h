@@ -27,4 +27,13 @@ extern float motion_Y;
 //extern stepper_FZ motor_P;
 //extern stepper_FZ motor_Q;
 
+class stepper_FZ {
+public:
+  stepper_FZ(uint8_t pin_dir, uint8_t pin_step,
+             uint8_t pin_m0, uint8_t pin_m1, uint8_t pin_m2);
+  ~stepper_FZ();
+
+private:
+};
+
 #endif //PICOW_STEPPER_FZ_H

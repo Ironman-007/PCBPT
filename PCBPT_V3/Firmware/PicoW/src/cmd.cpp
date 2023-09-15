@@ -61,8 +61,6 @@ uint8_t cmd::check_REG(uint8_t reg, uint8_t pos) {
 }
 
 void cmd::tst_function() {
-  int print_i = 0;
-
   if (check_REG(CMD_REG, CMD_A_POS)) {
     A_position_f = std::atof((char *)A_position);
     Serial.printf("A_position_f=%f\n", A_position_f);

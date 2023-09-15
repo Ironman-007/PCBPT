@@ -25,9 +25,11 @@ int i = 0;
 
 void comm_init(void) {
   Serial.begin(115200);
+  while(!Serial) {delay(10);}
+  Serial.println("PCBPT connected");
 }
 
-void comm_handle_cmd(uint8_t * cmd, int len) {
+void comm_handle_cmd(const uint8_t * cmd, int len) {
   recv_CMD.init_cmd();
 
   if (cmd[0] == 'P') recv_CMD.set_cmd_TYPE(PROBE_CMD);
@@ -43,7 +45,7 @@ void comm_handle_cmd(uint8_t * cmd, int len) {
   }
 
   int cmd_i           = 1;
-  int distance_data_i = 0;
+  int distance_data_i;
 
   while (cmd_i < len) {
     if (cmd[cmd_i] == 'A') {
