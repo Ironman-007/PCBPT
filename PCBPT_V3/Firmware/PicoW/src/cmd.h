@@ -38,6 +38,7 @@ public:
 
   void set_cmd_TYPE(CMD_TYPE type);
   void set_cmd_REG(uint8_t pos, uint8_t data);
+  uint8_t check_REG(uint8_t reg, uint8_t pos);
 
   uint8_t A_position[10];
   uint8_t B_position[10];
