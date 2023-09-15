@@ -120,7 +120,7 @@ def get_co(PADS_in):
     return x_axis, y_axis
 
 def get_size(PADS_in):
-    sizes  = []
+    sizes = []
 
     for pad in PADS_in:
         sizes.append(pad['size']*20)
@@ -153,21 +153,34 @@ if __name__ == '__main__':
     # plot
     fig, ax = plt.subplots()
 
-    x, y = get_co(PADS)
-    s    = get_size(PADS)
-    rotate_board(BOARD_ANGLE, x, y)
-    ax.scatter(x, y, s=s, c='r', marker='s')
+    pads_x, pads_y = get_co(PADS)
+    pads_s    = get_size(PADS)
+    rotate_board(BOARD_ANGLE, pads_x, pads_y)
 
-    x, y = get_co(PARTS)
-    rotate_board(BOARD_ANGLE, x, y)
-    ax.scatter(x, y, s=60, c='b', marker='+')
+    components_x, components_y = get_co(PARTS)
+    rotate_board(BOARD_ANGLE, components_x, components_y)
 
     # x, y = EDGE_X.append(EDGE_X[0]), EDGE_Y.append(EDGE_Y[0])
     EDGE_X.append(EDGE_X[0])
     EDGE_Y.append(EDGE_Y[0])
-    x, y = EDGE_X, EDGE_Y
-    rotate_board(BOARD_ANGLE, x, y)
-    ax.plot(x, y, c='Black')
+    edge_x, edge_y = EDGE_X, EDGE_Y
+    rotate_board(BOARD_ANGLE, edge_x, edge_y)
+
+    board_bias_x = min(edge_x)
+    board_bias_y = max(edge_y)
+
+    pads_x -= board_bias_x
+    pads_y -= board_bias_y
+
+    components_x -= board_bias_x
+    components_y -= board_bias_y
+
+    edge_x -= board_bias_x
+    edge_y -= board_bias_y
+
+    ax.scatter(pads_x, pads_y, s=pads_s, c='r', marker='s')
+    ax.scatter(components_x, components_y, s=60, c='b', marker='+')
+    ax.plot(edge_x, edge_y, c='Black')
 
     plt.show()
 
