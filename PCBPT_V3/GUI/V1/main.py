@@ -24,7 +24,13 @@ PARTS    = []
 EDGE_X   = []
 EDGE_Y   = []
 
-BOARD_ANGLE = 0
+cadidate_pads_X = []
+cadidate_pads_Y = []
+
+BOARD_ANGLE = 180
+
+SELECTED_NET_1 = '+3V3'
+SELECTED_NET_2 = '/DIN'
 
 def get_net(board_in):
     # Use a breakpoint in the code line below to debug your script.
@@ -33,9 +39,12 @@ def get_net(board_in):
         net_name = network.name
         if (net_name != ''):
             net['name'] = network.name
-            NET_LIST.append(net)
+            NET_LIST.append(net['name'])
 
     # print(NET_LIST)
+
+    # for net_name in NET_LIST:
+    #     print(net_name['name'])
         # print(network)
 
 # def get_components(sch_in):
@@ -104,20 +113,32 @@ def get_pads(board_in):
 
     # print(PADS)
 
-def tst_func(board_in):
-    for footprint in board_in.footprints:
+def select_network(selected_net):
+    for pad in PADS:
+        if pad['net'] == selected_net:
+            print(pad)
+            cadidate_pads_X.append(pad['pos']['x'])
+            cadidate_pads_Y.append(pad['pos']['y'])
+
+def tst_func():
+    for pad in PADS:
+        if pad['net'] == SELECTED_NET_1:
+            print(pad)
+            cadidate_pads_X.append(pad['pos']['x'])
+            cadidate_pads_Y.append(pad['pos']['y'])
+    # for footprint in board_in.footprints:
         # print(footprint)
-        pass
+        # pass
 
 def get_co(PADS_in):
-    x_axis = []
-    y_axis = []
+    # x_axis = []
+    # y_axis = []
 
     for pad in PADS_in:
-        x_axis.append(pad['pos']['x'])
-        y_axis.append(-1*pad['pos']['y'])
+        # x_axis.append(pad['pos']['x'])
+        pad['pos']['y'] = -1*pad['pos']['y']
 
-    return x_axis, y_axis
+    # return x_axis, y_axis
 
 def get_size(PADS_in):
     sizes = []
@@ -143,6 +164,18 @@ def rotate_board(angle, co_x, co_y):
     for i in np.arange(data_len):
         co_x[i], co_y[i] = calc_rotation(co_x[i], co_y[i], angle)
 
+def rotate_board_2(angle, pads):
+    for pad in pads:
+        pad['pos']['x'], pad['pos']['y'] = calc_rotation(pad['pos']['x'], pad['pos']['y'], angle)
+
+def bias_co(pads_in, bias_x, bias_y):
+    for pad in pads_in:
+        pad['pos']['x'] -= bias_x
+        pad['pos']['y'] -= bias_y
+
+    # for i in np.arange(data_len):
+    #     co_x[i], co_y[i] = calc_rotation(co_x[i], co_y[i], angle)
+
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     get_net(board)  # get the list of the network in the design
@@ -153,14 +186,14 @@ if __name__ == '__main__':
     # plot
     fig, ax = plt.subplots()
 
-    pads_x, pads_y = get_co(PADS)
+    # pads_x, pads_y = get_co(PADS)
+    get_co(PADS)
     pads_s    = get_size(PADS)
-    rotate_board(BOARD_ANGLE, pads_x, pads_y)
+    rotate_board_2(BOARD_ANGLE, PADS)
 
-    components_x, components_y = get_co(PARTS)
-    rotate_board(BOARD_ANGLE, components_x, components_y)
+    get_co(PARTS)
+    rotate_board_2(BOARD_ANGLE, PARTS)
 
-    # x, y = EDGE_X.append(EDGE_X[0]), EDGE_Y.append(EDGE_Y[0])
     EDGE_X.append(EDGE_X[0])
     EDGE_Y.append(EDGE_Y[0])
     edge_x, edge_y = EDGE_X, EDGE_Y
@@ -169,18 +202,34 @@ if __name__ == '__main__':
     board_bias_x = min(edge_x)
     board_bias_y = max(edge_y)
 
-    pads_x -= board_bias_x
-    pads_y -= board_bias_y
-
-    components_x -= board_bias_x
-    components_y -= board_bias_y
+    bias_co(PADS, board_bias_x, board_bias_y)
+    bias_co(PARTS, board_bias_x, board_bias_y)
 
     edge_x -= board_bias_x
     edge_y -= board_bias_y
 
-    ax.scatter(pads_x, pads_y, s=pads_s, c='r', marker='s')
+    pads_x = []
+    pads_y = []
+    pads_size = []
+
+    components_x = []
+    components_y = []
+
+    for pad in PADS:
+        pads_x.append(pad['pos']['x'])
+        pads_y.append(pad['pos']['y'])
+        pads_size.append(pad['size']*20)
+
+    for part in PARTS:
+        components_x.append(part['pos']['x'])
+        components_y.append(part['pos']['y'])
+
+    ax.scatter(pads_x, pads_y, s= pads_size, c='r', marker='s')
     ax.scatter(components_x, components_y, s=60, c='b', marker='+')
     ax.plot(edge_x, edge_y, c='Black')
+
+    select_network('+3V3')
+    ax.scatter(cadidate_pads_X, cadidate_pads_Y, c='k', marker='x')
 
     plt.show()
 
