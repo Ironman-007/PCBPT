@@ -24,10 +24,12 @@ PARTS    = []
 EDGE_X   = []
 EDGE_Y   = []
 
+SELECTED_PADS = []
+
 cadidate_pads_X = []
 cadidate_pads_Y = []
 
-BOARD_ANGLE = 180
+BOARD_ANGLE = 0
 
 SELECTED_NET_1 = '+3V3'
 SELECTED_NET_2 = '/DIN'
@@ -116,9 +118,9 @@ def get_pads(board_in):
 def select_network(selected_net):
     for pad in PADS:
         if pad['net'] == selected_net:
-            print(pad)
-            cadidate_pads_X.append(pad['pos']['x'])
-            cadidate_pads_Y.append(pad['pos']['y'])
+            SELECTED_PADS.append(pad)
+
+    # print(SELECTED_PADS)
 
 def tst_func():
     for pad in PADS:
@@ -218,18 +220,26 @@ if __name__ == '__main__':
     for pad in PADS:
         pads_x.append(pad['pos']['x'])
         pads_y.append(pad['pos']['y'])
-        pads_size.append(pad['size']*20)
+        pads_size.append(pad['size']*15)
 
     for part in PARTS:
         components_x.append(part['pos']['x'])
         components_y.append(part['pos']['y'])
 
-    ax.scatter(pads_x, pads_y, s= pads_size, c='r', marker='s')
+    ax.scatter(pads_x, pads_y, s=pads_size, c='r', marker='s')
     ax.scatter(components_x, components_y, s=60, c='b', marker='+')
     ax.plot(edge_x, edge_y, c='Black')
 
+    SELECTED_PADS = []
     select_network('+3V3')
-    ax.scatter(cadidate_pads_X, cadidate_pads_Y, c='k', marker='x')
+    selected_pads_size = []
+
+    for selected_pad in SELECTED_PADS:
+        cadidate_pads_X.append(selected_pad['pos']['x'])
+        cadidate_pads_Y.append(selected_pad['pos']['y'])
+        selected_pads_size.append(selected_pad['size']*20)
+
+    ax.scatter(cadidate_pads_X, cadidate_pads_Y, s = selected_pads_size,c='k', marker='P')
 
     plt.show()
 
