@@ -13,8 +13,8 @@
 AccelStepper stepper3(AccelStepper::DRIVER, D15, D14);
 
 void setup() {  
-  stepper3.setMaxSpeed(1000.0);
-  stepper3.setAcceleration(1500.0);
+  stepper3.setMaxSpeed(1500);
+  stepper3.setAcceleration(5000);
   stepper3.moveTo(400); 
 }
 
