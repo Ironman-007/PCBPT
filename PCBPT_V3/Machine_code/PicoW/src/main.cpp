@@ -32,6 +32,7 @@ const uint LED_PIN = PICO_DEFAULT_LED_PIN;
 
 void setup() {
   comm_init();
+  stepper_init();
 }
 
 void loop() {

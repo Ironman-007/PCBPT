@@ -1,6 +1,8 @@
 #include <AccelStepper.h>
 
 #include "stepper_FZ.h"
+#include "comm.h"
+#include "system.h"
 
 float motion_A = 0.0;
 float motion_B = 0.0;
@@ -17,20 +19,53 @@ AccelStepper stepper7(AccelStepper::DRIVER, D15, D14);
 AccelStepper stepper8(AccelStepper::DRIVER, D13, D12);
 
 void stepper_init(void) {
-  stepper1.setMaxSpeed(150.0);
-  stepper1.setAcceleration(200.0);
-  stepper2.setMaxSpeed(150.0);
-  stepper2.setAcceleration(200.0);
-  stepper3.setMaxSpeed(150.0);
-  stepper3.setAcceleration(200.0);
-  stepper4.setMaxSpeed(150.0);
-  stepper4.setAcceleration(200.0);
-  stepper5.setMaxSpeed(150.0);
-  stepper5.setAcceleration(200.0);
-  stepper6.setMaxSpeed(150.0);
-  stepper6.setAcceleration(200.0);
-  stepper7.setMaxSpeed(150.0);
-  stepper7.setAcceleration(200.0);
-  stepper8.setMaxSpeed(150.0);
-  stepper8.setAcceleration(200.0);
+  stepper1.setMaxSpeed(2000);
+  stepper1.setAcceleration(6000);
+  stepper1.setCurrentPosition(0);
+  stepper2.setMaxSpeed(2000);
+  stepper2.setAcceleration(6000);
+  stepper3.setMaxSpeed(2000);
+  stepper3.setAcceleration(6000);
+  stepper4.setMaxSpeed(2000);
+  stepper4.setAcceleration(6000);
+  stepper5.setMaxSpeed(2000);
+  stepper5.setAcceleration(6000);
+  stepper6.setMaxSpeed(2000);
+  stepper6.setAcceleration(6000);
+  stepper7.setMaxSpeed(2000);
+  stepper7.setAcceleration(6000);
+  stepper7.setCurrentPosition(0);
+  stepper8.setMaxSpeed(2000);
+  stepper8.setAcceleration(6000);
 }
+
+void start_motion(void) {
+  if (recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_A_POS)) {
+    // Serial.println("A move");
+    long pos_A = (recv_CMD.A_position_f)/stepper_res_1;
+    // Serial.println(pos_A);
+    stepper7.moveTo(pos_A);
+  }
+  if (recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_B_POS)) {
+    stepper1.moveTo((recv_CMD.B_position_f)/stepper_res_1);
+    stepper1.run();
+  }
+
+  while(stepper7.distanceToGo() || stepper1.distanceToGo()) {
+    stepper1.run();
+    stepper7.run();
+  }
+
+  // if (recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_X_POS)) {
+  //   stepper3.moveTo((recv_CMD.X_position_f)/stepper_res_1);
+  //   stepper3.run();
+  // }
+  // if (recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_Y_POS)) {
+  //   stepper4.moveTo((recv_CMD.Y_position_f)/stepper_res_1);
+  //   stepper4.run();
+  // }
+}
+
+
+
+

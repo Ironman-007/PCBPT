@@ -40,11 +40,12 @@ void comm_handle_cmd(const uint8_t * cmd, int len) {
     //    - Lift all probes first
     //    - Home X;
     //    - Home Y;
+    //    - Stepper1/2/3/4/5/6/7/8.setCurrentposition(HOME);
     recv_CMD.init_cmd();
     //    homing_machine();
   }
 
-  int cmd_i           = 1;
+  int cmd_i = 1;
   int distance_data_i;
 
   while (cmd_i < len) {
@@ -101,6 +102,8 @@ void comm_update(void) {
     else {
       comm_handle_cmd(cmd_in, i);
       recv_CMD.tst_function();
+      start_motion();
+      // TODO: run command.
       i = 0;
     }
   }
