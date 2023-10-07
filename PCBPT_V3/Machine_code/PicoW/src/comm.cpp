@@ -41,6 +41,7 @@ void comm_handle_cmd(const uint8_t * cmd, int len) {
     //    - Home X;
     //    - Home Y;
     //    - Stepper1/2/3/4/5/6/7/8.setCurrentposition(HOME);
+    
     recv_CMD.init_cmd();
     //    homing_machine();
   }

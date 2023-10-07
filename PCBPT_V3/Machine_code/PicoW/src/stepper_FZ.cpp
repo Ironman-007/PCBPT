@@ -18,37 +18,71 @@ AccelStepper stepper6(AccelStepper::DRIVER, D11, D10);
 AccelStepper stepper7(AccelStepper::DRIVER, D15, D14);
 AccelStepper stepper8(AccelStepper::DRIVER, D13, D12);
 
-void stepper_init(void) {
-  stepper1.setMaxSpeed(2000);
-  stepper1.setAcceleration(6000);
-  stepper1.setCurrentPosition(0);
-  stepper2.setMaxSpeed(2000);
-  stepper2.setAcceleration(6000);
-  stepper3.setMaxSpeed(2000);
-  stepper3.setAcceleration(6000);
-  stepper4.setMaxSpeed(2000);
-  stepper4.setAcceleration(6000);
-  stepper5.setMaxSpeed(2000);
-  stepper5.setAcceleration(6000);
-  stepper6.setMaxSpeed(2000);
-  stepper6.setAcceleration(6000);
-  stepper7.setMaxSpeed(2000);
-  stepper7.setAcceleration(6000);
-  stepper7.setCurrentPosition(0);
-  stepper8.setMaxSpeed(2000);
-  stepper8.setAcceleration(6000);
+void stepper_init(uint8_t speed_option) {
+  if (speed_option == MOTION_SPEED) {
+    stepper1.setMaxSpeed(2000);
+    stepper1.setAcceleration(6000);
+    stepper1.setCurrentPosition(0);
+    stepper2.setMaxSpeed(2000);
+    stepper2.setAcceleration(6000);
+    stepper3.setMaxSpeed(2000);
+    stepper3.setAcceleration(6000);
+    stepper4.setMaxSpeed(2000);
+    stepper4.setAcceleration(6000);
+    stepper5.setMaxSpeed(2000);
+    stepper5.setAcceleration(6000);
+    stepper6.setMaxSpeed(2000);
+    stepper6.setAcceleration(6000);
+    stepper7.setMaxSpeed(2000);
+    stepper7.setAcceleration(6000);
+    stepper7.setCurrentPosition(0);
+    stepper8.setMaxSpeed(2000);
+    stepper8.setAcceleration(6000);
+  }
+  else {
+    stepper1.setMaxSpeed(500);
+    stepper1.setAcceleration(1000);
+    stepper1.setCurrentPosition(0);
+    stepper2.setMaxSpeed(500);
+    stepper2.setAcceleration(1000);
+    stepper3.setMaxSpeed(500);
+    stepper3.setAcceleration(1000);
+    stepper4.setMaxSpeed(500);
+    stepper4.setAcceleration(1000);
+    stepper5.setMaxSpeed(500);
+    stepper5.setAcceleration(1000);
+    stepper6.setMaxSpeed(500);
+    stepper6.setAcceleration(1000);
+    stepper7.setMaxSpeed(500);
+    stepper7.setAcceleration(1000);
+    stepper7.setCurrentPosition(0);
+    stepper8.setMaxSpeed(500);
+    stepper8.setAcceleration(1000);
+  }
+}
+
+void home_stepper(void) {
+  stepper7.move(-50000);
+  while (digitalRead(LIMIT_SW_1_PIN)) {
+    stepper7.run();
+  }
+   stepper7.setCurrentPosition(0);
+}
+
+void home_machine(void) {
+  stepper_init(HOME_SPEED);
+  home_stepper();
+  stepper_init(MOTION_SPEED);
 }
 
 void start_motion(void) {
   if (recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_A_POS)) {
-    // Serial.println("A move");
     long pos_A = (recv_CMD.A_position_f)/stepper_res_1;
-    // Serial.println(pos_A);
     stepper7.moveTo(pos_A);
   }
   if (recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_B_POS)) {
-    stepper1.moveTo((recv_CMD.B_position_f)/stepper_res_1);
-    stepper1.run();
+    long pos_B = (recv_CMD.B_position_f)/stepper_res_1;
+    stepper1.moveTo(pos_B);
   }
 
   while(stepper7.distanceToGo() || stepper1.distanceToGo()) {

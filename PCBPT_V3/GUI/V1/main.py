@@ -8,6 +8,8 @@ from kiutils.dru import DesignRules
 from kiutils.items.fpitems import FpText
 
 import matplotlib.pyplot as plt
+from matplotlib.patches import Circle
+from matplotlib.patheffects import withStroke
 import numpy as np
 
 from os import path
@@ -29,10 +31,13 @@ SELECTED_PADS = []
 cadidate_pads_X = []
 cadidate_pads_Y = []
 
-BOARD_ANGLE = 0
+BOARD_ANGLE = 90
 
 SELECTED_NET_1 = '+3V3'
 SELECTED_NET_2 = '/DIN'
+
+FID_X = []
+FID_Y = []
 
 def get_net(board_in):
     # Use a breakpoint in the code line below to debug your script.
@@ -112,8 +117,6 @@ def get_pads(board_in):
             # print(apad)
 
             PADS.append(apad)
-
-    # print(PADS)
 
 def select_network(selected_net):
     for pad in PADS:
@@ -240,6 +243,16 @@ if __name__ == '__main__':
         selected_pads_size.append(selected_pad['size']*20)
 
     ax.scatter(cadidate_pads_X, cadidate_pads_Y, s = selected_pads_size,c='k', marker='P')
+
+    FID = []
+    for pad in PADS:
+        if pad['component'][0:3] == 'FID':
+            c = Circle((pad['pos']['x'], pad['pos']['y']),
+                       radius=1, clip_on=False, zorder=10, linewidth=2.5,
+                       edgecolor='b', facecolor='none',
+                       path_effects=[withStroke(linewidth=7, foreground='white')])
+            ax.add_artist(c)
+            print(pad)
 
     plt.show()
 

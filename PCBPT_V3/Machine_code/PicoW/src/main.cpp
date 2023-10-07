@@ -26,13 +26,15 @@
 #include "hardware/i2c.h"
 
 #include "stepper_FZ.h"
+#include "system.h"
 #include "comm.h"
 
 const uint LED_PIN = PICO_DEFAULT_LED_PIN;
 
 void setup() {
+  pin_init();
   comm_init();
-  stepper_init();
+  home_machine();
 }
 
 void loop() {
