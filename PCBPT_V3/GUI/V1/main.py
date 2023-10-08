@@ -8,8 +8,11 @@ from kiutils.dru import DesignRules
 from kiutils.items.fpitems import FpText
 
 import matplotlib.pyplot as plt
+<<<<<<< HEAD
 from matplotlib.patches import Circle
 from matplotlib.patheffects import withStroke
+=======
+>>>>>>> 14ecc97add2df48317fe627889a14f7b62b5eadb
 import numpy as np
 
 from os import path
@@ -31,14 +34,21 @@ SELECTED_PADS = []
 cadidate_pads_X = []
 cadidate_pads_Y = []
 
+<<<<<<< HEAD
 BOARD_ANGLE = 90
+=======
+BOARD_ANGLE = 0
+>>>>>>> 14ecc97add2df48317fe627889a14f7b62b5eadb
 
 SELECTED_NET_1 = '+3V3'
 SELECTED_NET_2 = '/DIN'
 
+<<<<<<< HEAD
 FID_X = []
 FID_Y = []
 
+=======
+>>>>>>> 14ecc97add2df48317fe627889a14f7b62b5eadb
 def get_net(board_in):
     # Use a breakpoint in the code line below to debug your script.
     for network in board_in.nets:
@@ -118,6 +128,11 @@ def get_pads(board_in):
 
             PADS.append(apad)
 
+<<<<<<< HEAD
+=======
+    # print(PADS)
+
+>>>>>>> 14ecc97add2df48317fe627889a14f7b62b5eadb
 def select_network(selected_net):
     for pad in PADS:
         if pad['net'] == selected_net:
@@ -244,6 +259,7 @@ if __name__ == '__main__':
 
     ax.scatter(cadidate_pads_X, cadidate_pads_Y, s = selected_pads_size,c='k', marker='P')
 
+<<<<<<< HEAD
     FID = []
     for pad in PADS:
         if pad['component'][0:3] == 'FID':
@@ -254,6 +270,8 @@ if __name__ == '__main__':
             ax.add_artist(c)
             print(pad)
 
+=======
+>>>>>>> 14ecc97add2df48317fe627889a14f7b62b5eadb
     plt.show()
 
 

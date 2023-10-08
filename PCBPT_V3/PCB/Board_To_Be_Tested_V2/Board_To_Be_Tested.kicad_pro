@@ -448,7 +448,11 @@
       "idf": "",
       "netlist": "",
       "specctra_dsn": "",
+<<<<<<< HEAD
       "step": "../../../../../../../../Users/l1534/OneDrive/Desktop/Board_To_Be_Tested.step",
+=======
+      "step": "",
+>>>>>>> 14ecc97add2df48317fe627889a14f7b62b5eadb
       "vrml": ""
     },
     "page_layout_descr_file": ""

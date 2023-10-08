@@ -12,6 +12,7 @@ void debug_info(char * output) {
 void debug_info(int output) {
   Serial.println(output);
 }
+<<<<<<< HEAD
 
 void pin_init(void) {
   pinMode(LIMIT_SW_1_PIN, INPUT);
@@ -21,3 +22,5 @@ void pin_init(void) {
   pinMode(LIMIT_SW_5_PIN, INPUT);
   pinMode(LIMIT_SW_6_PIN, INPUT);
 }
+=======
+>>>>>>> 14ecc97add2df48317fe627889a14f7b62b5eadb

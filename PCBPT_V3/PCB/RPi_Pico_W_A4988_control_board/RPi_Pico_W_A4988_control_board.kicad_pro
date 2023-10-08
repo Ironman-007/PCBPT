@@ -450,7 +450,11 @@
       "idf": "",
       "netlist": "",
       "specctra_dsn": "",
+<<<<<<< HEAD
       "step": "RPi_Pico_W_A4988_control_board.step",
+=======
+      "step": "",
+>>>>>>> 14ecc97add2df48317fe627889a14f7b62b5eadb
       "vrml": ""
     },
     "page_layout_descr_file": ""

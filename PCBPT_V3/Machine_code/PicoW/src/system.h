@@ -8,6 +8,7 @@
 extern void debug_info(char * output);
 extern void debug_info(int output);
 
+<<<<<<< HEAD
 #define LIMIT_SW_1_PIN D22
 #define LIMIT_SW_2_PIN D19
 #define LIMIT_SW_3_PIN D18
@@ -17,4 +18,6 @@ extern void debug_info(int output);
 
 extern void pin_init(void);
 
+=======
+>>>>>>> 14ecc97add2df48317fe627889a14f7b62b5eadb
 #endif //PICOW_SYSTEM_H
