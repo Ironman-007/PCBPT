@@ -86,7 +86,7 @@ void home_machine(void) {
   home_stepper(&stepper3, -50000, LIMIT_SW_3_PIN, MOTOR_3_HOME_POS);
   home_stepper(&stepper1, -50000, LIMIT_SW_1_PIN, MOTOR_1_HOME_POS);
   home_stepper(&stepper2, -50000, LIMIT_SW_2_PIN, MOTOR_2_HOME_POS);
-  
+
   // home_stepper(&stepper4, -50000, LIMIT_SW_4_PIN, MOTOR_4_HOME_POS);
   // home_stepper(&stepper5, -50000, LIMIT_SW_5_PIN, MOTOR_5_HOME_POS);
   // home_stepper(&stepper6, -50000, LIMIT_SW_6_PIN, MOTOR_6_HOME_POS);
@@ -95,7 +95,7 @@ void home_machine(void) {
 }
 
 void start_motion(void) {
-  
+
   stepper3.moveTo(MOTOR_3_PROBE_INI_POS);
 
   while(stepper3.distanceToGo()) {
@@ -103,11 +103,11 @@ void start_motion(void) {
   }
 
   if (recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_A_POS)) {
-    long pos_A = (recv_CMD.A_position_f)/stepper_res_1;
+    long pos_A = (recv_CMD.A_position_f + LASER_BIAS_1)/stepper_res_1;
     stepper1.moveTo(pos_A);
   }
   if (recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_B_POS)) {
-    long pos_B = (recv_CMD.B_position_f)/stepper_res_1;
+    long pos_B = (recv_CMD.B_position_f + LASER_BIAS_2)/stepper_res_1;
     stepper2.moveTo(pos_B);
   }
 
@@ -123,15 +123,6 @@ void start_motion(void) {
       stepper3.run();
     }
   }
-
-  // if (recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_X_POS)) {
-  //   stepper3.moveTo((recv_CMD.X_position_f)/stepper_res_1);
-  //   stepper3.run();
-  // }
-  // if (recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_Y_POS)) {
-  //   stepper4.moveTo((recv_CMD.Y_position_f)/stepper_res_1);
-  //   stepper4.run();
-  // }
 }
 
 
