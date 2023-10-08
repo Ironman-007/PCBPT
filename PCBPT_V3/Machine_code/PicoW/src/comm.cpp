@@ -36,12 +36,13 @@ void comm_handle_cmd(const uint8_t * cmd, int len) {
   if (cmd[0] == 'C') recv_CMD.set_cmd_TYPE(CALI_CMD);
   if (cmd[0] == 'H') {
     recv_CMD.set_cmd_TYPE(HOME_CMD);
+    home_machine();
     //  TODO: Home the machine:
     //    - Lift all probes first
     //    - Home X;
     //    - Home Y;
     //    - Stepper1/2/3/4/5/6/7/8.setCurrentposition(HOME);
-    
+
     recv_CMD.init_cmd();
     //    homing_machine();
   }

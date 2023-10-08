@@ -10,7 +10,17 @@
 #define HOME_SPEED   0
 #define MOTION_SPEED 1
 
-#define stepper_res_1 0.1 // how much the linear motion is in one step
+#define stepper_res_1 0.05 // how much the linear motion is in one step
+
+#define MOTOR_1_HOME_POS 0
+#define MOTOR_2_HOME_POS 0
+#define MOTOR_3_HOME_POS 0
+#define MOTOR_4_HOME_POS 0
+#define MOTOR_5_HOME_POS 0
+#define MOTOR_6_HOME_POS 0
+
+#define MOTOR_3_PROBE_POS     2800
+#define MOTOR_3_PROBE_INI_POS 1000
 
 extern float motion_A;
 extern float motion_B;
