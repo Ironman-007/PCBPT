@@ -15,8 +15,11 @@ import numpy as np
 import sys
 from PyQt5 import QtCore, QtWidgets, uic, QtGui
 from pyqtgraph import PlotWidget
-from PyQt5.QtWidgets import QApplication, QVBoxLayout
+from PyQt5.QtWidgets import QApplication, QVBoxLayout, QWidget, QFrame
 import pyqtgraph as pg
+
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.figure import Figure
 
 from os import path
 
@@ -193,9 +196,18 @@ class MainWindow(QtWidgets.QDialog):
         self.setFixedSize(760, 827)
         # Load the UI Page
         uic.loadUi('v2_gui.ui', self)
+        self.figure, self.ax = plt.subplots()
+        self.canvas = FigureCanvas(self.figure)
+        self.plot_layout.addWidget(self.canvas)
+
+        # self.setCentralWidget(self.plot_PCB)
 
     def plot_PCB(self, pads_x, pads_y):
-        self.graphWidget.plot(pads_x, pads_y, '+')
+        self.ax.scatter(pads_x, pads_y, pads_size, c='r', marker='s')
+        self.ax.scatter(components_x, components_y, s=60, c='b', marker='+')
+        self.ax.plot(edge_x, edge_y, c='Black')
+
+        self.canvas.draw()
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
@@ -239,7 +251,7 @@ if __name__ == '__main__':
     for pad in PADS:
         pads_x.append(pad['pos']['x'])
         pads_y.append(pad['pos']['y'])
-        pads_size.append(pad['size']*15)
+        pads_size.append(pad['size']*5)
 
     for part in PARTS:
         components_x.append(part['pos']['x'])

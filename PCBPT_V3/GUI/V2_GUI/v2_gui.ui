@@ -23,16 +23,6 @@
     </rect>
    </property>
   </widget>
-  <widget class="PlotWidget" name="graphWidget" native="true">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>90</y>
-     <width>381</width>
-     <height>361</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QPushButton" name="home_btn">
    <property name="geometry">
     <rect>
@@ -396,15 +386,18 @@
     </rect>
    </property>
   </widget>
+  <widget class="QWidget" name="gridLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>90</y>
+     <width>381</width>
+     <height>361</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="plot_layout"/>
+  </widget>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>PlotWidget</class>
-   <extends>QWidget</extends>
-   <header>pyqtgraph</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>
