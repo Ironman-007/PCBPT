@@ -102,18 +102,36 @@ void start_motion(void) {
     stepper3.run();
   }
 
-  if (recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_A_POS)) {
-    long pos_A = (recv_CMD.A_position_f + LASER_BIAS_1)/stepper_res_1;
-    stepper1.moveTo(pos_A);
-  }
-  if (recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_B_POS)) {
-    long pos_B = (recv_CMD.B_position_f + LASER_BIAS_2)/stepper_res_1;
-    stepper2.moveTo(pos_B);
+  if (recv_CMD.cmd_type == MANUCAL_CTRL_CMD) {
+    if (recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_A_POS)) {
+      long pos_A = (recv_CMD.A_position_f)/stepper_res_1;
+      stepper1.move(pos_A);
+    }
+    if (recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_B_POS)) {
+      long pos_B = (recv_CMD.B_position_f)/stepper_res_1;
+      stepper2.move(pos_B);
+    }
+
+    while(stepper1.distanceToGo() || stepper2.distanceToGo()) {
+      stepper1.run();
+      stepper2.run();
+    }
   }
 
-  while(stepper1.distanceToGo() || stepper2.distanceToGo()) {
-    stepper1.run();
-    stepper2.run();
+  else {
+    if (recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_A_POS)) {
+      long pos_A = (recv_CMD.A_position_f + LASER_BIAS_1)/stepper_res_1;
+      stepper1.moveTo(pos_A);
+    }
+    if (recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_B_POS)) {
+      long pos_B = (recv_CMD.B_position_f + LASER_BIAS_2)/stepper_res_1;
+      stepper2.moveTo(pos_B);
+    }
+
+    while(stepper1.distanceToGo() || stepper2.distanceToGo()) {
+      stepper1.run();
+      stepper2.run();
+    }
   }
 
   if (recv_CMD.cmd_type == PROBE_CMD) {

@@ -26,7 +26,7 @@ int i = 0;
 void comm_init(void) {
   Serial.begin(115200);
   while(!Serial) {delay(10);}
-  Serial.println("PCBPT connected");
+  // Serial.println("PCBPT connected");
 }
 
 void comm_handle_cmd(const uint8_t * cmd, int len) {
@@ -34,6 +34,7 @@ void comm_handle_cmd(const uint8_t * cmd, int len) {
 
   if (cmd[0] == 'P') recv_CMD.set_cmd_TYPE(PROBE_CMD);
   if (cmd[0] == 'C') recv_CMD.set_cmd_TYPE(CALI_CMD);
+  if (cmd[0] == 'T') recv_CMD.set_cmd_TYPE(MANUCAL_CTRL_CMD);
   if (cmd[0] == 'H') {
     recv_CMD.set_cmd_TYPE(HOME_CMD);
     home_machine();

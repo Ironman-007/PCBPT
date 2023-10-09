@@ -20,8 +20,10 @@ import pyqtgraph as pg
 
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
-
+import os
+import serial
 from os import path
+import datetime
 
 board_path = "C:\DATA\Documents\Lab\github\PCBPT\PCBPT_V3\PCB\Board_To_Be_Tested_V2\Board_To_Be_Tested.kicad_pcb"
 board_sch_path = "C:\DATA\Documents\Lab\github\PCBPT\PCBPT_V3\PCB\Board_To_Be_Tested_V2\Board_To_Be_Tested.kicad_sch"
@@ -190,6 +192,11 @@ def bias_co(pads_in, bias_x, bias_y):
     # for i in np.arange(data_len):
     #     co_x[i], co_y[i] = calc_rotation(co_x[i], co_y[i], angle)
 
+def read_current_time():
+    now = datetime.datetime.now(datetime.timezone.utc)
+    current_time = now.strftime("%Z:%j/%H:%M:%S")
+    return current_time
+
 class MainWindow(QtWidgets.QDialog):
     def __init__(self, *args, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
@@ -200,14 +207,94 @@ class MainWindow(QtWidgets.QDialog):
         self.canvas = FigureCanvas(self.figure)
         self.plot_layout.addWidget(self.canvas)
 
-        # self.setCentralWidget(self.plot_PCB)
+        self.scan_serial_btn.clicked.connect(self.scan)
+        self.open_serial_btn.clicked.connect(self.open_port)
+        self.send_cmd_btn.clicked.connect(self.send_tst_cmd)
+
+        self.serial_ports_list = []
+        self.serial_speed = [115200]
+
+        # self.timer = QtCore.QTimer(self, interval=10, timeout=self.read_port)
+        self.ser = serial.Serial()
+
+        self.home_btn.clicked.connect(self.send_home_cmd)
+
+        self.up_L.clicked.connect(self.move_up_L)
+        self.left_L.clicked.connect(self.move_left_L)
+        self.right_L.clicked.connect(self.move_right_L)
+        self.down_L.clicked.connect(self.move_down_L)
+
+        self.HOME_CMD = "H\n"
+        self.cmd      = ""
 
     def plot_PCB(self, pads_x, pads_y):
+        self.ax.clear()
+        self.ax.set_aspect('equal')
         self.ax.scatter(pads_x, pads_y, pads_size, c='r', marker='s')
         self.ax.scatter(components_x, components_y, s=60, c='b', marker='+')
         self.ax.plot(edge_x, edge_y, c='Black')
 
         self.canvas.draw()
+
+    def scan(self):
+        if os.name == 'nt':  # sys.platform == 'win32':
+            from serial.tools.list_ports_windows import comports
+        elif os.name == 'posix':
+            from serial.tools.list_ports_posix import comports
+
+        for info in comports(False):
+            port, desc, hwid = info
+        iterator = sorted(comports(False))
+
+        self.serial_ports_list = []  # clear the list first
+        for n, (port, desc, hwid) in enumerate(iterator, 1):
+            self.serial_ports_list.append("{:20} ".format(port))
+
+        ports_num = len(self.serial_ports_list)
+
+        self.serial_comboBox.clear()  # clear the list first
+        for x in self.serial_ports_list:
+            self.serial_comboBox.addItem(x)
+
+    def open_port(self):
+        index = self.serial_comboBox.currentIndex()
+        serial_ports_port = self.serial_ports_list[index][:-1]  # delete the \n at the end
+        # index = self.speed_comboBox.currentIndex()
+        self.ser = serial.Serial(serial_ports_port, 115200, timeout=10)
+        if (self.ser.is_open == True):
+            current_time = read_current_time()
+            self.log.append(current_time + self.ser.name + " Opened @ " + str(self.serial_speed[index]) + "bps")
+
+    def send_home_cmd(self):
+        self.ser.write(self.HOME_CMD.encode('utf-8'))
+
+    def send_tst_cmd(self):
+        self.cmd = self.tst_cmd.displayText().upper() + '\n'
+        self.ser.write(self.cmd.encode('utf-8'))
+
+    def move_up_L(self):
+        step_size = str(-1 * self.step_size_select_dia.value())
+        self.cmd = 'T' + 'A0' + 'B' + step_size + '\n'
+        print(self.cmd)
+        self.ser.write(self.cmd.encode('utf-8'))
+
+    def move_left_L(self):
+        step_size = str(-1 * self.step_size_select_dia.value())
+        self.cmd = 'T' + 'A' + step_size + 'B0' + '\n'
+        print(self.cmd)
+        self.ser.write(self.cmd.encode('utf-8'))
+
+    def move_right_L(self):
+        step_size = str(self.step_size_select_dia.value())
+        self.cmd = 'T' + 'A' + step_size + 'B0' + '\n'
+        print(self.cmd)
+        self.ser.write(self.cmd.encode('utf-8'))
+
+    def move_down_L(self):
+        step_size = str(self.step_size_select_dia.value())
+        self.cmd = 'T' + 'A0' + 'B' + step_size + '\n'
+        print(self.cmd)
+        self.ser.write(self.cmd.encode('utf-8'))
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':

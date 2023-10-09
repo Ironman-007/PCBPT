@@ -11,6 +11,7 @@ enum CMD_TYPE {
   IDLE_CMD,
   PROBE_CMD,
   CALI_CMD,
+  MANUCAL_CTRL_CMD,
   HOME_CMD
 };
 
