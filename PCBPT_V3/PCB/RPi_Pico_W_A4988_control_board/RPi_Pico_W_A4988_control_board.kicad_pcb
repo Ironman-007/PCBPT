@@ -8807,7 +8807,7 @@
 
     (stroke (width 0.0254) (type solid)) (fill solid) (layer "B.Mask") (tstamp fe838f97-b10a-4a4c-a28d-01797d4e0882))
   (gr_rect (start 101.5 28) (end 191.75 126)
-    (stroke (width 0.1) (type default)) (fill none) (layer "Edge.Cuts") (tstamp c499e9b1-0f13-4a72-bf1d-4e29b0461496))
+    (stroke (width 0.05) (type default)) (fill none) (layer "Edge.Cuts") (tstamp 7e73ef5d-ae26-4a51-a0a5-bf29d941d8f4))
   (gr_text "CircuitScout Control V2" (at 108.510712 32) (layer "F.SilkS") (tstamp 5c83b7dc-a5dd-444c-a57c-5b0c42ec1e38)
     (effects (font (size 2 2) (thickness 0.4) bold) (justify left bottom))
   )

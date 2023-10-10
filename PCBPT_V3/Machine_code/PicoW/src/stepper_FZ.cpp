@@ -21,27 +21,27 @@ AccelStepper stepper8(AccelStepper::DRIVER, D1, D0);   //
 void stepper_init(uint8_t speed_option) {
   if (speed_option == MOTION_SPEED) {
     stepper1.setMaxSpeed(1000);
-    stepper1.setAcceleration(3000);
+    stepper1.setAcceleration(2000);
     stepper1.setCurrentPosition(MOTOR_1_HOME_POS);
 
     stepper2.setMaxSpeed(1000);
-    stepper2.setAcceleration(3000);
+    stepper2.setAcceleration(2000);
     stepper2.setCurrentPosition(MOTOR_2_HOME_POS);
 
     stepper3.setMaxSpeed(2000);
-    stepper3.setAcceleration(4000);
+    stepper3.setAcceleration(2000);
     stepper3.setCurrentPosition(MOTOR_3_HOME_POS);
 
     stepper4.setMaxSpeed(1000);
-    stepper4.setAcceleration(3000);
+    stepper4.setAcceleration(2000);
     stepper4.setCurrentPosition(MOTOR_4_HOME_POS);
 
     stepper5.setMaxSpeed(1000);
-    stepper5.setAcceleration(3000);
+    stepper5.setAcceleration(2000);
     stepper5.setCurrentPosition(MOTOR_5_HOME_POS);
 
     stepper6.setMaxSpeed(1000);
-    stepper6.setAcceleration(3000);
+    stepper6.setAcceleration(2000);
     stepper6.setCurrentPosition(MOTOR_6_HOME_POS);
 
     // stepper7.setMaxSpeed(2000);

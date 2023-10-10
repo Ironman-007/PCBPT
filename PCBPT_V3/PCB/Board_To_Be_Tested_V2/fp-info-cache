@@ -1,4 +1,4 @@
-21915661488210152
+21927481340333498
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -63483,6 +63483,27 @@ Mylib
 1
 1
 Mylib
+1cm_round_touch_pad
+
+
+0
+1
+1
+Mylib
+1cmx1cm_touchpad
+
+
+0
+1
+1
+Mylib
+1mm_dia_pad
+
+
+0
+1
+1
+Mylib
 1x7_2mm_pin_header
 
 
@@ -63819,6 +63840,13 @@ LGA12R75P2X6_280X480X110
 12
 12
 Mylib
+LTST-S310F2KT
+
+
+0
+4
+4
+Mylib
 Lipo_connect
 
 
@@ -64015,6 +64043,13 @@ SWD_adapter
 10
 10
 Mylib
+SW_B3F-1000
+
+
+0
+4
+4
+Mylib
 Sparkfun_LSM9DS1_Module
 
 
@@ -64133,6 +64168,13 @@ XDCR_GP2S700HCP
 0
 4
 4
+Mylib
+conn_SMD_15mmx5mm
+
+
+0
+1
+1
 Mylib
 mini_SMA_through_hole_connector
 
@@ -81913,6 +81955,13 @@ WiFi IEEE802.11 b/g/n
 0
 44
 44
+Raspberry_Pi_Pico_W_Kicad_Files-main
+MODULE_SC0918
+
+
+0
+40
+40
 Relay_SMD
 Relay_2P2T_10x6mm_TE_IMxxG
 Signal Relay, 10x6mm, 2 Form C, Gull Wings, https://www.te.com/commerce/DocumentDelivery/DDEController?Action=showdoc&DocId=Data+Sheet%7F108-98001%7FZ.1%7Fpdf%7FEnglish%7FENG_DS_108-98001_Z.1.pdf
@@ -83951,12 +84000,33 @@ Integrated Circuit
 10
 10
 SamacSys_Parts
+BOSCH_LGA-12
+Bosch_LGA-12
+Accelerometer
+0
+12
+12
+SamacSys_Parts
+DPS310XTSA1
+VLGA-8
+Integrated Circuit
+0
+8
+8
+SamacSys_Parts
 KMR231NGLFS
 KMR231NGLFS-1
 Switch
 0
 4
 4
+SamacSys_Parts
+QFN50P150X150X60-8N
+RSE0008A
+Integrated Circuit
+0
+8
+8
 SamacSys_Parts
 QFN50P300X300X90-17N
 P-VQFN16-0303-0.50-001
@@ -83999,6 +84069,13 @@ Integrated Circuit
 0
 16
 16
+SamacSys_Parts
+SON35P100X100X38-6N
+DG4157EDN-T1-GE4
+Integrated Circuit
+0
+6
+6
 SamacSys_Parts
 SON50P300X200X75-9N
 8 pin son
@@ -84083,6 +84160,13 @@ Integrated Circuit
 0
 6
 6
+SamacSys_Parts
+VEML7700
+VEML7700
+Integrated Circuit
+0
+4
+4
 Sensor
 Aosong_DHT11_5.5x12.0_P2.54mm
 Temperature and humidity module, http://akizukidenshi.com/download/ds/aosong/DHT11.pdf
