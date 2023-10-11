@@ -296,9 +296,6 @@ class MainWindow(QtWidgets.QDialog):
         self.get_footprint(self.board)
         self.get_outline(self.board)
 
-        # plot
-        fig, ax = plt.subplots()
-
         # pads_x, pads_y = get_co(PADS)
         self.get_co(self.PADS)
         pads_s = self.get_size(self.PADS)
@@ -341,6 +338,9 @@ class MainWindow(QtWidgets.QDialog):
 
     def rotate_replot_board(self):
         self.BOARD_ANGLE += 90
+        if (self.BOARD_ANGLE >= 360):
+            self.BOARD_ANGLE -= 360
+
         self.proc_PCB()
         self.plot_PCB()
 
@@ -358,7 +358,7 @@ class MainWindow(QtWidgets.QDialog):
         for n, (port, desc, hwid) in enumerate(iterator, 1):
             self.serial_ports_list.append("{:20} ".format(port))
 
-        ports_num = len(self.serial_ports_list)
+        # ports_num = len(self.serial_ports_list)
 
         self.serial_comboBox.clear()  # clear the list first
         for x in self.serial_ports_list:
@@ -400,39 +400,8 @@ class MainWindow(QtWidgets.QDialog):
         self.cmd = 'T' + 'A0' + 'B' + step_size + '\n'
         self.ser.write(self.cmd.encode('utf-8'))
 
-def data_proc():
-    pass
-
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    # ax.scatter(pads_x, pads_y, s=pads_size, c='r', marker='s')
-    # ax.scatter(components_x, components_y, s=60, c='b', marker='+')
-    # ax.plot(EDGE_X, EDGE_Y, c='Black')
-    # ax.set_aspect('equal')
-    #
-    # SELECTED_PADS = []
-    # select_network('+3V3')
-    # selected_pads_size = []
-    #
-    # for selected_pad in SELECTED_PADS:
-    #     cadidate_pads_X.append(selected_pad['pos']['x'])
-    #     cadidate_pads_Y.append(selected_pad['pos']['y'])
-    #     selected_pads_size.append(selected_pad['size'] * 20)
-    #
-    # ax.scatter(cadidate_pads_X, cadidate_pads_Y, s=selected_pads_size, c='k', marker='P')
-    #
-    # FID = []
-    # for pad in PADS:
-    #     if pad['component'][0:3] == 'FID':
-    #         c = Circle((pad['pos']['x'], pad['pos']['y']),
-    #                    radius=1, clip_on=False, zorder=10, linewidth=2.5,
-    #                    edgecolor='b', facecolor='none',
-    #                    path_effects=[withStroke(linewidth=7, foreground='white')])
-    #         ax.add_artist(c)
-    #         print(pad)
-    #
-    # plt.show()
-
     # creating apyqt5 application
     app = QApplication(sys.argv)
     # creating a window object
