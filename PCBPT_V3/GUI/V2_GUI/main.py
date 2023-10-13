@@ -26,6 +26,12 @@ import serial
 from os import path
 import datetime
 
+PROBE_LASER_BIAS_X_L = 16.7
+PROBE_LASER_BIAS_Y_L = 8.5
+
+# PROBE_LASER_BIAS_X_L = 0
+# PROBE_LASER_BIAS_Y_L = 0
+
 def read_current_time():
     now = datetime.datetime.now(datetime.timezone.utc)
     current_time = now.strftime("%Z:%j/%H:%M:%S")
@@ -351,8 +357,8 @@ class MainWindow(QtWidgets.QDialog):
         self.ax.scatter(pos['x'], pos['y'], s=120, facecolors='none', edgecolors='b')
         self.canvas.draw()
 
-        self.cmd = 'C' + 'A' + "{:.2f}".format(pos['x'] + self.bias_x_L) + 'B' \
-                   + "{:.2f}".format(-1 * pos['y'] + self.bias_y_L) + '\n'
+        self.cmd = 'P' + 'A' + "{:.2f}".format(pos['x'] + self.bias_x_L - PROBE_LASER_BIAS_X_L) + 'B' \
+                   + "{:.2f}".format(-1 * pos['y'] + self.bias_y_L - PROBE_LASER_BIAS_Y_L) + '\n'
         self.ser.write(self.cmd.encode('utf-8'))
 
     def select_pad(self, signal):
