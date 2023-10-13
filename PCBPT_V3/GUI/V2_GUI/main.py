@@ -29,9 +29,6 @@ import datetime
 PROBE_LASER_BIAS_X_L = 16.5
 PROBE_LASER_BIAS_Y_L = 9.5
 
-# PROBE_LASER_BIAS_X_L = 0
-# PROBE_LASER_BIAS_Y_L = 0
-
 def read_current_time():
     now = datetime.datetime.now(datetime.timezone.utc)
     current_time = now.strftime("%Z:%j/%H:%M:%S")
@@ -56,11 +53,9 @@ class MainWindow(QtWidgets.QDialog):
         self.serial_ports_list = []
         self.serial_speed = [115200]
 
-        # self.timer = QtCore.QTimer(self, interval=10, timeout=self.read_port)
         self.ser = serial.Serial()
 
         self.home_btn.clicked.connect(self.send_home_cmd)
-
         self.up_L.clicked.connect(self.move_up_L)
         self.left_L.clicked.connect(self.move_left_L)
         self.right_L.clicked.connect(self.move_right_L)

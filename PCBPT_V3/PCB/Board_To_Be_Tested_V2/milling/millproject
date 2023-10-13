@@ -20,35 +20,35 @@ metricoutput=true
 # optimise=true
 zchange=10.0000
 zero-start=true
-zsafe=5.0000
+zsafe=2.0000
 
 # Mill options
-extra-passes=20
-mill-feed=200
+extra-passes=100
+mill-feed=150
 mill-speed=10000
-offset=0.2000
+offset=0.17000
 #offset=20  # Uncomment (and comment the previous line) for voronoi regions
-zwork=-0.2000
+zwork=-0.170
 
 # Drill options
-drill-feed=200
+drill-feed=100
 drill-side=auto
 drill-speed=10000
-milldrill=false
+milldrill=true
 nog81=false
 onedrill=false
-zdrill=-0.3000
+zdrill=-2.000
 
 # Outline options
 bridges=1.0000
 bridgesnum=2
-cut-feed=200
+cut-feed=100
 cut-side=auto
 cut-infeed=0.5000
 cut-speed=10000
-cutter-diameter=1.1000
+cutter-diameter=0.8000
 fill-outline=true
-zbridges=-0.6000
+zbridges=-1.2000
 zcut=-2.000
 
 # Autoleveller options
