@@ -44,6 +44,7 @@ class MainWindow(QtWidgets.QDialog):
         self.scan_serial_btn.clicked.connect(self.scan)
         self.open_serial_btn.clicked.connect(self.open_port)
         self.send_cmd_btn.clicked.connect(self.send_tst_cmd)
+        self.cali_probe_btn.clicked.connect(self.select_cali_pad)
 
         self.serial_ports_list = []
         self.serial_speed = [115200]
@@ -63,6 +64,8 @@ class MainWindow(QtWidgets.QDialog):
 
         self.file_select_btn.clicked.connect(self.select_file)
         self.rotate_btn.clicked.connect(self.rotate_replot_board)
+
+        self.set_L_btn.clicked.connect(self.set_bias_L)
 
         self.PCB_fileName = ""
 
@@ -93,8 +96,15 @@ class MainWindow(QtWidgets.QDialog):
         self.SELECTED_NET_1 = ""
         self.SELECTED_NET_2 = ""
 
-        # self.board = Board().from_file("C:\")
         self.board = ''
+
+        self.bias_x_L = 0.0
+        self.bias_y_L = 0.0
+        self.bias_x_R = 0.0
+        self.bias_y_R = 0.0
+
+        self.netlist.setColumnCount(1)
+        self.netlist.setColumnWidth(0, 345)
 
     def select_file(self):
         self.PCB_fileName, _ = QtWidgets.QFileDialog.getOpenFileName(self)
@@ -124,8 +134,18 @@ class MainWindow(QtWidgets.QDialog):
         self.FID_X = []
         self.FID_Y = []
 
+        self.cali_L = {'x': 0.0, 'y': 0.0}
+        self.cali_R = {'x': 0.0, 'y': 0.0}
+
         self.proc_PCB()
         self.plot_PCB()
+
+        self.netlist.setRowCount(len(self.NET_LIST))
+
+        for i in range(len(self.NET_LIST)):
+            self.netlist.setItem(0, i, QtWidgets.QTableWidgetItem(self.NET_LIST[i]))
+
+        # print(self.NET_LIST)
 
     def get_net(self, board_in):
         # Use a breakpoint in the code line below to debug your script.
@@ -185,8 +205,6 @@ class MainWindow(QtWidgets.QDialog):
 
             self.PARTS.append(part)
 
-            # print(PARTS)
-
     def get_outline(self, board_in):
         for graphic in board_in.graphicItems:
             if (graphic.layer == 'Edge.Cuts'):  # edge_cuts
@@ -224,27 +242,16 @@ class MainWindow(QtWidgets.QDialog):
             if pad['net'] == selected_net:
                 self.SELECTED_PADS.append(pad)
 
-        # print(SELECTED_PADS)
-
     def tst_func(self):
         for pad in self.PADS:
             if pad['net'] == self.SELECTED_NET_1:
-                print(pad)
                 self.cadidate_pads_X.append(pad['pos']['x'])
                 self.cadidate_pads_Y.append(pad['pos']['y'])
-        # for footprint in board_in.footprints:
-        # print(footprint)
-        # pass
 
     def get_co(self, PADS_in):
-        # x_axis = []
-        # y_axis = []
-
         for pad in PADS_in:
             # x_axis.append(pad['pos']['x'])
             pad['pos']['y'] = -1 * pad['pos']['y']
-
-        # return x_axis, y_axis
 
     def get_size(self, PADS_in):
         sizes = []
@@ -291,12 +298,14 @@ class MainWindow(QtWidgets.QDialog):
         self.FID_X = []
         self.FID_Y = []
 
+        self.cali_L = {'x': 0.0, 'y': 0.0}
+        self.cali_R = {'x': 0.0, 'y': 0.0}
+
         self.get_net(self.board)  # get the list of the network in the design
         self.get_pads(self.board)  # get all pads that connected with some signal
         self.get_footprint(self.board)
         self.get_outline(self.board)
 
-        # pads_x, pads_y = get_co(PADS)
         self.get_co(self.PADS)
         pads_s = self.get_size(self.PADS)
         self.rotate_board_2(self.BOARD_ANGLE, self.PADS)
@@ -306,7 +315,6 @@ class MainWindow(QtWidgets.QDialog):
 
         self.EDGE_X.append(self.EDGE_X[0])
         self.EDGE_Y.append(self.EDGE_Y[0])
-        # edge_x, edge_y = EDGE_X, EDGE_Y
         self.rotate_board(self.BOARD_ANGLE, self.EDGE_X, self.EDGE_Y)
 
         board_bias_x = min(self.EDGE_X)
@@ -336,6 +344,38 @@ class MainWindow(QtWidgets.QDialog):
 
         self.canvas.draw()
 
+    # select pads for calibration
+    def select_cali_pad(self):
+        cali_x_L = self.PADS[0]['pos']['x']
+        cali_y_L = self.PADS[0]['pos']['y']
+        cali_x_R = self.PADS[0]['pos']['x']
+        cali_y_R = self.PADS[0]['pos']['y']
+
+        for pad in self.PADS:
+            if (pad['component'][0:3] == 'FID'):
+                if (pad['pos']['x'] < cali_x_L):
+                    cali_x_L = pad['pos']['x']
+                    cali_y_L = pad['pos']['y']
+                if (pad['pos']['x'] > cali_x_R):
+                    cali_x_R = pad['pos']['x']
+                    cali_y_R = pad['pos']['y']
+
+        self.cali_L['x'] = cali_x_L
+        self.cali_L['y'] = cali_y_L
+        self.cali_R['x'] = cali_x_R
+        self.cali_R['y'] = cali_y_R
+
+        self.ax.scatter(self.cali_L['x'], self.cali_L['y'], s=120, facecolors='none', edgecolors='r')
+        self.canvas.draw()
+
+        self.cmd = 'C' + 'A' + "{:.2f}".format(self.cali_L['x'] + self.bias_x_L) + 'B' + "{:.2f}".format(-1*self.cali_L['y'] + self.bias_y_L) + '\n'
+        self.ser.write(self.cmd.encode('utf-8'))
+
+        print(self.cali_L['x'], self.cali_L['y'])
+
+        current_time = read_current_time()
+        self.log.append(current_time + " > Please control the left Laser diode to the highlighted pad")
+
     def rotate_replot_board(self):
         self.BOARD_ANGLE += 90
         if (self.BOARD_ANGLE >= 360):
@@ -358,8 +398,6 @@ class MainWindow(QtWidgets.QDialog):
         for n, (port, desc, hwid) in enumerate(iterator, 1):
             self.serial_ports_list.append("{:20} ".format(port))
 
-        # ports_num = len(self.serial_ports_list)
-
         self.serial_comboBox.clear()  # clear the list first
         for x in self.serial_ports_list:
             self.serial_comboBox.addItem(x)
@@ -371,7 +409,7 @@ class MainWindow(QtWidgets.QDialog):
         self.ser = serial.Serial(serial_ports_port, 115200, timeout=10)
         if (self.ser.is_open == True):
             current_time = read_current_time()
-            self.log.append(current_time + self.ser.name + " Opened @ " + str(self.serial_speed[index]) + "bps")
+            self.log.append(current_time + " Opened @ " + str(self.serial_speed[index]) + "bps")
 
     def send_home_cmd(self):
         self.ser.write(self.HOME_CMD.encode('utf-8'))
@@ -385,20 +423,31 @@ class MainWindow(QtWidgets.QDialog):
         self.cmd = 'T' + 'A0' + 'B' + step_size + '\n'
         self.ser.write(self.cmd.encode('utf-8'))
 
+        self.bias_y_L += -1 * self.step_size_select_dia.value()
+
     def move_left_L(self):
         step_size = str(-1 * self.step_size_select_dia.value())
         self.cmd = 'T' + 'A' + step_size + 'B0' + '\n'
         self.ser.write(self.cmd.encode('utf-8'))
+
+        self.bias_x_L += -1 * self.step_size_select_dia.value()
 
     def move_right_L(self):
         step_size = str(self.step_size_select_dia.value())
         self.cmd = 'T' + 'A' + step_size + 'B0' + '\n'
         self.ser.write(self.cmd.encode('utf-8'))
 
+        self.bias_x_L += self.step_size_select_dia.value()
+
     def move_down_L(self):
         step_size = str(self.step_size_select_dia.value())
         self.cmd = 'T' + 'A0' + 'B' + step_size + '\n'
         self.ser.write(self.cmd.encode('utf-8'))
+
+        self.bias_y_L += self.step_size_select_dia.value()
+
+    def set_bias_L(self):
+        print("{:.2f}".format(self.bias_x_L), "{:.2f}".format(self.bias_y_L))
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':

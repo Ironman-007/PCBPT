@@ -13,16 +13,6 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QListView" name="netlist">
-   <property name="geometry">
-    <rect>
-     <x>400</x>
-     <y>10</y>
-     <width>351</width>
-     <height>721</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QPushButton" name="home_btn">
    <property name="geometry">
     <rect>
@@ -222,7 +212,7 @@
      <string>Calibrate Probes</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="set_L">
+   <widget class="QPushButton" name="set_L_btn">
     <property name="geometry">
      <rect>
       <x>60</x>
@@ -240,7 +230,7 @@
      <string>Set</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="set_R">
+   <widget class="QPushButton" name="set_R_btn">
     <property name="geometry">
      <rect>
       <x>270</x>
@@ -266,6 +256,11 @@
       <width>51</width>
       <height>51</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
     </property>
    </widget>
   </widget>
@@ -461,6 +456,16 @@
    </property>
    <property name="text">
     <string>For test:</string>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="netlist">
+   <property name="geometry">
+    <rect>
+     <x>400</x>
+     <y>10</y>
+     <width>351</width>
+     <height>721</height>
+    </rect>
    </property>
   </widget>
  </widget>
