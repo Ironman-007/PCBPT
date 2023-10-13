@@ -45,6 +45,7 @@ class MainWindow(QtWidgets.QDialog):
         self.open_serial_btn.clicked.connect(self.open_port)
         self.send_cmd_btn.clicked.connect(self.send_tst_cmd)
         self.cali_probe_btn.clicked.connect(self.select_cali_pad)
+        self.start_btn.clicked.connect(self.start_probing)
 
         self.serial_ports_list = []
         self.serial_speed = [115200]
@@ -339,10 +340,38 @@ class MainWindow(QtWidgets.QDialog):
         self.ax.clear()
         self.ax.set_aspect('equal')
         self.ax.scatter(self.pads_x, self.pads_y, self.pads_size, c='r', marker='s')
-        self.ax.scatter(self.components_x, self.components_y, s=60, c='b', marker='+')
+        # self.ax.scatter(self.components_x, self.components_y, s=60, c='b', marker='+')
         self.ax.plot(self.EDGE_X, self.EDGE_Y, c='Black')
 
         self.canvas.draw()
+
+    def probe(self, pos):
+        self.plot_PCB()
+
+        self.ax.scatter(pos['x'], pos['y'], s=120, facecolors='none', edgecolors='b')
+        self.canvas.draw()
+
+        self.cmd = 'C' + 'A' + "{:.2f}".format(pos['x'] + self.bias_x_L) + 'B' \
+                   + "{:.2f}".format(-1 * pos['y'] + self.bias_y_L) + '\n'
+        self.ser.write(self.cmd.encode('utf-8'))
+
+    def select_pad(self, signal):
+        probe_pos = {'x': 0.0, 'y': 0.0}
+        for pad in self.PADS:
+            if (pad['net'] == signal):
+                probe_pos['x'] = pad['pos']['x']
+                probe_pos['y'] = pad['pos']['y']
+                break
+
+        self.probe(probe_pos)
+
+    def start_probing(self):
+        selecetd_sig = []
+        for selected in self.netlist.selectedIndexes():
+            selecetd_sig.append(selected.data())
+
+        for sig in selecetd_sig:
+            self.select_pad(sig)
 
     # select pads for calibration
     def select_cali_pad(self):
@@ -371,7 +400,7 @@ class MainWindow(QtWidgets.QDialog):
         self.cmd = 'C' + 'A' + "{:.2f}".format(self.cali_L['x'] + self.bias_x_L) + 'B' + "{:.2f}".format(-1*self.cali_L['y'] + self.bias_y_L) + '\n'
         self.ser.write(self.cmd.encode('utf-8'))
 
-        print(self.cali_L['x'], self.cali_L['y'])
+        # print(self.cali_L['x'], self.cali_L['y'])
 
         current_time = read_current_time()
         self.log.append(current_time + " > Please control the left Laser diode to the highlighted pad")
@@ -447,7 +476,8 @@ class MainWindow(QtWidgets.QDialog):
         self.bias_y_L += self.step_size_select_dia.value()
 
     def set_bias_L(self):
-        print("{:.2f}".format(self.bias_x_L), "{:.2f}".format(self.bias_y_L))
+        pass
+        # print("{:.2f}".format(self.bias_x_L), "{:.2f}".format(self.bias_y_L))
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':

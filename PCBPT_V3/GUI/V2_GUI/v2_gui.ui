@@ -299,7 +299,7 @@
     </font>
    </property>
    <property name="text">
-    <string>START</string>
+    <string>PROBE</string>
    </property>
   </widget>
   <widget class="QPushButton" name="rotate_btn">
@@ -444,14 +444,14 @@
    <property name="geometry">
     <rect>
      <x>405</x>
-     <y>790</y>
+     <y>788</y>
      <width>61</width>
      <height>16</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>10</pointsize>
+     <pointsize>11</pointsize>
     </font>
    </property>
    <property name="text">
