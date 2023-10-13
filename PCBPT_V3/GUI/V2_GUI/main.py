@@ -26,8 +26,8 @@ import serial
 from os import path
 import datetime
 
-PROBE_LASER_BIAS_X_L = 16.7
-PROBE_LASER_BIAS_Y_L = 8.5
+PROBE_LASER_BIAS_X_L = 16.5
+PROBE_LASER_BIAS_Y_L = 9.5
 
 # PROBE_LASER_BIAS_X_L = 0
 # PROBE_LASER_BIAS_Y_L = 0

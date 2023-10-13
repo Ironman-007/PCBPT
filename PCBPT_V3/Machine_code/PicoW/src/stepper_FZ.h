@@ -19,8 +19,8 @@
 #define MOTOR_5_HOME_POS 0
 #define MOTOR_6_HOME_POS 0
 
-#define MOTOR_3_PROBE_POS     2800
-#define MOTOR_3_PROBE_INI_POS 600
+#define MOTOR_3_PROBE_POS     2700
+#define MOTOR_3_PROBE_INI_POS 1200
 
 #define LASER_BIAS_1 20
 #define LASER_BIAS_2 9
