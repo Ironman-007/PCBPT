@@ -27,7 +27,7 @@ from os import path
 import datetime
 
 PROBE_LASER_BIAS_X_L = 16.5
-PROBE_LASER_BIAS_Y_L = 9.5
+PROBE_LASER_BIAS_Y_L = 9.6
 
 def read_current_time():
     now = datetime.datetime.now(datetime.timezone.utc)
