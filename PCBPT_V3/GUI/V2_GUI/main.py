@@ -29,8 +29,8 @@ import datetime
 PROBE_LASER_BIAS_X_L = 16.5
 PROBE_LASER_BIAS_Y_L = 9.6
 
-PROBE_LASER_BIAS_X_R = 16.5
-PROBE_LASER_BIAS_Y_R = 9.6
+PROBE_LASER_BIAS_X_R = 13.6
+PROBE_LASER_BIAS_Y_R = 12.7
 
 def read_current_time():
     now = datetime.datetime.now(datetime.timezone.utc)
@@ -59,10 +59,16 @@ class MainWindow(QtWidgets.QDialog):
         self.ser = serial.Serial()
 
         self.home_btn.clicked.connect(self.send_home_cmd)
+
         self.up_L.clicked.connect(self.move_up_L)
         self.left_L.clicked.connect(self.move_left_L)
         self.right_L.clicked.connect(self.move_right_L)
         self.down_L.clicked.connect(self.move_down_L)
+
+        self.up_R.clicked.connect(self.move_up_R)
+        self.left_R.clicked.connect(self.move_left_R)
+        self.right_R.clicked.connect(self.move_right_R)
+        self.down_R.clicked.connect(self.move_down_R)
 
         self.HOME_CMD = "H\n"
         self.cmd      = ""
@@ -355,8 +361,13 @@ class MainWindow(QtWidgets.QDialog):
         self.ax.scatter(pos['x'], pos['y'], s=120, facecolors='none', edgecolors='b')
         self.canvas.draw()
 
-        self.cmd = 'P' + 'A' + "{:.2f}".format(pos['x'] + self.bias_x_L - PROBE_LASER_BIAS_X_L) + 'B' \
-                   + "{:.2f}".format(-1 * pos['y'] + self.bias_y_L - PROBE_LASER_BIAS_Y_L) + '\n'
+        # self.cmd = 'P' + 'A' + "{:.2f}".format(pos['x'] + self.bias_x_L - PROBE_LASER_BIAS_X_L) + 'B' \
+        #            + "{:.2f}".format(-1 * pos['y'] + self.bias_y_L - PROBE_LASER_BIAS_Y_L) + '\n'
+        # self.ser.write(self.cmd.encode('utf-8'))
+
+        self.cmd = 'P' + 'X' + "{:.2f}".format(pos['x'] - self.bias_x_R + PROBE_LASER_BIAS_X_R) + 'Y' \
+                       + "{:.2f}".format(-1 * pos['y'] + self.bias_y_R - PROBE_LASER_BIAS_Y_R) + '\n'
+        # print(self.cmd)
         self.ser.write(self.cmd.encode('utf-8'))
 
     def select_pad(self, signal):
@@ -398,10 +409,17 @@ class MainWindow(QtWidgets.QDialog):
         self.cali_R['x'] = cali_x_R
         self.cali_R['y'] = cali_y_R
 
-        self.ax.scatter(self.cali_L['x'], self.cali_L['y'], s=120, facecolors='none', edgecolors='r')
+        # self.ax.scatter(self.cali_L['x'], self.cali_L['y'], s=120, facecolors='none', edgecolors='r')
+        # self.canvas.draw()
+
+        # self.cmd = 'C' + 'A' + "{:.2f}".format(self.cali_L['x'] + self.bias_x_L) + 'B' + "{:.2f}".format(-1*self.cali_L['y'] + self.bias_y_L) + '\n'
+        # self.ser.write(self.cmd.encode('utf-8'))
+
+        self.ax.scatter(self.cali_R['x'], self.cali_R['y'], s=120, facecolors='none', edgecolors='r')
         self.canvas.draw()
 
-        self.cmd = 'C' + 'A' + "{:.2f}".format(self.cali_L['x'] + self.bias_x_L) + 'B' + "{:.2f}".format(-1*self.cali_L['y'] + self.bias_y_L) + '\n'
+        self.cmd = 'C' + 'X' + "{:.2f}".format(self.cali_R['x'] + self.bias_x_R) + 'Y' + "{:.2f}".format(-1 * self.cali_R['y'] + self.bias_y_R) + '\n'
+        # print(self.cmd)
         self.ser.write(self.cmd.encode('utf-8'))
 
         # print(self.cali_L['x'], self.cali_L['y'])
@@ -478,6 +496,34 @@ class MainWindow(QtWidgets.QDialog):
         self.ser.write(self.cmd.encode('utf-8'))
 
         self.bias_y_L += self.step_size_select_dia.value()
+
+    def move_up_R(self):
+        step_size = str(-1 * self.step_size_select_dia.value())
+        self.cmd = 'T' + 'X0' + 'Y' + step_size + '\n'
+        self.ser.write(self.cmd.encode('utf-8'))
+
+        self.bias_y_R += -1 * self.step_size_select_dia.value()
+
+    def move_left_R(self):
+        step_size = str(self.step_size_select_dia.value())
+        self.cmd = 'T' + 'X' + step_size + 'Y0' + '\n'
+        self.ser.write(self.cmd.encode('utf-8'))
+
+        self.bias_x_R += self.step_size_select_dia.value()
+
+    def move_right_R(self):
+        step_size = str(-1 * self.step_size_select_dia.value())
+        self.cmd = 'T' + 'X' + step_size + 'Y0' + '\n'
+        self.ser.write(self.cmd.encode('utf-8'))
+
+        self.bias_x_R += -1 * self.step_size_select_dia.value()
+
+    def move_down_R(self):
+        step_size = str(self.step_size_select_dia.value())
+        self.cmd = 'T' + 'X0' + 'Y' + step_size + '\n'
+        self.ser.write(self.cmd.encode('utf-8'))
+
+        self.bias_y_R += self.step_size_select_dia.value()
 
     def set_bias_L(self):
         pass

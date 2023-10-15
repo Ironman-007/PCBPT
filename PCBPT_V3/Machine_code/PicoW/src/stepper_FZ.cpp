@@ -87,9 +87,9 @@ void home_machine(void) {
   // home_stepper(&stepper1, -50000, LIMIT_SW_1_PIN, MOTOR_1_HOME_POS);
   // home_stepper(&stepper2, -50000, LIMIT_SW_2_PIN, MOTOR_2_HOME_POS);
 
+  home_stepper(&stepper6, -50000, LIMIT_SW_6_PIN, MOTOR_6_HOME_POS);
   home_stepper(&stepper4, -50000, LIMIT_SW_4_PIN, MOTOR_4_HOME_POS);
   home_stepper(&stepper5, -50000, LIMIT_SW_5_PIN, MOTOR_5_HOME_POS);
-  home_stepper(&stepper6, -50000, LIMIT_SW_6_PIN, MOTOR_6_HOME_POS);
 
   stepper_init(MOTION_SPEED);
 }
