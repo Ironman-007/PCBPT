@@ -365,7 +365,7 @@ class MainWindow(QtWidgets.QDialog):
         #            + "{:.2f}".format(-1 * pos['y'] + self.bias_y_L - PROBE_LASER_BIAS_Y_L) + '\n'
         # self.ser.write(self.cmd.encode('utf-8'))
 
-        self.cmd = 'P' + 'X' + "{:.2f}".format(pos['x'] - self.bias_x_R + PROBE_LASER_BIAS_X_R) + 'Y' \
+        self.cmd = 'P' + 'X' + "{:.2f}".format(pos['x'] + self.bias_x_R + PROBE_LASER_BIAS_X_R) + 'Y' \
                        + "{:.2f}".format(-1 * pos['y'] + self.bias_y_R - PROBE_LASER_BIAS_Y_R) + '\n'
         # print(self.cmd)
         self.ser.write(self.cmd.encode('utf-8'))
@@ -509,14 +509,14 @@ class MainWindow(QtWidgets.QDialog):
         self.cmd = 'T' + 'X' + step_size + 'Y0' + '\n'
         self.ser.write(self.cmd.encode('utf-8'))
 
-        self.bias_x_R += self.step_size_select_dia.value()
+        self.bias_x_R += -1 * self.step_size_select_dia.value()
 
     def move_right_R(self):
         step_size = str(-1 * self.step_size_select_dia.value())
         self.cmd = 'T' + 'X' + step_size + 'Y0' + '\n'
         self.ser.write(self.cmd.encode('utf-8'))
 
-        self.bias_x_R += -1 * self.step_size_select_dia.value()
+        self.bias_x_R += self.step_size_select_dia.value()
 
     def move_down_R(self):
         step_size = str(self.step_size_select_dia.value())
