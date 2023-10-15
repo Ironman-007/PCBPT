@@ -105,7 +105,8 @@ void comm_update(void) {
     else {
       comm_handle_cmd(cmd_in, i);
       recv_CMD.tst_function();
-      start_motion();
+      // start_motion_L();
+      start_motion_R();
       // TODO: run command.
       i = 0;
     }

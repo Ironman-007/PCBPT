@@ -83,19 +83,18 @@ void home_stepper(AccelStepper *stepper, int pos, uint8_t limit_sw_pin, long hom
 void home_machine(void) {
   stepper_init(HOME_SPEED);
 
-  home_stepper(&stepper3, -50000, LIMIT_SW_3_PIN, MOTOR_3_HOME_POS);
-  home_stepper(&stepper1, -50000, LIMIT_SW_1_PIN, MOTOR_1_HOME_POS);
-  home_stepper(&stepper2, -50000, LIMIT_SW_2_PIN, MOTOR_2_HOME_POS);
+  // home_stepper(&stepper3, -50000, LIMIT_SW_3_PIN, MOTOR_3_HOME_POS);
+  // home_stepper(&stepper1, -50000, LIMIT_SW_1_PIN, MOTOR_1_HOME_POS);
+  // home_stepper(&stepper2, -50000, LIMIT_SW_2_PIN, MOTOR_2_HOME_POS);
 
-  // home_stepper(&stepper4, -50000, LIMIT_SW_4_PIN, MOTOR_4_HOME_POS);
-  // home_stepper(&stepper5, -50000, LIMIT_SW_5_PIN, MOTOR_5_HOME_POS);
-  // home_stepper(&stepper6, -50000, LIMIT_SW_6_PIN, MOTOR_6_HOME_POS);
+  home_stepper(&stepper4, -50000, LIMIT_SW_4_PIN, MOTOR_4_HOME_POS);
+  home_stepper(&stepper5, -50000, LIMIT_SW_5_PIN, MOTOR_5_HOME_POS);
+  home_stepper(&stepper6, -50000, LIMIT_SW_6_PIN, MOTOR_6_HOME_POS);
 
   stepper_init(MOTION_SPEED);
 }
 
-void start_motion(void) {
-
+void start_motion_L(void) {
   stepper3.moveTo(MOTOR_3_PROBE_INI_POS);
 
   while(stepper3.distanceToGo()) {
@@ -143,6 +142,52 @@ void start_motion(void) {
   }
 }
 
+void start_motion_R(void) {
+  stepper6.moveTo(MOTOR_6_PROBE_INI_POS);
 
+  while(stepper6.distanceToGo()) {
+    stepper6.run();
+  }
+
+  if (recv_CMD.cmd_type == MANUCAL_CTRL_CMD) {
+    if (recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_X_POS)) {
+      long pos_X = (recv_CMD.X_position_f)/stepper_res_1;
+      stepper4.move(pos_X);
+    }
+    if (recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_Y_POS)) {
+      long pos_Y = (recv_CMD.Y_position_f)/stepper_res_1;
+      stepper5.move(pos_Y);
+    }
+
+    while(stepper4.distanceToGo() || stepper5.distanceToGo()) {
+      stepper4.run();
+      stepper5.run();
+    }
+  }
+
+  else {
+    if (recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_X_POS)) {
+      long pos_X = (LASER_BIAS_3 - recv_CMD.X_position_f)/stepper_res_1;
+      stepper4.moveTo(pos_X);
+    }
+    if (recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_Y_POS)) {
+      long pos_Y = (recv_CMD.Y_position_f + LASER_BIAS_4)/stepper_res_1;
+      stepper5.moveTo(pos_Y);
+    }
+
+    while(stepper4.distanceToGo() || stepper5.distanceToGo()) {
+      stepper4.run();
+      stepper5.run();
+    }
+  }
+
+  if (recv_CMD.cmd_type == PROBE_CMD) {
+    stepper6.moveTo(MOTOR_6_PROBE_POS);
+
+    while(stepper6.distanceToGo()) {
+      stepper6.run();
+    }
+  }
+}
 
 

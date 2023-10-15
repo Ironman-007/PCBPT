@@ -22,11 +22,14 @@
 #define MOTOR_3_PROBE_POS     2700
 #define MOTOR_3_PROBE_INI_POS 1500
 
+#define MOTOR_6_PROBE_POS     2700
+#define MOTOR_6_PROBE_INI_POS 1500
+
 #define LASER_BIAS_1 20
 #define LASER_BIAS_2 9
 
-#define PROBE_BIAS_1 20
-#define PROBE_BIAS_2 9
+#define LASER_BIAS_3 126
+#define LASER_BIAS_4 12.7
 
 extern float motion_A;
 extern float motion_B;
@@ -35,7 +38,8 @@ extern float motion_Y;
 
 extern void stepper_init(uint8_t speed_option);
 
-extern void start_motion(void);
+extern void start_motion_L(void);
+extern void start_motion_R(void);
 
 extern void home_machine(void);
 extern void home_stepper(void);
