@@ -40,8 +40,8 @@ void stepper_init(uint8_t speed_option) {
     stepper5.setAcceleration(2000);
     stepper5.setCurrentPosition(MOTOR_5_HOME_POS);
 
-    stepper6.setMaxSpeed(1000);
-    stepper6.setAcceleration(2000);
+    stepper6.setMaxSpeed(3000);
+    stepper6.setAcceleration(6000);
     stepper6.setCurrentPosition(MOTOR_6_HOME_POS);
 
     // stepper7.setMaxSpeed(2000);
