@@ -379,7 +379,8 @@ class MainWindow(QtWidgets.QDialog):
 
         # self.cmd = 'P' + 'X' + "{:.2f}".format(pos['x'] + self.bias_x_R + PROBE_LASER_BIAS_X_R) + 'Y' \
         #                + "{:.2f}".format(-1 * pos['y'] + self.bias_y_R - PROBE_LASER_BIAS_Y_R) + '\n'
-        # # print(self.cmd)
+
+        # print(self.cmd)
         # self.ser.write(self.cmd.encode('utf-8'))
 
     def select_pad(self, signal):
