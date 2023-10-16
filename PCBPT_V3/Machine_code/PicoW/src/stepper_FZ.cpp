@@ -83,9 +83,9 @@ void home_stepper(AccelStepper *stepper, int pos, uint8_t limit_sw_pin, long hom
 void home_machine(void) {
   stepper_init(HOME_SPEED);
 
-  // home_stepper(&stepper3, -50000, LIMIT_SW_3_PIN, MOTOR_3_HOME_POS);
-  // home_stepper(&stepper1, -50000, LIMIT_SW_1_PIN, MOTOR_1_HOME_POS);
-  // home_stepper(&stepper2, -50000, LIMIT_SW_2_PIN, MOTOR_2_HOME_POS);
+  home_stepper(&stepper3, -50000, LIMIT_SW_3_PIN, MOTOR_3_HOME_POS);
+  home_stepper(&stepper1, -50000, LIMIT_SW_1_PIN, MOTOR_1_HOME_POS);
+  home_stepper(&stepper2, -50000, LIMIT_SW_2_PIN, MOTOR_2_HOME_POS);
 
   home_stepper(&stepper6, -50000, LIMIT_SW_6_PIN, MOTOR_6_HOME_POS);
   home_stepper(&stepper4, -50000, LIMIT_SW_4_PIN, MOTOR_4_HOME_POS);
@@ -190,4 +190,95 @@ void start_motion_R(void) {
   }
 }
 
+void start_motion_X(uint8_t left, float left_pos, uint8_t right, float right_pos, uint8_t move_or_move_To) {
+  if (move_or_move_To == MOVE) {
+    if (left) {
+      long pos_A = left_pos/stepper_res_1;
+      stepper1.move(pos_A);
+    }
+
+    if (right) {
+      long pos_X = right_pos/stepper_res_1;
+      stepper4.move(pos_X);
+    }
+
+    while(stepper1.distanceToGo() || stepper4.distanceToGo()) {
+      stepper1.run();
+      stepper4.run();
+    }
+  }
+
+  if (move_or_move_To == MOVETO) {
+    if (left) {
+      long pos_A = (left_pos + LASER_BIAS_1)/stepper_res_1;
+      stepper1.moveTo(pos_A);
+    }
+
+    if (right) {
+      long pos_X = (LASER_BIAS_3 - right_pos)/stepper_res_1;
+      stepper4.moveTo(pos_X);
+    }
+
+    while(stepper1.distanceToGo() || stepper4.distanceToGo()) {
+      stepper1.run();
+      stepper4.run();
+    }
+  }
+}
+
+void start_motion_Y(uint8_t left, float left_pos, uint8_t right, float right_pos, uint8_t move_or_move_To) {
+  if (move_or_move_To == MOVE) {
+    if (left) {
+      long pos_B = left_pos/stepper_res_1;
+      stepper2.move(pos_B);
+    }
+
+    if (right) {
+      long pos_Y = right_pos/stepper_res_1;
+      stepper5.move(pos_Y);
+    }
+
+    while(stepper2.distanceToGo() || stepper5.distanceToGo()) {
+      stepper2.run();
+      stepper5.run();
+    }
+  }
+
+  if (move_or_move_To == MOVETO) {
+    if (left) {
+      long pos_B = (left_pos + LASER_BIAS_2)/stepper_res_1;
+      stepper2.moveTo(pos_B);
+    }
+
+    if (right) {
+      long pos_Y = (right_pos + LASER_BIAS_4)/stepper_res_1;
+      stepper5.moveTo(pos_Y);
+    }
+
+    while(stepper2.distanceToGo() || stepper5.distanceToGo()) {
+      stepper2.run();
+      stepper5.run();
+    }
+  }
+}
+
+void probe(uint8_t probe_action, uint8_t left, uint8_t right) {
+  if (left)  stepper3.moveTo(MOTOR_6_PROBE_INI_POS);
+  if (right) stepper6.moveTo(MOTOR_3_PROBE_INI_POS);
+
+  while(stepper3.distanceToGo() || stepper6.distanceToGo()) {
+    stepper3.run();
+    stepper6.run();
+  }
+
+  if (probe_action) {
+    if (left)  stepper3.moveTo(MOTOR_3_PROBE_POS);
+    if (right) stepper6.moveTo(MOTOR_6_PROBE_POS);
+
+    while(stepper3.distanceToGo() || stepper6.distanceToGo()) {
+      stepper3.run();
+      stepper6.run();
+    }
+  }
+}
 

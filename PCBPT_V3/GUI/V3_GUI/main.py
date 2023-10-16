@@ -53,7 +53,8 @@ class MainWindow(QtWidgets.QDialog):
         self.scan_serial_btn.clicked.connect(self.scan)
         self.open_serial_btn.clicked.connect(self.open_port)
         self.send_cmd_btn.clicked.connect(self.send_tst_cmd)
-        self.cali_probe_btn.clicked.connect(self.select_cali_pad)
+        self.cali_probe_L_btn.clicked.connect(self.select_cali_pad_L)
+        self.cali_probe_R_btn.clicked.connect(self.select_cali_pad_R)
         self.start_btn.clicked.connect(self.start_probing)
 
         self.serial_ports_list = []
@@ -80,6 +81,7 @@ class MainWindow(QtWidgets.QDialog):
         self.rotate_btn.clicked.connect(self.rotate_replot_board)
 
         self.set_L_btn.clicked.connect(self.set_bias_L)
+        self.set_R_btn.clicked.connect(self.set_bias_R)
 
         self.PCB_fileName = ""
 
@@ -363,16 +365,23 @@ class MainWindow(QtWidgets.QDialog):
 
         self.plot_PCB()
 
-        x = []
-        y = []
+        if (pos_len == 1):
+            x = pos[0]['x']
+            y = pos[0]['y']
+            self.ax.scatter(x, y, s=120, facecolors='none', edgecolors='b')
+            self.canvas.draw()
 
-        for pad in pos:
-            x.append(pad['x'])
-            y.append(pad['y'])
+        if (pos_len == 2):
+            x = pos[0]['x']
+            y = pos[0]['y']
+            self.ax.scatter(x, y, s=120, facecolors='none', edgecolors='b')
+            self.canvas.draw()
 
-        self.ax.scatter(x, y, s=120, facecolors='none', edgecolors='b')
-        self.canvas.draw()
-
+            x = pos[1]['x']
+            y = pos[1]['y']
+            self.ax.scatter(x, y, s=120, facecolors='none', edgecolors='b', marker='D')
+            self.canvas.draw()
+ 
         # self.cmd = 'P' + 'A' + "{:.2f}".format(pos['x'] + self.bias_x_L - PROBE_LASER_BIAS_X_L) + 'B' \
         #            + "{:.2f}".format(-1 * pos['y'] + self.bias_y_L - PROBE_LASER_BIAS_Y_L) + '\n'
         # self.ser.write(self.cmd.encode('utf-8'))
@@ -406,31 +415,45 @@ class MainWindow(QtWidgets.QDialog):
         self.select_pad(selecetd_sig)
 
     # select pads for calibration
-    def select_cali_pad(self):
+    def select_cali_pad_L(self):
+        self.plot_PCB()
+
         cali_x_L = self.PADS[0]['pos']['x']
         cali_y_L = self.PADS[0]['pos']['y']
-        cali_x_R = self.PADS[0]['pos']['x']
-        cali_y_R = self.PADS[0]['pos']['y']
 
         for pad in self.PADS:
             if (pad['component'][0:3] == 'FID'):
                 if (pad['pos']['x'] < cali_x_L):
                     cali_x_L = pad['pos']['x']
                     cali_y_L = pad['pos']['y']
+
+        self.cali_L['x'] = cali_x_L
+        self.cali_L['y'] = cali_y_L
+
+        self.ax.scatter(self.cali_L['x'], self.cali_L['y'], s=120, facecolors='none', edgecolors='r')
+        self.canvas.draw()
+
+        self.cmd = 'C' + 'A' + "{:.2f}".format(self.cali_L['x'] + self.bias_x_L) + 'B' + "{:.2f}".format(-1*self.cali_L['y'] + self.bias_y_L) + '\n'
+        # print(self.cmd)
+        self.ser.write(self.cmd.encode('utf-8'))
+
+        current_time = read_current_time()
+        self.log.append(current_time + " > Please control the left Laser diode to the highlighted pad")
+
+    def select_cali_pad_R(self):
+        self.plot_PCB()
+
+        cali_x_R = self.PADS[0]['pos']['x']
+        cali_y_R = self.PADS[0]['pos']['y']
+
+        for pad in self.PADS:
+            if (pad['component'][0:3] == 'FID'):
                 if (pad['pos']['x'] > cali_x_R):
                     cali_x_R = pad['pos']['x']
                     cali_y_R = pad['pos']['y']
 
-        self.cali_L['x'] = cali_x_L
-        self.cali_L['y'] = cali_y_L
         self.cali_R['x'] = cali_x_R
         self.cali_R['y'] = cali_y_R
-
-        # self.ax.scatter(self.cali_L['x'], self.cali_L['y'], s=120, facecolors='none', edgecolors='r')
-        # self.canvas.draw()
-
-        # self.cmd = 'C' + 'A' + "{:.2f}".format(self.cali_L['x'] + self.bias_x_L) + 'B' + "{:.2f}".format(-1*self.cali_L['y'] + self.bias_y_L) + '\n'
-        # self.ser.write(self.cmd.encode('utf-8'))
 
         self.ax.scatter(self.cali_R['x'], self.cali_R['y'], s=120, facecolors='none', edgecolors='r')
         self.canvas.draw()
@@ -438,8 +461,6 @@ class MainWindow(QtWidgets.QDialog):
         self.cmd = 'C' + 'X' + "{:.2f}".format(self.cali_R['x'] + self.bias_x_R) + 'Y' + "{:.2f}".format(-1 * self.cali_R['y'] + self.bias_y_R) + '\n'
         # print(self.cmd)
         self.ser.write(self.cmd.encode('utf-8'))
-
-        # print(self.cali_L['x'], self.cali_L['y'])
 
         current_time = read_current_time()
         self.log.append(current_time + " > Please control the left Laser diode to the highlighted pad")
@@ -548,8 +569,10 @@ class MainWindow(QtWidgets.QDialog):
         self.bias_y_R += self.step_size_select_dia.value()
 
     def set_bias_L(self):
-        pass
-        # print("{:.2f}".format(self.bias_x_L), "{:.2f}".format(self.bias_y_L))
+        self.ser.write(self.HOME_CMD.encode('utf-8'))
+
+    def set_bias_R(self):
+        self.ser.write(self.HOME_CMD.encode('utf-8'))
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':

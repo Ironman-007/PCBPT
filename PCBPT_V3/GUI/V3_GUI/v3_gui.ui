@@ -192,12 +192,12 @@
      <string>Down</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="cali_probe_btn">
+   <widget class="QPushButton" name="cali_probe_L_btn">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>351</width>
+      <width>171</width>
       <height>31</height>
      </rect>
     </property>
@@ -209,7 +209,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Calibrate Probes</string>
+     <string>Calibrate L</string>
     </property>
    </widget>
    <widget class="QPushButton" name="set_L_btn">
@@ -261,6 +261,26 @@
      <font>
       <pointsize>10</pointsize>
      </font>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="cali_probe_R_btn">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>10</y>
+      <width>171</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Calibrate R</string>
     </property>
    </widget>
   </widget>

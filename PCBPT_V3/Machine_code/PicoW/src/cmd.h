@@ -10,6 +10,7 @@
 enum CMD_TYPE {
   IDLE_CMD,
   PROBE_CMD,
+  SINGLE_PROBE_CMD,
   CALI_CMD,
   MANUCAL_CTRL_CMD,
   HOME_CMD
@@ -52,6 +53,7 @@ public:
   float Y_position_f;
 
   void tst_function();
+  void get_distance();
 
 private:
 

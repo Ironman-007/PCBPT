@@ -26,7 +26,6 @@ int i = 0;
 void comm_init(void) {
   Serial.begin(115200);
   while(!Serial) {delay(10);}
-  // Serial.println("PCBPT connected");
 }
 
 void comm_handle_cmd(const uint8_t * cmd, int len) {
@@ -35,18 +34,8 @@ void comm_handle_cmd(const uint8_t * cmd, int len) {
   if (cmd[0] == 'P') recv_CMD.set_cmd_TYPE(PROBE_CMD);
   if (cmd[0] == 'C') recv_CMD.set_cmd_TYPE(CALI_CMD);
   if (cmd[0] == 'T') recv_CMD.set_cmd_TYPE(MANUCAL_CTRL_CMD);
-  if (cmd[0] == 'H') {
-    recv_CMD.set_cmd_TYPE(HOME_CMD);
-    home_machine();
-    //  TODO: Home the machine:
-    //    - Lift all probes first
-    //    - Home X;
-    //    - Home Y;
-    //    - Stepper1/2/3/4/5/6/7/8.setCurrentposition(HOME);
-
-    recv_CMD.init_cmd();
-    //    homing_machine();
-  }
+  if (cmd[0] == 'S') recv_CMD.set_cmd_TYPE(SINGLE_PROBE_CMD);
+  if (cmd[0] == 'H') recv_CMD.set_cmd_TYPE(HOME_CMD);
 
   int cmd_i = 1;
   int distance_data_i;
@@ -95,6 +84,79 @@ void comm_handle_cmd(const uint8_t * cmd, int len) {
   }
 }
 
+// IDLE_CMD,
+// PROBE_CMD,
+// CALI_CMD,
+// MANUCAL_CTRL_CMD,
+// HOME_CMD
+
+void start_motion(CMD_TYPE cmdtype) {
+  // start_motion_L();
+  // start_motion_R();
+
+  if (cmdtype == HOME_CMD) {
+    home_machine();
+  }
+  if (cmdtype == CALI_CMD) {
+    // probe(UNPROBE, 1, 1);
+
+    // start_motion_X(recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_A_POS), recv_CMD.A_position_f,
+    //                recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_X_POS), recv_CMD.X_position_f,
+    //                MOVETO);
+
+    // start_motion_Y(recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_B_POS), recv_CMD.B_position_f,
+    //                recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_Y_POS), recv_CMD.Y_position_f,
+    //                MOVETO);
+
+    start_motion_L();
+    start_motion_R();
+  }
+  if (cmdtype == PROBE_CMD) {
+    probe(UNPROBE, 1, 1);
+
+    start_motion_X(recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_A_POS), recv_CMD.A_position_f - X_SAFETY,
+                   recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_X_POS), recv_CMD.X_position_f + X_SAFETY,
+                   MOVETO);
+
+    start_motion_Y(recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_B_POS), recv_CMD.B_position_f,
+                   recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_Y_POS), recv_CMD.Y_position_f,
+                   MOVETO);
+
+    start_motion_X(recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_A_POS), recv_CMD.A_position_f,
+                   recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_X_POS), recv_CMD.X_position_f,
+                   MOVETO);
+
+    probe(PROBE, 1, 1);
+  }
+  if (cmdtype == SINGLE_PROBE_CMD) {
+    probe(UNPROBE, 1, 1);
+
+    start_motion_X(recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_A_POS), recv_CMD.A_position_f,
+                   recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_X_POS), recv_CMD.X_position_f + X_SAFETY_SINGLE,
+                   MOVETO);
+
+    start_motion_Y(recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_B_POS), recv_CMD.B_position_f,
+                   recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_Y_POS), recv_CMD.Y_position_f,
+                   MOVETO);
+
+    start_motion_X(recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_A_POS), recv_CMD.A_position_f,
+                   recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_X_POS), recv_CMD.X_position_f,
+                   MOVETO);
+
+    probe(PROBE, 1, 0);
+  }
+  if (cmdtype == MANUCAL_CTRL_CMD) {
+    probe(UNPROBE, 1, 1);
+    start_motion_X(recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_A_POS), recv_CMD.A_position_f,
+                   recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_X_POS), recv_CMD.X_position_f,
+                   MOVE);
+
+    start_motion_Y(recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_B_POS), recv_CMD.B_position_f,
+                   recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_Y_POS), recv_CMD.Y_position_f,
+                   MOVE);
+  }
+}
+
 void comm_update(void) {
   if (Serial.available()) {
     uint8_t reacv_c = Serial.read();
@@ -104,10 +166,9 @@ void comm_update(void) {
     }
     else {
       comm_handle_cmd(cmd_in, i);
-      recv_CMD.tst_function();
-      // start_motion_L();
-      start_motion_R();
-      // TODO: run command.
+      recv_CMD.get_distance();
+      start_motion(recv_CMD.cmd_type);
+
       i = 0;
     }
   }

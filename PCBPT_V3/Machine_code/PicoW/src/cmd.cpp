@@ -60,6 +60,25 @@ uint8_t cmd::check_REG(uint8_t reg, uint8_t pos) {
   return bit_of_interest;
 }
 
+void cmd::get_distance() {
+  if (check_REG(CMD_REG, CMD_A_POS)) {
+    A_position_f = std::atof((char *)A_position);
+    // Serial.printf("A_position_f=%f\n", A_position_f);
+  }
+  if (check_REG(CMD_REG, CMD_B_POS)) {
+    B_position_f = std::atof((char *)B_position);
+    // Serial.printf("B_position_f=%f\n", B_position_f);
+  }
+  if (check_REG(CMD_REG, CMD_X_POS)) {
+    X_position_f = std::atof((char *)X_position);
+    // Serial.printf("X_position_f=%f\n", X_position_f);
+  }
+  if (check_REG(CMD_REG, CMD_Y_POS)) {
+    Y_position_f = std::atof((char *)Y_position);
+    // Serial.printf("Y_position_f=%f\n", Y_position_f);
+  }
+}
+
 void cmd::tst_function() {
   if (check_REG(CMD_REG, CMD_A_POS)) {
     A_position_f = std::atof((char *)A_position);
