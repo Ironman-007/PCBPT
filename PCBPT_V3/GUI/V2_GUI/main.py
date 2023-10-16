@@ -29,7 +29,7 @@ import datetime
 PROBE_LASER_BIAS_X_L = 16.5
 PROBE_LASER_BIAS_Y_L = 9.6
 
-PROBE_LASER_BIAS_X_R = 13.6
+PROBE_LASER_BIAS_X_R = 13.5
 PROBE_LASER_BIAS_Y_R = 12.7
 
 def read_current_time():
@@ -463,6 +463,11 @@ class MainWindow(QtWidgets.QDialog):
             self.log.append(current_time + " Opened @ " + str(self.serial_speed[index]) + "bps")
 
     def send_home_cmd(self):
+        self.bias_x_L = 0.0
+        self.bias_y_L = 0.0
+        self.bias_x_R = 0.0
+        self.bias_y_R = 0.0
+
         self.ser.write(self.HOME_CMD.encode('utf-8'))
 
     def send_tst_cmd(self):
