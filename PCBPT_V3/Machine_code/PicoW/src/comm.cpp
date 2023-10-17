@@ -91,9 +91,6 @@ void comm_handle_cmd(const uint8_t * cmd, int len) {
 // HOME_CMD
 
 void start_motion(CMD_TYPE cmdtype) {
-  // start_motion_L();
-  // start_motion_R();
-
   if (cmdtype == HOME_CMD) {
     home_machine();
   }
@@ -132,7 +129,7 @@ void start_motion(CMD_TYPE cmdtype) {
     probe(UNPROBE, 1, 1);
 
     start_motion_X(recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_A_POS), recv_CMD.A_position_f,
-                   recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_X_POS), recv_CMD.X_position_f + X_SAFETY_SINGLE,
+                   recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_X_POS), recv_CMD.X_position_f,
                    MOVETO);
 
     start_motion_Y(recv_CMD.check_REG(recv_CMD.CMD_REG, CMD_B_POS), recv_CMD.B_position_f,

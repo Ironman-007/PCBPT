@@ -371,26 +371,47 @@ class MainWindow(QtWidgets.QDialog):
             self.ax.scatter(x, y, s=120, facecolors='none', edgecolors='b')
             self.canvas.draw()
 
+            self.cmd = 'S' \
+                       + 'A' + "{:.2f}".format(x + self.bias_x_L - PROBE_LASER_BIAS_X_L) \
+                       + 'B' + "{:.2f}".format(-1 * y + self.bias_y_L - PROBE_LASER_BIAS_Y_L) \
+                       + 'X' + "{:.2f}".format(100 + self.bias_x_R + PROBE_LASER_BIAS_X_R) \
+                       + 'Y' + "{:.2f}".format(10 + self.bias_y_R - PROBE_LASER_BIAS_Y_R) \
+                       + '\n'
+
+            self.ser.write(self.cmd.encode('utf-8'))
+
         if (pos_len == 2):
-            x = pos[0]['x']
-            y = pos[0]['y']
-            self.ax.scatter(x, y, s=120, facecolors='none', edgecolors='b')
+            x1 = 0.0
+            y1 = 0.0
+            x2 = 0.0
+            y2 = 0.0
+
+            if (pos[0]['x'] <= pos[1]['x']):
+                x1 = pos[0]['x']
+                y1 = pos[0]['y']
+                x2 = pos[1]['x']
+                y2 = pos[1]['y']
+            else:
+                x1 = pos[1]['x']
+                y1 = pos[1]['y']
+                x2 = pos[0]['x']
+                y2 = pos[0]['y']
+
+            self.cmd = 'P'\
+                       + 'A' + "{:.2f}".format(x1 + self.bias_x_L - PROBE_LASER_BIAS_X_L)\
+                       + 'B' + "{:.2f}".format(-1 * y1 + self.bias_y_L - PROBE_LASER_BIAS_Y_L) \
+                       + 'X' + "{:.2f}".format(x2 + self.bias_x_R + PROBE_LASER_BIAS_X_R)\
+                       + 'Y' + "{:.2f}".format(-1 * y2 + self.bias_y_R - PROBE_LASER_BIAS_Y_R)\
+                       + '\n'
+
+            self.ax.scatter(x1, y1, s=120, facecolors='none', edgecolors='b')
             self.canvas.draw()
 
-            x = pos[1]['x']
-            y = pos[1]['y']
-            self.ax.scatter(x, y, s=120, facecolors='none', edgecolors='b', marker='D')
+            self.ax.scatter(x2, y2, s=120, facecolors='none', edgecolors='b', marker='D')
             self.canvas.draw()
- 
-        # self.cmd = 'P' + 'A' + "{:.2f}".format(pos['x'] + self.bias_x_L - PROBE_LASER_BIAS_X_L) + 'B' \
-        #            + "{:.2f}".format(-1 * pos['y'] + self.bias_y_L - PROBE_LASER_BIAS_Y_L) + '\n'
-        # self.ser.write(self.cmd.encode('utf-8'))
 
-        # self.cmd = 'P' + 'X' + "{:.2f}".format(pos['x'] + self.bias_x_R + PROBE_LASER_BIAS_X_R) + 'Y' \
-        #                + "{:.2f}".format(-1 * pos['y'] + self.bias_y_R - PROBE_LASER_BIAS_Y_R) + '\n'
-
-        # print(self.cmd)
-        # self.ser.write(self.cmd.encode('utf-8'))
+            print(self.cmd)
+            self.ser.write(self.cmd.encode('utf-8'))
 
     def select_pad(self, signal):
         probe_pos = []
