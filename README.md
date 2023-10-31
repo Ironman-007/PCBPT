@@ -1,5 +1,5 @@
 # PCBPT (PCB Probe tester)
-## I'm not very good at documenting my work and some content here is not up to date. The PCBPT_V3 is the latest working version (the one I showed at UIST'23). I have all the source files there.
+## I'm not very good at documenting my work and the README here is not up to date. The PCBPT_V3 is the latest working version (the one I showed at UIST'23). I have all the source files there.
 
 This is a system that can help directly connect the schematic of the PCB design with test equipment (oscilloscope. etc,). When doing PCB debugging, we would need to use our hands to hold the oscilloscope probes, and our hands can not be that precise and table. Sometimes our hands are not enough, and we need to go from schematic and PCB layout back and forth to find a proper pad for the signal and place a probe on it.
 
