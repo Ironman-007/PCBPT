@@ -263,8 +263,8 @@ void start_motion_Y(uint8_t left, float left_pos, uint8_t right, float right_pos
 }
 
 void probe(uint8_t probe_action, uint8_t left, uint8_t right) {
-  if (left)  stepper3.moveTo(MOTOR_6_PROBE_INI_POS);
-  if (right) stepper6.moveTo(MOTOR_3_PROBE_INI_POS);
+  if (left)  stepper3.moveTo(MOTOR_3_PROBE_INI_POS);
+  if (right) stepper6.moveTo(MOTOR_6_PROBE_INI_POS);
 
   while(stepper3.distanceToGo() || stepper6.distanceToGo()) {
     stepper3.run();

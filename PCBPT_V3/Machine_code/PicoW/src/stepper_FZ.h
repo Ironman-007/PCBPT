@@ -22,14 +22,16 @@
 #define MOTOR_3_PROBE_POS     2700
 #define MOTOR_3_PROBE_INI_POS 1500
 
-#define MOTOR_6_PROBE_POS     2700
+#define MOTOR_6_PROBE_POS     2750
 #define MOTOR_6_PROBE_INI_POS 1500
 
-#define LASER_BIAS_1 20
+#define LASER_BIAS_1 19
 #define LASER_BIAS_2 9
 
-#define LASER_BIAS_3 126
-#define LASER_BIAS_4 12.7
+#define LASER_BIAS_3 125
+#define LASER_BIAS_4 13.7
+// #define LASER_BIAS_3 127.5
+// #define LASER_BIAS_4 11.7
 
 #define UNPROBE 0
 #define PROBE   1

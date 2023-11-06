@@ -26,11 +26,11 @@ import serial
 from os import path
 import datetime
 
-PROBE_LASER_BIAS_X_L = 17
-PROBE_LASER_BIAS_Y_L = 8.3
+PROBE_LASER_BIAS_X_L = 16.3
+PROBE_LASER_BIAS_Y_L = 9
 
-PROBE_LASER_BIAS_X_R = 13.5
-PROBE_LASER_BIAS_Y_R = 12.7
+PROBE_LASER_BIAS_X_R = 12.5
+PROBE_LASER_BIAS_Y_R = 13.2
 
 SINGLE = 1
 DOUBLE = 2
@@ -355,7 +355,7 @@ class MainWindow(QtWidgets.QDialog):
         self.ax.clear()
         self.ax.set_aspect('equal')
         self.ax.scatter(self.pads_x, self.pads_y, self.pads_size, c='r', marker='s')
-        # self.ax.scatter(self.components_x, self.components_y, s=60, c='b', marker='+')
+        self.ax.scatter(self.components_x, self.components_y, s=60, c='y', marker='+')
         self.ax.plot(self.EDGE_X, self.EDGE_Y, c='Black')
 
         self.canvas.draw()
