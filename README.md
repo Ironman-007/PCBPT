@@ -24,8 +24,8 @@ The new machine design (I really love the Prusa color!).
 The first version of the main control board is a modular design. Each module can control a stepper motor and a servo. Each module is an RP2040 XIAO + A4988 stepper driver. The host is an ESP32 module.
 
 <p align="center">
-  <img src="/Doc/Images/stepper_module.jpg" height="350" title="hover text">
-  <img src="/Doc/Images/main_control_1.JPG" height="350" title="hover text">
+  <img src="/Doc/Images/stepper_module.jpg" height="200" title="hover text">
+  <img src="/Doc/Images/main_control_1.JPG" height="200" title="hover text">
 </p>
 
 All stepper control modules are connected with the ESP32 module with I2C. The Host runs CircuitPython and is responsible for handling commands from the GUI and sending commands to each stepper control module.
