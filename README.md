@@ -14,28 +14,33 @@ It's very rough. The machine design is not that perfect. The motor I used is [28
 
 ## PCBPT_V2.0
 ### Mechanical
-The second version is underdeveloped now.
-
-The new machine is looked like this: ![alt text](/Doc/Images/PCBPT_V2.png)
-
-I really love the color Prusa!!! :)
-
-I'm using better stepper motor: [#1204 (SY20STH30-0604A)](https://www.pololu.com/product/1204) and [#1205 (SY28STH32-0674A)](https://www.pololu.com/product/1205).
-
-There are lots of things left to do:
-- the LM8UU linear bearings bought from Amazon are really not that good. They lose. I'm trying to make the space between 2 bearings a little bigger, so that when the bearings are installed, the shafts are pushing the bearings out. This may make the bearings tighter and mitigate the loosing.
-- The PCB used for controlling the machine. I'm gonna use the custom-designed Arduino Zero board and stepper motor driver [A4988](https://www.amazon.com/HiLetgo-Stepstick-Stepper-Printer-Compatible/dp/B07BND65C8/ref=sxin_13_ac_d_rm?ac_md=0-0-c3RlcHBlciBtb3RvciBkcml2ZXI%3D-ac_d_rm_rm_rm&crid=FV7HTB1C6OJ4&cv_ct_cx=stepper+motor+driver&dchild=1&keywords=stepper+motor+driver&pd_rd_i=B07BND65C8&pd_rd_r=577e82dd-7f17-42a9-bc94-0b27fc357303&pd_rd_w=KCyHL&pd_rd_wg=MYm65&pf_rd_p=c41d1f6c-956c-4fe2-8019-1663b7e1dd23&pf_rd_r=5EV7NEWVTD8CRTGN4H66&psc=1&qid=1634436558&sprefix=stepper+motor+dr%2Caps%2C169&sr=1-1-12d4272d-8adb-4121-8624-135149aa9081).
-I will make a custom PCB.
-
-One important thing I learned from this design is **making things modular!**
-
-### Electronics
-I made a modular & distributed design for the control hardware. Each stepper is controlled by a Coral stepper controller module shown as:
+The new machine design (I really love the Prusa color!).
 
 <p align="center">
-  <img src="/Doc/Images/Polyp_stepper_module.png" height="350" title="hover text">
-  <img src="/Doc/Images/Polyp_stepper_module_rendering.png" height="350" alt="accessibility text">
+  <img src="/Doc/Images/machine_v2.JPG" height="350" title="hover text">
 </p>
 
-Each module is controlled by a STM32F031F6Px MCU and a A4988 module. Multiple modules are connected by a RS-485 bus. The only role of each Coral stepper controller module is accepting commands (GCode) from a PC and control the stepepr.
+### Electronics
+The first version of the main control board is a modular design. Each module can control a stepper motor and a servo. Each module is an RP2040 XIAO + A4988 stepper driver. The host is an ESP32 module.
+
+<p align="center">
+  <img src="/Doc/Images/stepper_module.jpg" height="350" title="hover text">
+  <img src="/Doc/Images/main_control_1.JPG" height="350" title="hover text">
+</p>
+
+All stepper control modules are connected with the ESP32 module with I2C. The Host runs CircuitPython and is responsible for handling commands from the GUI and sending commands to each stepper control module.
+This design is unnecessarily complicated compared with the function of the machine.
+
+The second version of the main control board is a single board. One RPi Pico W module + 6 A4988 driver modules.
+The probes are in vertical motion, and each probe is a triangle PCB board with a pogo pin soldered on the edge.
+
+<p align="center">
+  <img src="/Doc/Images/main_v2.jpg" height="350" title="hover text">
+  <img src="/Doc/Images/probe.JPG" height="350" title="hover text">
+</p>
+
+I use the PCBWay service for both the second version of the main control board and the triangle probe PCB board. The quality is great and the production is very fast.
+
+
+
 
