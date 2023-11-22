@@ -24,8 +24,8 @@ The new machine design (I really love the Prusa color!).
 The first version of the main control board is a modular design. Each module can control a stepper motor and a servo. Each module is an RP2040 XIAO + A4988 stepper driver. The host is an ESP32 module.
 
 <p align="center">
-  <img src="/Doc/Images/stepper_module.jpg" height="200" title="hover text">
-  <img src="/Doc/Images/main_control_1.JPG" height="200" title="hover text">
+  <img src="/Doc/Images/stepper_module.jpg" height="250" title="hover text">
+  <img src="/Doc/Images/main_control_1.JPG" height="250" title="hover text">
 </p>
 
 All stepper control modules are connected with the ESP32 module with I2C. The Host runs CircuitPython and is responsible for handling commands from the GUI and sending commands to each stepper control module.
@@ -35,8 +35,8 @@ The second version of the main control board is a single board. One RPi Pico W m
 The probes are in vertical motion, and each probe is a triangle PCB board with a pogo pin soldered on the edge.
 
 <p align="center">
-  <img src="/Doc/Images/main_v2.jpg" height="350" title="hover text">
-  <img src="/Doc/Images/probe.JPG" height="350" title="hover text">
+  <img src="/Doc/Images/main_v2.jpg" height="250" title="hover text">
+  <img src="/Doc/Images/probe.JPG" height="250" title="hover text">
 </p>
 
 I use the PCBWay service for both the second version of the main control board and the triangle probe PCB board. The quality is great and the production is very fast.
