@@ -42,7 +42,7 @@ The probes are in vertical motion, and each probe is a triangle PCB board with a
 I use the [PCBWay](https://www.pcbway.com/) service for both the second version of the main control board and the triangle probe PCB board. The quality is great and the production is very fast.
 
 <p align="center">
-  <img src="/Doc/Images/v2_empty_boards.jpg" height="230" title="hover text">
+  <img src="/Doc/Images/v2_empty_boards.jpg" height="240" title="hover text">
 </p>
 
 
